@@ -1,13 +1,19 @@
-import { createClient as createServiceClient } from "@supabase/supabase-js";
+import { createClient as createServiceClient, type SupabaseClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
-async function requireExecutive() {
+type Gate =
+  | { ok: true; userId: string; admin: SupabaseClient }
+  | { ok: false; response: NextResponse };
+
+async function requireExecutive(): Promise<Gate> {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { error: NextResponse.json({ error: "Unauthorized" }, { status: 401 }) };
+  if (!user) {
+    return { ok: false, response: NextResponse.json({ error: "Unauthorized" }, { status: 401 }) };
+  }
 
   const { data: profile } = await supabase
     .from("profiles")
@@ -16,36 +22,36 @@ async function requireExecutive() {
     .maybeSingle();
 
   if (profile?.global_role !== "executive") {
-    return { error: NextResponse.json({ error: "Executives only" }, { status: 403 }) };
+    return { ok: false, response: NextResponse.json({ error: "Executives only" }, { status: 403 }) };
   }
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !serviceKey) {
-    return { error: NextResponse.json({ error: "Missing Supabase service role" }, { status: 500 }) };
+    return {
+      ok: false,
+      response: NextResponse.json({ error: "Missing Supabase service role" }, { status: 500 }),
+    };
   }
 
   return {
-    user,
+    ok: true,
+    userId: user.id,
     admin: createServiceClient(url, serviceKey),
   };
 }
 
 export async function GET() {
   const gate = await requireExecutive();
-  if ("error" in gate && gate.error) return gate.error;
-
-  const { admin } = gate as {
-    admin: ReturnType<typeof createServiceClient>;
-  };
+  if (!gate.ok) return gate.response;
 
   const [{ data: profiles }, { data: staff }, { data: chapters }] = await Promise.all([
-    admin
+    gate.admin
       .from("profiles")
       .select("id, email, display_name, global_role, created_at")
       .order("created_at", { ascending: false }),
-    admin.from("chapter_staff").select("id, chapter_id, user_id, role"),
-    admin.from("chapters").select("id, slug, short_name, name").order("short_name"),
+    gate.admin.from("chapter_staff").select("id, chapter_id, user_id, role"),
+    gate.admin.from("chapters").select("id, slug, short_name, name").order("short_name"),
   ]);
 
   return NextResponse.json({
@@ -57,18 +63,10 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const gate = await requireExecutive();
-  if ("error" in gate && gate.error) return gate.error;
-  const { admin, user } = gate as {
-    admin: ReturnType<typeof createServiceClient>;
-    user: { id: string };
-  };
+  if (!gate.ok) return gate.response;
 
   const body = (await request.json()) as {
-    action:
-      | "set_executive"
-      | "unset_executive"
-      | "assign_staff"
-      | "remove_staff";
+    action: "set_executive" | "unset_executive" | "assign_staff" | "remove_staff";
     userId?: string;
     chapterId?: string;
     role?: "director" | "instructor";
@@ -79,10 +77,13 @@ export async function POST(request: Request) {
     if (!body.userId) {
       return NextResponse.json({ error: "userId required" }, { status: 400 });
     }
-    if (body.action === "unset_executive" && body.userId === user.id) {
-      return NextResponse.json({ error: "You cannot remove your own executive role" }, { status: 400 });
+    if (body.action === "unset_executive" && body.userId === gate.userId) {
+      return NextResponse.json(
+        { error: "You cannot remove your own executive role" },
+        { status: 400 },
+      );
     }
-    const { error } = await admin
+    const { error } = await gate.admin
       .from("profiles")
       .update({
         global_role: body.action === "set_executive" ? "executive" : "member",
@@ -97,7 +98,7 @@ export async function POST(request: Request) {
     if (!body.userId || !body.chapterId || !body.role) {
       return NextResponse.json({ error: "userId, chapterId, role required" }, { status: 400 });
     }
-    const { error } = await admin.from("chapter_staff").upsert(
+    const { error } = await gate.admin.from("chapter_staff").upsert(
       {
         user_id: body.userId,
         chapter_id: body.chapterId,
@@ -113,7 +114,7 @@ export async function POST(request: Request) {
     if (!body.staffId) {
       return NextResponse.json({ error: "staffId required" }, { status: 400 });
     }
-    const { error } = await admin.from("chapter_staff").delete().eq("id", body.staffId);
+    const { error } = await gate.admin.from("chapter_staff").delete().eq("id", body.staffId);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
     return NextResponse.json({ ok: true });
   }
