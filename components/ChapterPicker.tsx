@@ -106,7 +106,7 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search school or region"
-          className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3.5 text-white outline-none transition placeholder:text-[var(--muted)] focus:border-[rgba(155,180,255,0.45)]"
+          className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3.5 text-white outline-none transition placeholder:text-[var(--muted)] focus:border-[rgba(var(--brand-soft-rgb),0.45)]"
         />
       </label>
 

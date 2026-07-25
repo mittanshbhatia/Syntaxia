@@ -6,8 +6,13 @@
   --muted: #8b97ad;
   --line: rgba(255, 255, 255, 0.08);
   --line-2: rgba(255, 255, 255, 0.14);
-  --brand: #4f7cff;
-  --brand-soft: #9bb4ff;
+  /* APSDS logo blue */
+  --brand: #1f2bd5;
+  --brand-soft: #8b91f0;
+  --brand-bright: #3d48e8;
+  --brand-deep: #171fb8;
+  --brand-rgb: 31, 43, 213;
+  --brand-soft-rgb: 139, 145, 240;
   --mint: #5ef0c6;
   --surface: rgba(255, 255, 255, 0.03);
   --surface-2: rgba(255, 255, 255, 0.055);
@@ -46,7 +51,7 @@ button {
 }
 
 ::selection {
-  background: rgba(79, 124, 255, 0.4);
+  background: rgba(var(--brand-rgb), 0.4);
   color: white;
 }
 
@@ -59,7 +64,7 @@ button {
   position: relative;
   overflow-x: clip;
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(79, 124, 255, 0.22), transparent 60%),
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(var(--brand-rgb), 0.22), transparent 60%),
     radial-gradient(ellipse 40% 30% at 100% 20%, rgba(94, 240, 198, 0.06), transparent 50%),
     #05060a;
 }
@@ -121,13 +126,13 @@ button {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #5b86ff, #3d66f0);
+  background: linear-gradient(135deg, var(--brand-bright), var(--brand-deep));
   color: white;
-  box-shadow: 0 12px 40px rgba(79, 124, 255, 0.28);
+  box-shadow: 0 12px 40px rgba(var(--brand-rgb), 0.28);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 16px 48px rgba(79, 124, 255, 0.4);
+  box-shadow: 0 16px 48px rgba(var(--brand-rgb), 0.4);
 }
 
 .btn-ghost {
@@ -203,13 +208,13 @@ button {
   width: 12rem;
   height: 12rem;
   border-radius: 999px;
-  background: radial-gradient(circle, rgba(79, 124, 255, 0.28), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--brand-rgb), 0.28), transparent 70%);
   opacity: 0;
   transition: opacity 0.45s var(--ease);
 }
 
 .tile:hover {
-  border-color: rgba(155, 180, 255, 0.35);
+  border-color: rgba(var(--brand-soft-rgb), 0.35);
   background: var(--surface-2);
   transform: translateY(-4px);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);

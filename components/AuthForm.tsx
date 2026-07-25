@@ -71,7 +71,7 @@ export function AuthForm({ mode, nextPath = "/members" }: { mode: Mode; nextPath
           <input
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
-            className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-white outline-none focus:border-[rgba(155,180,255,0.45)]"
+            className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-white outline-none focus:border-[rgba(var(--brand-soft-rgb),0.45)]"
             placeholder="Your name"
           />
         </label>
@@ -84,7 +84,7 @@ export function AuthForm({ mode, nextPath = "/members" }: { mode: Mode; nextPath
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-white outline-none focus:border-[rgba(155,180,255,0.45)]"
+          className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-white outline-none focus:border-[rgba(var(--brand-soft-rgb),0.45)]"
           placeholder="you@school.edu"
         />
       </label>
@@ -97,7 +97,7 @@ export function AuthForm({ mode, nextPath = "/members" }: { mode: Mode; nextPath
           minLength={6}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-white outline-none focus:border-[rgba(155,180,255,0.45)]"
+          className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-white outline-none focus:border-[rgba(var(--brand-soft-rgb),0.45)]"
           placeholder="At least 6 characters"
         />
       </label>

@@ -13,13 +13,18 @@ All users, chapters, memberships, and staff roles live in Supabase.
 4. Students request chapter access from `/members`
 5. Directors/instructors approve them in `/admin`
 
-### Auth URLs to add in Supabase
+### Auth URLs (Supabase)
 
 Dashboard → Authentication → URL configuration:
 
-- Site URL: `https://syntaxia-gold.vercel.app`
+- Site URL: `https://syntaxia.org`
 - Redirect URLs:
   - `http://localhost:3000/auth/callback`
+  - `http://127.0.0.1:3000/auth/callback`
+  - `https://syntaxia.org/auth/callback`
+  - `https://www.syntaxia.org/auth/callback`
+  - `https://syntaxia.org/**`
+  - `https://www.syntaxia.org/**`
   - `https://syntaxia-gold.vercel.app/auth/callback`
   - `https://*.vercel.app/auth/callback`
 

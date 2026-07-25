@@ -108,7 +108,7 @@ export function RoleManager() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search by name or email"
-        className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-white outline-none focus:border-[rgba(155,180,255,0.45)]"
+        className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-white outline-none focus:border-[rgba(var(--brand-soft-rgb),0.45)]"
       />
 
       {error ? <p className="text-sm text-red-300">{error}</p> : null}

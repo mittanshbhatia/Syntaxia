@@ -117,7 +117,7 @@ export default function HomePage() {
           <div className="mt-14 grid gap-4 md:grid-cols-2">
             {pillars.map((pillar, index) => (
               <Reveal key={pillar.title} delay={(Math.min(index + 1, 3)) as 1 | 2 | 3}>
-                <article className="rounded-[1.4rem] border border-[var(--line)] px-6 py-7 transition duration-500 hover:border-[rgba(155,180,255,0.3)]">
+                <article className="rounded-[1.4rem] border border-[var(--line)] px-6 py-7 transition duration-500 hover:border-[rgba(var(--brand-soft-rgb),0.3)]">
                   <h3 className="display text-2xl text-white">{pillar.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{pillar.body}</p>
                 </article>
@@ -159,7 +159,7 @@ export default function HomePage() {
 
       <section className="container pb-24">
         <Reveal>
-          <div className="overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[radial-gradient(circle_at_top_left,rgba(79,124,255,0.18),transparent_45%),rgba(255,255,255,0.02)] p-8 sm:p-12">
+          <div className="overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[radial-gradient(circle_at_top_left,rgba(var(--brand-rgb),0.18),transparent_45%),rgba(255,255,255,0.02)] p-8 sm:p-12">
             <p className="eyebrow">Open now</p>
             <h2 className="display mt-4 max-w-2xl text-4xl text-white">
               {openChapters.length} active chapter{openChapters.length === 1 ? "" : "s"} — more on the way.
