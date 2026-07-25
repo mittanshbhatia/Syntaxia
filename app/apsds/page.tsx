@@ -50,7 +50,9 @@ export default function ApsdsPage() {
           {tracks.map((track, index) => (
             <Reveal key={track.id} delay={(index + 1) as 1 | 2 | 3}>
               <article className="rounded-[1.5rem] border border-[var(--line)] p-6 text-center">
-                <p className="display text-sm text-[var(--brand)]">{track.level}</p>
+                <p className="display text-sm" style={{ color: track.accent }}>
+                  {track.level}
+                </p>
                 <h2 className="display mt-3 text-3xl text-[var(--ink)]">{track.name}</h2>
                 <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{track.summary}</p>
               </article>
