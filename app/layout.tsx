@@ -29,7 +29,7 @@ const themeBoot = `
 (function(){
   try {
     var t = localStorage.getItem('syntaxia-theme');
-    if (t !== 'light' && t !== 'dark') t = 'dark';
+    if (t !== 'light' && t !== 'dark') t = 'light';
     document.documentElement.dataset.theme = t;
     document.documentElement.style.colorScheme = t;
   } catch (e) {}

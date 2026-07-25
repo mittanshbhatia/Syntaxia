@@ -2,16 +2,18 @@ import { apsds, syntaxia } from "@/lib/content";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-8 border-t border-[var(--line)]">
+    <footer className="site-footer mt-8">
       <div className="container grid gap-10 py-12 md:grid-cols-2 md:items-start">
-        <div className="text-left text-white">
+        <div className="footer-copy text-left">
           <p className="display text-3xl">{syntaxia.name}</p>
           <p className="mt-3 text-sm">Home of the APSDS Club.</p>
         </div>
 
         <div className="md:text-right">
-          <p className="eyebrow md:!ml-auto md:!mr-0">Follow Us</p>
-          <div className="mt-4 flex flex-wrap items-center gap-4 text-white md:justify-end">
+          <div className="flex justify-start md:justify-end">
+            <p className="eyebrow">Follow Us</p>
+          </div>
+          <div className="footer-links mt-4 flex flex-wrap items-center gap-4 md:justify-end">
             <a
               href={apsds.instagramUrl}
               target="_blank"

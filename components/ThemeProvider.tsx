@@ -18,11 +18,11 @@ function applyTheme(theme: Theme) {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
+  const [theme, setThemeState] = useState<Theme>("light");
 
   useEffect(() => {
     const stored = window.localStorage.getItem("syntaxia-theme");
-    const next: Theme = stored === "light" || stored === "dark" ? stored : "dark";
+    const next: Theme = stored === "light" || stored === "dark" ? stored : "light";
     setThemeState(next);
     applyTheme(next);
   }, []);

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { HeroVideo } from "@/components/HeroVideo";
 import { Reveal } from "@/components/Reveal";
-import { apsds, openChapters, pillars, tracks } from "@/lib/content";
+import { apsds, pillars, tracks } from "@/lib/content";
 
 export default function HomePage() {
   return (
@@ -19,7 +19,7 @@ export default function HomePage() {
             <p className="hero-desc">
               Syntaxia is the home for APSDS chapters,
               <br />
-              a growing network of school clubs teaching algorithmic thinking, projects, and competition prep.
+              a growing network of school clubs for algorithms, projects, and contests.
             </p>
           </Reveal>
           <Reveal delay={2}>
@@ -27,7 +27,7 @@ export default function HomePage() {
               <Link href="/join" className="btn btn-primary">
                 Join a chapter
               </Link>
-              <Link href="/start" className="btn btn-ghost">
+              <Link href="/start" className="btn btn-ghost btn-start-chapter">
                 Start a chapter
               </Link>
             </div>
@@ -63,7 +63,7 @@ export default function HomePage() {
               <p className="eyebrow">Flagship club</p>
             </div>
             <h2 className="display section-title mt-4 max-w-3xl mx-auto text-4xl text-[var(--ink)] sm:text-5xl">
-              Learn Computer Science the Way It Sticks.
+              Learn Computer Science. Properly.
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-center text-[var(--muted)]">{apsds.mission}</p>
           </Reveal>
@@ -71,7 +71,7 @@ export default function HomePage() {
           <div className="mt-14 grid gap-4 md:grid-cols-2">
             {pillars.map((pillar, index) => (
               <Reveal key={pillar.title} delay={(Math.min(index + 1, 3)) as 1 | 2 | 3}>
-                <article className="rounded-[1.4rem] border border-[var(--line)] px-6 py-7 text-center transition duration-200 hover:border-[rgba(var(--brand-soft-rgb),0.3)]">
+                <article className="pillar-card">
                   <h3 className="display text-2xl text-[var(--ink)]">{pillar.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{pillar.body}</p>
                 </article>
@@ -122,7 +122,7 @@ export default function HomePage() {
           <div className="overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[radial-gradient(circle_at_top_left,rgba(var(--brand-rgb),0.18),transparent_45%),var(--surface)] p-8 sm:p-12 text-center">
             <p className="eyebrow">Open now</p>
             <h2 className="display section-title mt-4 max-w-2xl mx-auto text-4xl text-[var(--ink)]">
-              {openChapters.length} active chapter{openChapters.length === 1 ? "" : "s"}, more on the way.
+              Multiple active chapters, coming to a school near you.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-[var(--muted)]">
               Members: pick your location. Founders: bring the next one online.

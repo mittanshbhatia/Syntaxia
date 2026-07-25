@@ -29,12 +29,12 @@ export function SettingsPanel({ open, onClose }: Props) {
           </button>
         </div>
 
-        <div className="mt-8 space-y-4">
-          <p className="eyebrow !mx-0">Appearance</p>
-          <div className="flex items-center justify-between gap-3 rounded-2xl border border-[var(--line)] px-4 py-3">
-            <div>
+        <div className="mt-8 flex flex-col items-center gap-4">
+          <p className="eyebrow">Appearance</p>
+          <div className="flex w-full items-center justify-between gap-3 rounded-2xl border border-[var(--line)] px-4 py-3">
+            <div className="text-left">
               <p className="text-sm font-semibold text-[var(--ink)]">Theme</p>
-              <p className="mt-1 text-xs text-[var(--muted)]">Dark is the default look.</p>
+              <p className="mt-1 text-xs text-[var(--muted)]">Light is the default look.</p>
             </div>
             <div className="flex gap-2">
               <button

@@ -389,11 +389,10 @@ main h3,
 
 .hero-desc {
   margin: 1.35rem auto 0;
-  max-width: 34rem;
+  max-width: 36rem;
   font-size: clamp(1rem, 2.2vw, 1.15rem);
   line-height: 1.45;
   color: var(--muted);
-  text-wrap: balance;
 }
 
 .hero-actions {
@@ -449,6 +448,56 @@ main h3,
   letter-spacing: -0.04em;
   color: rgba(255, 255, 255, 0.12);
   white-space: nowrap;
+}
+
+html[data-theme="light"] .marquee-track span {
+  color: #c4beae;
+}
+
+.pillar-card {
+  border: 1px solid var(--line);
+  border-radius: 1.4rem;
+  background: var(--surface);
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+}
+
+.site-footer {
+  border-top: 2px solid rgba(255, 255, 255, 0.28);
+}
+
+html[data-theme="light"] .site-footer {
+  border-top-color: rgba(10, 10, 10, 0.35);
+}
+
+.site-footer .footer-copy,
+.site-footer .footer-links,
+.site-footer .footer-links a {
+  color: #ffffff;
+}
+
+html[data-theme="light"] .site-footer .footer-copy,
+html[data-theme="light"] .site-footer .footer-links,
+html[data-theme="light"] .site-footer .footer-links a {
+  color: #0a0a0a;
+}
+
+.site-footer .eyebrow {
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] .hero-desc {
+  color: #ffffff;
+}
+
+html[data-theme="light"] .hero .btn-start-chapter {
+  background: #e8e2d4;
+  border-color: #d9d2c2;
+  color: #0a0a0a;
+}
+
+html[data-theme="light"] .hero .btn-start-chapter:hover {
+  background: #efe9db;
 }
 
 @keyframes marquee {
@@ -633,12 +682,6 @@ html[data-theme="light"] .join-hero-cut {
 html[data-theme="light"] .nav-blur a,
 html[data-theme="light"] .nav-blur .btn-ghost {
   color: #0a0a0a;
-}
-
-html[data-theme="light"] footer,
-html[data-theme="light"] footer a,
-html[data-theme="light"] footer p {
-  color: #0a0a0a !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
