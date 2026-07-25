@@ -464,6 +464,28 @@ main h3,
   padding: 0;
 }
 
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  background: var(--surface);
+  color: #ffffff;
+  transition: background 0.12s var(--ease), border-color 0.12s var(--ease), transform 0.12s var(--ease);
+}
+
+.icon-btn:hover {
+  background: var(--surface-2);
+  transform: translateY(-1px);
+}
+
+html[data-theme="light"] .icon-btn {
+  color: #0a0a0a;
+}
+
 .settings-backdrop {
   position: fixed;
   inset: 0;
@@ -570,14 +592,14 @@ main h3,
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(115deg, rgba(5, 6, 10, 0.92) 0%, rgba(5, 6, 10, 0.78) 46%, transparent 46.2%),
-    linear-gradient(180deg, rgba(5, 6, 10, 0.35), rgba(5, 6, 10, 0.55));
+    radial-gradient(ellipse 70% 60% at 50% 45%, rgba(5, 6, 10, 0.35), rgba(5, 6, 10, 0.72) 70%),
+    linear-gradient(180deg, rgba(5, 6, 10, 0.45), rgba(5, 6, 10, 0.7));
 }
 
 html[data-theme="light"] .join-hero-cut {
   background:
-    linear-gradient(115deg, rgba(241, 236, 223, 0.94) 0%, rgba(241, 236, 223, 0.82) 46%, transparent 46.2%),
-    linear-gradient(180deg, rgba(241, 236, 223, 0.3), rgba(241, 236, 223, 0.45));
+    radial-gradient(ellipse 70% 60% at 50% 45%, rgba(241, 236, 223, 0.35), rgba(241, 236, 223, 0.78) 70%),
+    linear-gradient(180deg, rgba(241, 236, 223, 0.4), rgba(241, 236, 223, 0.7));
 }
 
 .join-hero-copy {

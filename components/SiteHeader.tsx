@@ -17,7 +17,6 @@ export function SiteHeader() {
   const [isMember, setIsMember] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const supabase = createClient();
@@ -79,7 +78,7 @@ export function SiteHeader() {
           </Link>
 
           <nav
-            className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 text-sm text-white md:flex"
+            className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-4 text-sm text-white sm:gap-8"
             aria-label="Primary"
           >
             {centerLinks.map((link) => (
@@ -102,19 +101,16 @@ export function SiteHeader() {
 
             <button
               type="button"
-              className="btn btn-ghost px-3 py-2 text-sm text-white"
+              className="icon-btn"
+              aria-label="Settings"
+              title="Settings"
               onClick={() => setSettingsOpen(true)}
             >
-              Settings
+              <GearIcon />
             </button>
 
             {signedIn ? (
-              <button
-                type="button"
-                className="account-avatar"
-                aria-label="Account"
-                title="Account"
-              >
+              <button type="button" className="account-avatar" aria-label="Account" title="Account">
                 {avatarUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={avatarUrl} alt="" className="h-full w-full object-cover" />
@@ -123,39 +119,30 @@ export function SiteHeader() {
                 )}
               </button>
             ) : null}
-
-            <button
-              type="button"
-              className="btn btn-ghost px-3 py-2 text-sm text-white md:hidden"
-              aria-expanded={mobileOpen}
-              onClick={() => setMobileOpen((v) => !v)}
-            >
-              Menu
-            </button>
           </div>
         </div>
-
-        {mobileOpen ? (
-          <nav className="border-t border-[var(--line)] px-4 py-4 md:hidden" aria-label="Mobile">
-            <ul className="space-y-1">
-              {centerLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="block rounded-xl px-3 py-2.5 text-sm text-white hover:bg-white/5"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        ) : null}
       </header>
 
       <SettingsPanel open={settingsOpen} onClose={() => setSettingsOpen(false)} />
     </>
+  );
+}
+
+function GearIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      />
+      <path
+        d="M19.4 13.5a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V19a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H5a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V5a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.86 1 1.51 1H19a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 

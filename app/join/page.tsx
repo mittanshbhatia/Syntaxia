@@ -34,17 +34,19 @@ export default async function JoinPage() {
           </video>
         </div>
         <div className="join-hero-cut" aria-hidden="true" />
-        <div className="container join-hero-copy grid min-h-[70vh] items-center py-20">
-          <div className="max-w-xl">
+        <div className="container join-hero-copy grid min-h-[70vh] place-items-center py-20">
+          <div className="mx-auto max-w-xl text-center">
             <Reveal>
-              <p className="eyebrow !mx-0">Join</p>
-              <h1 className="display mt-4 text-left text-5xl text-white sm:text-6xl">Find a Chapter</h1>
-              <p className="mt-5 text-left text-[var(--muted)]">
+              <p className="eyebrow">Join</p>
+              <h1 className="display section-title mt-4 text-5xl text-white sm:text-6xl">
+                Find a Chapter
+              </h1>
+              <p className="mt-5 text-[var(--muted)]">
                 Free for students · Placement into L1, L2, and L3.
               </p>
             </Reveal>
             <Reveal delay={1}>
-              <div className="mt-10 flex flex-wrap gap-3">
+              <div className="mt-10 flex flex-wrap justify-center gap-3">
                 <Link href="#chapters" className="btn btn-primary">
                   See open locations
                 </Link>

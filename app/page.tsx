@@ -59,42 +59,6 @@ export default function HomePage() {
         </div>
       </div>
 
-      <section className="container py-24">
-        <Reveal>
-          <p className="eyebrow">Three doors in</p>
-          <h2 className="display section-title mt-4 max-w-3xl mx-auto text-4xl text-[var(--ink)] sm:text-5xl">
-            Tell us who you are, we&apos;ll take it from there.
-          </h2>
-        </Reveal>
-        <div className="mt-12 grid gap-4 lg:grid-cols-3">
-          {[
-            {
-              href: "/members",
-              title: "Learn",
-              body: "Choose your location and enter your chapter space. Learning tools come next.",
-            },
-            {
-              href: "/join",
-              title: "Computer Science",
-              body: "See open chapters, understand the tracks, and get started with placement.",
-            },
-            {
-              href: "/start",
-              title: "The Way It Sticks",
-              body: "Bring APSDS to your school with Syntaxia's shared curriculum and support.",
-            },
-          ].map((item, index) => (
-            <Reveal key={item.href} delay={(index + 1) as 1 | 2 | 3}>
-              <Link href={item.href} className="tile block p-7 text-center">
-                <h3 className="display relative z-10 mt-2 text-4xl text-white">{item.title}</h3>
-                <p className="relative z-10 mt-4 text-sm leading-relaxed text-[var(--muted)]">{item.body}</p>
-                <p className="relative z-10 mt-8 text-sm font-semibold text-white">Continue →</p>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
       <section className="border-y border-[var(--line)] bg-[var(--surface)]">
         <div className="container py-24">
           <Reveal>
