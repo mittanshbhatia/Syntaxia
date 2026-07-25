@@ -98,7 +98,9 @@ export default async function JoinPage() {
             {tracks.map((track, index) => (
               <Reveal key={track.id} delay={(index + 1) as 1 | 2 | 3}>
                 <article className="rounded-[1.35rem] border border-[var(--line)] p-5 text-center">
-                  <p className="display text-sm text-[var(--brand)]">{track.level}</p>
+                  <p className="display text-center text-sm" style={{ color: track.accent }}>
+                    {track.level}
+                  </p>
                   <h3 className="display mt-2 text-2xl text-[var(--ink)]">{track.name}</h3>
                   <p className="mt-2 text-sm text-[var(--muted)]">{track.summary}</p>
                 </article>
