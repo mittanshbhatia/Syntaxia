@@ -2,7 +2,7 @@ export const syntaxia = {
   name: "Syntaxia",
   tagline: "Where structure meets ambition.",
   description:
-    "Syntaxia is the home for APSDS chapters — a growing network of school clubs teaching algorithmic thinking, projects, and competition prep.",
+    "Syntaxia is the home for APSDS chapters, a growing network of school clubs teaching algorithmic thinking, projects, and competition prep.",
   email: "theteam.apsds@gmail.com",
   instagram: "theapsdsclub",
   instagramUrl: "https://www.instagram.com/theapsdsclub/",

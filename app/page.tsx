@@ -1,44 +1,39 @@
 import Link from "next/link";
-import { FilmReel } from "@/components/FilmReel";
+import { HeroVideo } from "@/components/HeroVideo";
 import { Reveal } from "@/components/Reveal";
-import { apsds, openChapters, pillars, syntaxia, tracks } from "@/lib/content";
+import { apsds, openChapters, pillars, tracks } from "@/lib/content";
 
 export default function HomePage() {
   return (
     <main>
-      <section className="relative overflow-hidden">
-        <div className="container grid min-h-[88vh] items-center gap-12 py-20 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
-            <Reveal>
-              <p className="eyebrow">{syntaxia.name}</p>
-            </Reveal>
-            <Reveal delay={1}>
-              <h1 className="display mt-5 max-w-[11ch] text-[clamp(3.4rem,9vw,6.4rem)] text-white">
-                {syntaxia.tagline}
-              </h1>
-            </Reveal>
-            <Reveal delay={2}>
-              <p className="mt-6 max-w-md text-base leading-relaxed text-[var(--muted)] sm:text-lg">
-                {syntaxia.description}
-              </p>
-            </Reveal>
-            <Reveal delay={3}>
-              <div className="mt-9 flex flex-wrap gap-3">
-                <Link href="/members" className="btn btn-primary">
-                  I&apos;m already a member
-                </Link>
-                <Link href="/join" className="btn btn-ghost">
-                  I want to join
-                </Link>
-                <Link href="/start" className="btn btn-ghost">
-                  Start a chapter
-                </Link>
-              </div>
-            </Reveal>
-          </div>
-
+      <section className="hero">
+        <HeroVideo />
+        <div className="hero-copy">
+          <Reveal>
+            <h1 className="display hero-title text-white">
+              <span>Where structure</span>
+              <span>meets ambition</span>
+            </h1>
+          </Reveal>
+          <Reveal delay={1}>
+            <p className="hero-desc">
+              Syntaxia is the home for APSDS chapters,
+              <br />
+              a growing network of school clubs teaching algorithmic thinking, projects, and competition prep.
+            </p>
+          </Reveal>
           <Reveal delay={2}>
-            <FilmReel />
+            <div className="hero-actions">
+              <Link href="/join" className="btn btn-ghost">
+                I want to join
+              </Link>
+              <Link href="/members" className="btn btn-primary">
+                I&apos;m already a member
+              </Link>
+              <Link href="/start" className="btn btn-ghost">
+                Start a chapter
+              </Link>
+            </div>
           </Reveal>
         </div>
       </section>
