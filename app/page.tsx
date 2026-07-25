@@ -101,14 +101,8 @@ export default function HomePage() {
         <div className="mt-12 grid gap-3 lg:grid-cols-3">
           {tracks.map((track, index) => (
             <Reveal key={track.id} delay={(index + 1) as 1 | 2 | 3}>
-              <article className="relative overflow-hidden rounded-[1.5rem] border border-[var(--line)] p-6 text-center">
-                <div
-                  className="absolute inset-x-0 top-0 h-px"
-                  style={{ background: `linear-gradient(90deg, transparent, ${track.accent}, transparent)` }}
-                />
-                <p className="display text-sm" style={{ color: track.accent }}>
-                  {track.level}
-                </p>
+              <article className={`track-card track-card-${track.id}`}>
+                <p className="display track-card-level text-sm">{track.level}</p>
                 <h3 className="display mt-3 text-3xl text-[var(--ink)]">{track.name}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{track.summary}</p>
               </article>
@@ -119,7 +113,7 @@ export default function HomePage() {
 
       <section className="container pb-24">
         <Reveal>
-          <div className="overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[radial-gradient(circle_at_top_left,rgba(var(--brand-rgb),0.18),transparent_45%),var(--surface)] p-8 sm:p-12 text-center">
+          <div className="overflow-hidden border border-[var(--line)] bg-[var(--surface)] p-8 sm:p-12 text-center">
             <p className="eyebrow">Open now</p>
             <h2 className="display section-title mt-4 max-w-2xl mx-auto text-4xl text-[var(--ink)]">
               Multiple active chapters, coming to a school near you.
@@ -128,7 +122,7 @@ export default function HomePage() {
               Members: pick your location. Founders: bring the next one online.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link href="/members" className="btn btn-primary">
+              <Link href="/members" className="btn btn-primary btn-no-glow">
                 Choose your chapter
               </Link>
               <Link href="/start" className="btn btn-ghost">

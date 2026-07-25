@@ -145,7 +145,7 @@ main h3,
   gap: 0.45rem;
   min-height: 2.85rem;
   padding: 0 1.25rem;
-  border-radius: 999px;
+  border-radius: 0;
   font-size: 0.92rem;
   font-weight: 600;
   transition:
@@ -167,7 +167,7 @@ main h3,
 
 .field {
   width: 100%;
-  border-radius: 1rem;
+  border-radius: 0;
   border: 1px solid var(--line);
   background: var(--surface);
   padding: 0.75rem 1rem;
@@ -193,6 +193,11 @@ main h3,
   box-shadow: 0 16px 48px rgba(var(--brand-rgb), 0.4);
 }
 
+.btn-primary.btn-no-glow,
+.btn-primary.btn-no-glow:hover {
+  box-shadow: none;
+}
+
 .btn-ghost {
   border: 1px solid var(--line-2);
   background: var(--surface);
@@ -210,7 +215,7 @@ main h3,
   left: 1rem;
   top: -4rem;
   z-index: 100;
-  border-radius: 999px;
+  border-radius: 0;
   background: white;
   color: #05060a;
   padding: 0.6rem 1rem;
@@ -250,7 +255,7 @@ main h3,
   position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 1.5rem;
+  border-radius: 0;
   background: var(--surface);
   transition:
     border-color 0.4s var(--ease),
@@ -286,7 +291,7 @@ main h3,
   text-align: left;
   width: 100%;
   padding: 1.35rem 1.4rem;
-  border-radius: 1.35rem;
+  border-radius: 0;
   border: 1px solid var(--line);
   background: var(--surface);
   transition:
@@ -407,7 +412,7 @@ main h3,
 .film {
   position: relative;
   overflow: hidden;
-  border-radius: 1.75rem;
+  border-radius: 0;
   border: 1px solid var(--line);
   background: #000;
   isolation: isolate;
@@ -456,10 +461,55 @@ html[data-theme="light"] .marquee-track span {
 
 .pillar-card {
   border: 1px solid var(--line);
-  border-radius: 1.4rem;
+  border-radius: 0;
   background: var(--surface);
   padding: 1.75rem 1.5rem;
   text-align: center;
+}
+
+.track-card {
+  border: none;
+  border-radius: 0;
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.track-card-level {
+  color: var(--track-accent);
+}
+
+/* Dark mode: accent labels + darker translucent fills */
+.track-card-l1 {
+  --track-accent: #c4a574;
+  background: rgba(110, 82, 42, 0.28);
+}
+
+.track-card-l2 {
+  --track-accent: #b8bcc4;
+  background: rgba(70, 76, 88, 0.32);
+}
+
+.track-card-l3 {
+  --track-accent: #f0c44d;
+  background: rgba(150, 110, 20, 0.26);
+}
+
+/* Light mode: darker accents + translucent fills of those colors */
+html[data-theme="light"] .track-card-l1 {
+  --track-accent: #7a5c32;
+  background: rgba(122, 92, 50, 0.18);
+}
+
+html[data-theme="light"] .track-card-l2 {
+  --track-accent: #5c636e;
+  background: rgba(92, 99, 110, 0.16);
+}
+
+html[data-theme="light"] .track-card-l3 {
+  --track-accent: #b08912;
+  background: rgba(176, 137, 18, 0.18);
 }
 
 .site-footer {
@@ -517,7 +567,7 @@ html[data-theme="light"] .hero .btn-start-chapter:hover {
 .account-avatar {
   width: 2.35rem;
   height: 2.35rem;
-  border-radius: 999px;
+  border-radius: 0;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.35);
   padding: 0;
@@ -529,7 +579,7 @@ html[data-theme="light"] .hero .btn-start-chapter:hover {
   justify-content: center;
   width: 2.35rem;
   height: 2.35rem;
-  border-radius: 999px;
+  border-radius: 0;
   border: 1px solid var(--line-2);
   background: var(--surface);
   color: #ffffff;
@@ -592,7 +642,7 @@ html[data-theme="light"] .icon-btn {
   border: 1px solid rgba(var(--brand-rgb), 0.35);
   background: rgba(var(--brand-rgb), 0.12);
   color: var(--ink);
-  border-radius: 1rem;
+  border-radius: 0;
   padding: 0.9rem 1.1rem;
   text-align: center;
   font-size: 0.95rem;
@@ -603,7 +653,7 @@ html[data-theme="light"] .icon-btn {
   overflow: hidden;
   display: block;
   min-height: 11rem;
-  border-radius: 1.4rem;
+  border-radius: 0;
   border: 1px solid var(--line);
   background: #0b1020 center / cover no-repeat;
   transition: transform 0.12s var(--ease);
@@ -682,6 +732,11 @@ html[data-theme="light"] .join-hero-cut {
 html[data-theme="light"] .nav-blur a,
 html[data-theme="light"] .nav-blur .btn-ghost {
   color: #0a0a0a;
+}
+
+/* Square every box / container across the site */
+[class*="rounded"] {
+  border-radius: 0 !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -13,7 +13,7 @@ export function SiteFooter() {
           <div className="flex justify-start md:justify-end">
             <p className="eyebrow">Follow Us</p>
           </div>
-          <div className="footer-links mt-4 flex flex-wrap items-center gap-4 md:justify-end">
+          <div className="footer-links mt-4 flex flex-wrap items-end gap-6 md:justify-end">
             <a
               href={apsds.instagramUrl}
               target="_blank"
@@ -23,13 +23,16 @@ export function SiteFooter() {
               <InstagramIcon />
               @{apsds.instagram}
             </a>
-            <a
-              href={`mailto:${apsds.email}`}
-              className="inline-flex items-center gap-2 text-sm hover:opacity-70"
-            >
-              <MailIcon />
-              {apsds.email}
-            </a>
+            <div className="footer-talk flex flex-col items-center gap-2">
+              <p className="eyebrow">Talk to us</p>
+              <a
+                href={`mailto:${apsds.email}`}
+                className="inline-flex items-center gap-2 text-sm hover:opacity-70"
+              >
+                <MailIcon />
+                {apsds.email}
+              </a>
+            </div>
           </div>
         </div>
       </div>
