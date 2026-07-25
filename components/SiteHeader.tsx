@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { createClient } from "@/lib/supabase/client";
+import { useState } from "react";
+import { syntaxia } from "@/lib/content";
 
 const links = [
   { href: "/apsds", label: "APSDS" },
@@ -15,81 +14,29 @@ const links = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const [signedIn, setSignedIn] = useState(false);
-  const [showDashboard, setShowDashboard] = useState(false);
-
-  useEffect(() => {
-    const supabase = createClient();
-    let active = true;
-
-    async function load() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!active) return;
-      if (!user) {
-        setSignedIn(false);
-        setShowDashboard(false);
-        return;
-      }
-      setSignedIn(true);
-
-      const [{ data: profile }, { data: staff }, { data: memberships }] = await Promise.all([
-        supabase.from("profiles").select("global_role").eq("id", user.id).maybeSingle(),
-        supabase.from("chapter_staff").select("id").eq("user_id", user.id).limit(1),
-        supabase
-          .from("chapter_memberships")
-          .select("id")
-          .eq("user_id", user.id)
-          .eq("status", "approved")
-          .limit(1),
-      ]);
-
-      if (!active) return;
-      const validated =
-        profile?.global_role === "executive" ||
-        Boolean(staff?.length) ||
-        Boolean(memberships?.length);
-      setShowDashboard(validated);
-    }
-
-    void load();
-    const { data: sub } = supabase.auth.onAuthStateChange(() => {
-      void load();
-    });
-    return () => {
-      active = false;
-      sub.subscription.unsubscribe();
-    };
-  }, []);
 
   return (
     <header className="nav-blur sticky top-0 z-50 border-b border-[var(--line)]">
       <div className="container flex items-center justify-between gap-4 py-3.5">
-        <Link href="/" className="display text-[1.35rem] text-[var(--ink)] transition hover:opacity-80">
-          Syntaxia
+        <Link href="/" className="display text-[1.35rem] text-white transition hover:text-[var(--brand-soft)]">
+          {syntaxia.name}
         </Link>
 
-        <nav className="hidden items-center gap-8 text-sm text-[var(--ink)] md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-8 text-sm text-[var(--muted)] md:flex" aria-label="Primary">
           {links.map((link) => (
-            <Link key={link.href} href={link.href} className="transition hover:opacity-70">
+            <Link key={link.href} href={link.href} className="transition hover:text-white">
               {link.label}
             </Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-2">
-          <ThemeToggle />
-          {!signedIn ? (
-            <Link href="/auth/sign-in" className="btn btn-ghost hidden px-4 py-2 text-sm sm:inline-flex">
-              Sign in
-            </Link>
-          ) : null}
-          {showDashboard ? (
-            <Link href="/dashboard" className="btn btn-primary px-4 py-2 text-sm">
-              Dashboard
-            </Link>
-          ) : null}
+          <Link href="/auth/sign-in" className="btn btn-ghost hidden px-4 py-2 text-sm sm:inline-flex">
+            Sign in
+          </Link>
+          <Link href="/members" className="btn btn-primary px-4 py-2 text-sm">
+            Members
+          </Link>
           <button
             type="button"
             className="btn btn-ghost px-3 py-2 text-sm md:hidden"
@@ -109,35 +56,13 @@ export function SiteHeader() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="block rounded-xl px-3 py-2.5 text-sm text-[var(--ink)] hover:bg-white/5"
+                  className="block rounded-xl px-3 py-2.5 text-sm text-[var(--muted)] hover:bg-white/5 hover:text-white"
                   onClick={() => setOpen(false)}
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
-            {!signedIn ? (
-              <li>
-                <Link
-                  href="/auth/sign-in"
-                  className="block rounded-xl px-3 py-2.5 text-sm text-[var(--ink)] hover:bg-white/5"
-                  onClick={() => setOpen(false)}
-                >
-                  Sign in
-                </Link>
-              </li>
-            ) : null}
-            {showDashboard ? (
-              <li>
-                <Link
-                  href="/dashboard"
-                  className="block rounded-xl px-3 py-2.5 text-sm text-[var(--ink)] hover:bg-white/5"
-                  onClick={() => setOpen(false)}
-                >
-                  Dashboard
-                </Link>
-              </li>
-            ) : null}
           </ul>
         </nav>
       ) : null}
