@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-:root {
+:root,
+html[data-theme="dark"] {
   --bg: #05060a;
   --ink: #f4f6fb;
   --muted: #8b97ad;
@@ -13,10 +14,30 @@
   --brand-deep: #171fb8;
   --brand-rgb: 31, 43, 213;
   --brand-soft-rgb: 139, 145, 240;
-  --mint: #5ef0c6;
   --surface: rgba(255, 255, 255, 0.03);
   --surface-2: rgba(255, 255, 255, 0.055);
+  --shell-glow: rgba(var(--brand-rgb), 0.22);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --nav-bg: rgba(5, 6, 10, 0.65);
+}
+
+/* First-day presentation slide background */
+html[data-theme="light"] {
+  --bg: #f1ecdf;
+  --ink: #0a0a0a;
+  --muted: #4a4a4a;
+  --line: rgba(10, 10, 10, 0.1);
+  --line-2: rgba(10, 10, 10, 0.18);
+  --brand: #1f2bd5;
+  --brand-soft: #1f2bd5;
+  --brand-bright: #2d35c8;
+  --brand-deep: #171fb8;
+  --brand-rgb: 31, 43, 213;
+  --brand-soft-rgb: 31, 43, 213;
+  --surface: rgba(255, 255, 255, 0.55);
+  --surface-2: rgba(255, 255, 255, 0.75);
+  --shell-glow: rgba(var(--brand-rgb), 0.12);
+  --nav-bg: rgba(241, 236, 223, 0.82);
 }
 
 * {
@@ -64,9 +85,8 @@ button {
   position: relative;
   overflow-x: clip;
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(var(--brand-rgb), 0.22), transparent 60%),
-    radial-gradient(ellipse 40% 30% at 100% 20%, rgba(94, 240, 198, 0.06), transparent 50%),
-    #05060a;
+    radial-gradient(ellipse 80% 50% at 50% -20%, var(--shell-glow), transparent 60%),
+    var(--bg);
 }
 
 .display {
@@ -75,23 +95,29 @@ button {
   line-height: 0.95;
 }
 
+main h1,
+main h2,
+main h3,
+.section-title {
+  text-align: center;
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  padding: 0.4rem 0.85rem;
+  border-radius: 0.45rem;
+  background: var(--brand);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--brand-soft);
-}
-
-.eyebrow::before {
-  content: "";
-  width: 1.4rem;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.7;
+  text-align: center;
 }
 
 .container {
@@ -114,15 +140,37 @@ button {
   font-size: 0.92rem;
   font-weight: 600;
   transition:
-    transform 0.35s var(--ease),
-    background 0.35s var(--ease),
-    border-color 0.35s var(--ease),
-    color 0.35s var(--ease),
-    box-shadow 0.35s var(--ease);
+    transform 0.12s var(--ease),
+    background 0.12s var(--ease),
+    border-color 0.12s var(--ease),
+    color 0.12s var(--ease),
+    box-shadow 0.12s var(--ease);
 }
 
 .btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.field {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: 0.75rem 1rem;
+  color: var(--ink);
+  outline: none;
+}
+
+.field:focus {
+  border-color: rgba(var(--brand-soft-rgb), 0.45);
+}
+
+.field::placeholder {
+  color: var(--muted);
 }
 
 .btn-primary {
@@ -240,10 +288,78 @@ button {
 
 .chapter-card:hover,
 .chapter-card:focus-visible {
-  border-color: rgba(94, 240, 198, 0.45);
-  background: rgba(94, 240, 198, 0.05);
+  border-color: rgba(var(--brand-rgb), 0.45);
+  background: rgba(var(--brand-rgb), 0.06);
   transform: translateY(-3px);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+}
+
+.school-card {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  min-height: 11rem;
+  border-radius: 1.4rem;
+  border: 1px solid var(--line);
+  background: #0b1020 center / cover no-repeat;
+  transition: transform 0.12s var(--ease), border-color 0.12s var(--ease);
+}
+
+.school-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(5, 6, 10, 0.15), rgba(5, 6, 10, 0.78));
+}
+
+.school-card-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100%;
+  min-height: 11rem;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.25rem 1.35rem;
+}
+
+.join-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.join-hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.join-hero-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.45;
+}
+
+.join-hero-cut {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(115deg, var(--bg) 0%, var(--bg) 46%, transparent 46.2%),
+    linear-gradient(180deg, rgba(5, 6, 10, 0.35), rgba(5, 6, 10, 0.55));
+}
+
+html[data-theme="light"] .join-hero-cut {
+  background:
+    linear-gradient(115deg, var(--bg) 0%, var(--bg) 46%, transparent 46.2%),
+    linear-gradient(180deg, rgba(241, 236, 223, 0.35), rgba(241, 236, 223, 0.55));
+}
+
+.join-hero-copy {
+  position: relative;
+  z-index: 2;
 }
 
 .chapter-card[data-status="coming"] {
@@ -268,8 +384,8 @@ button {
 }
 
 .status-pill.open {
-  color: #04281f;
-  background: var(--mint);
+  color: #ffffff;
+  background: var(--brand);
 }
 
 .status-pill.coming {
@@ -403,7 +519,7 @@ button {
 }
 
 .nav-blur {
-  background: rgba(5, 6, 10, 0.65);
+  background: var(--nav-bg);
   backdrop-filter: blur(18px) saturate(1.2);
 }
 

@@ -104,22 +104,15 @@ export default async function ChapterMemberPage({ params }: Props) {
       </Reveal>
 
       <Reveal delay={1}>
-        <div className="mt-12 overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[radial-gradient(circle_at_top,rgba(94,240,198,0.12),transparent_40%),rgba(255,255,255,0.02)] p-8 sm:p-10">
-          <p className="display text-3xl text-white">You&apos;re approved</p>
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
-            Lessons, quizzes, and tests for {chapter.short_name} will live here next. Your access
-            is unlocked.
+        <div className="mt-12 overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[radial-gradient(circle_at_top,rgba(var(--brand-rgb),0.16),transparent_40%),var(--surface)] p-8 sm:p-10 text-center">
+          <p className="display text-3xl text-[var(--ink)]">You&apos;re approved</p>
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
+            Open your dashboard for the chapter directory and curriculum for {chapter.short_name}.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <span className="rounded-full border border-[var(--line)] px-4 py-2 text-sm text-[var(--muted)]">
-              Lessons · soon
-            </span>
-            <span className="rounded-full border border-[var(--line)] px-4 py-2 text-sm text-[var(--muted)]">
-              Quizzes · soon
-            </span>
-            <span className="rounded-full border border-[var(--line)] px-4 py-2 text-sm text-[var(--muted)]">
-              Tests · soon
-            </span>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link href="/dashboard" className="btn btn-primary">
+              Open dashboard
+            </Link>
           </div>
         </div>
       </Reveal>

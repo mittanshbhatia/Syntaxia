@@ -251,3 +251,40 @@ create policy "Staff and executives review memberships"
     public.is_executive()
     or public.is_chapter_staff(chapter_id)
   );
+
+-- Curriculum: executives write; chapter staff/members with access read.
+-- Chapter directors cannot edit curriculum and cannot remove executives (app-enforced).
+create table if not exists public.curriculum_items (
+  id uuid primary key default gen_random_uuid(),
+  chapter_id uuid not null references public.chapters (id) on delete cascade,
+  title text not null,
+  body text not null,
+  created_by uuid references public.profiles (id),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index if not exists curriculum_items_chapter_idx
+  on public.curriculum_items (chapter_id);
+
+alter table public.curriculum_items enable row level security;
+
+drop policy if exists "Curriculum readable by chapter access" on public.curriculum_items;
+create policy "Curriculum readable by chapter access"
+  on public.curriculum_items for select
+  using (
+    public.is_executive()
+    or public.is_chapter_staff(chapter_id)
+    or exists (
+      select 1 from public.chapter_memberships m
+      where m.chapter_id = curriculum_items.chapter_id
+        and m.user_id = auth.uid()
+        and m.status = 'approved'
+    )
+  );
+
+drop policy if exists "Executives manage curriculum" on public.curriculum_items;
+create policy "Executives manage curriculum"
+  on public.curriculum_items for all
+  using (public.is_executive())
+  with check (public.is_executive());

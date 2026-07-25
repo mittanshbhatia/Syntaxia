@@ -37,7 +37,7 @@ export default async function AdminPage() {
         <h1 className="display mt-3 text-4xl text-white">Claim executive access</h1>
         <p className="mt-3 max-w-xl text-sm text-[var(--muted)]">
           No executives or chapter staff roles are on your account yet. If this is first-time
-          setup, claim executive access below — then assign chapter directors.
+          setup, claim executive access below ,  then assign chapter directors.
         </p>
         <div className="mt-8 max-w-xl">
           <BootstrapExecutiveButton />

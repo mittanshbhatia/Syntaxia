@@ -3,7 +3,7 @@ export const syntaxia = {
   tagline: "Where structure meets ambition.",
   description:
     "Syntaxia is the home for APSDS chapters, a growing network of school clubs teaching algorithmic thinking, projects, and competition prep.",
-  email: "theteam.apsds@gmail.com",
+  email: "team.apsds@gmail.com",
   instagram: "theapsdsclub",
   instagramUrl: "https://www.instagram.com/theapsdsclub/",
 };
@@ -13,17 +13,17 @@ export const apsds = {
   fullName: "Algorithmic Problem Solving and Data Structures",
   tagline: "Learn computer science the way it sticks.",
   mission:
-    "APSDS is Syntaxia’s flagship club: leveled tracks, weekly teaching, real projects, and free competition support — built to expand across schools.",
-  email: "theteam.apsds@gmail.com",
+    "APSDS is Syntaxia's flagship club: leveled tracks, weekly meetings, real projects, and free competition support, coming to schools in the Bay Area.",
+  email: "team.apsds@gmail.com",
   instagram: "theapsdsclub",
   instagramUrl: "https://www.instagram.com/theapsdsclub/",
   video: {
     src: "/media/apsds-hype-2026.mp4",
-    label: "APSDS 2026–27 film",
+    label: "APSDS 2026-27 film",
   },
 };
 
-/** Marketing copy for chapters — live chapter access uses Supabase `chapters`. */
+/** Marketing copy for chapters; live chapter access uses Supabase `chapters`. */
 export const chapters = [
   {
     id: "bisv",
@@ -32,7 +32,8 @@ export const chapters = [
     shortName: "BISV",
     region: "Bay Area, CA",
     status: "open" as const,
-    blurb: "Founding chapter. Weekly after-school sessions across L1–L3.",
+    blurb: "Founding chapter. Weekly after-school sessions across L1-L3.",
+    logo: "/brand/BISV_APSDS_Logo.JPG",
   },
   {
     id: "lynbrook",
@@ -42,6 +43,7 @@ export const chapters = [
     region: "San Jose, CA",
     status: "open" as const,
     blurb: "APSDS chapter at Lynbrook High School.",
+    logo: "/brand/schools/lynbrook.svg",
   },
   {
     id: "harker",
@@ -51,6 +53,7 @@ export const chapters = [
     region: "San Jose, CA",
     status: "open" as const,
     blurb: "APSDS chapter at The Harker School.",
+    logo: "/brand/schools/harker.svg",
   },
 ] as const;
 
@@ -63,21 +66,21 @@ export const tracks = [
     id: "l1",
     level: "L1",
     name: "Foundations",
-    accent: "#ff8a3d",
-    summary: "Python from the ground up — syntax, logic, and first algorithms.",
+    accent: "#1f2bd5",
+    summary: "Python from the ground up: syntax, logic, and first algorithms.",
   },
   {
     id: "l2",
     level: "L2",
     name: "Practical",
-    accent: "#8fa3c1",
-    summary: "Projects that move — games, animation, and applied problem solving.",
+    accent: "#1f2bd5",
+    summary: "Projects that move: games, animation, and applied problem solving.",
   },
   {
     id: "l3",
     level: "L3",
     name: "Advanced",
-    accent: "#f0c44d",
+    accent: "#1f2bd5",
     summary: "Data structures, contests, mentorship, and deeper builds.",
   },
 ] as const;
@@ -85,7 +88,7 @@ export const tracks = [
 export const pillars = [
   {
     title: "Teach for real",
-    body: "Weekly lessons, practice, and projects — not hangouts dressed up as clubs.",
+    body: "Weekly meetings, practice, and projects, not hangouts dressed up as clubs.",
   },
   {
     title: "Grow by level",
