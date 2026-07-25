@@ -198,7 +198,7 @@ export function RoleManager() {
                 >
                   {chapters.map((chapter) => (
                     <option key={chapter.id} value={chapter.id}>
-                      {chapter.short_name} — {chapter.name}
+                      {chapter.short_name} ,  {chapter.name}
                     </option>
                   ))}
                 </select>

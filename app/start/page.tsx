@@ -18,7 +18,7 @@ export default function StartPage() {
         </h1>
         <p className="mt-5 max-w-xl text-[var(--muted)]">
           Syntaxia gives new campuses shared curriculum, placement, competitions, and a clear
-          launch path — you build the local community.
+          launch path ,  you build the local community.
         </p>
       </Reveal>
 

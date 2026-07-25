@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="Harker">
+  <rect width="320" height="180" fill="#0b1020"/>
+  <rect x="18" y="18" width="284" height="144" rx="18" fill="#1f2bd5"/>
+  <text x="160" y="88" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700">Harker</text>
+  <text x="160" y="122" text-anchor="middle" fill="#d7dbff" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600">APSDS CHAPTER</text>
+</svg>

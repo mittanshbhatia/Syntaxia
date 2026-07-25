@@ -29,22 +29,33 @@ export default async function AdminPage() {
 
   const staffChapterIds = (myStaff ?? []).map((row) => row.chapter_id as string);
   const isExecutive = profile?.global_role === "executive";
+  const isDirector = (myStaff ?? []).some((row) => row.role === "director");
+  const isInstructor = (myStaff ?? []).some((row) => row.role === "instructor");
+  const canReview = isExecutive || isDirector;
 
   if (!isExecutive && staffChapterIds.length === 0) {
+    const { count } = await supabase
+      .from("profiles")
+      .select("id", { count: "exact", head: true })
+      .eq("global_role", "executive");
+
+    if ((count ?? 0) > 0) {
+      redirect("/");
+    }
+
     return (
       <main className="container py-16 sm:py-20">
         <p className="eyebrow">Admin setup</p>
-        <h1 className="display mt-3 text-4xl text-white">Claim executive access</h1>
-        <p className="mt-3 max-w-xl text-sm text-[var(--muted)]">
-          No executives or chapter staff roles are on your account yet. If this is first-time
-          setup, claim executive access below — then assign chapter directors.
+        <h1 className="display section-title mt-3 text-4xl text-[var(--ink)]">
+          Claim executive access
+        </h1>
+        <p className="mx-auto mt-3 max-w-xl text-center text-sm text-[var(--muted)]">
+          No executives exist yet. If this is first-time setup, claim executive access below, then
+          assign chapter directors.
         </p>
-        <div className="mt-8 max-w-xl">
+        <div className="mx-auto mt-8 max-w-xl">
           <BootstrapExecutiveButton />
         </div>
-        <Link href="/members" className="btn btn-ghost mt-8 px-4 py-2 text-sm">
-          Back to members
-        </Link>
       </main>
     );
   }
@@ -83,18 +94,22 @@ export default async function AdminPage() {
   return (
     <main className="container py-16 sm:py-20">
       <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <p className="eyebrow">{isExecutive ? "Executive access" : "Chapter staff"}</p>
-          <h1 className="display mt-3 text-4xl text-white sm:text-5xl">Admin panel</h1>
-          <p className="mt-3 max-w-2xl text-sm text-[var(--muted)]">
+        <div className="w-full text-center md:w-auto md:text-left">
+          <p className="eyebrow md:!mx-0">
+            {isExecutive ? "Executive access" : isDirector ? "Chapter director" : "Instructor"}
+          </p>
+          <h1 className="display mt-3 text-4xl text-[var(--ink)] sm:text-5xl">Admin panel</h1>
+          <p className="mt-3 max-w-2xl text-sm text-[var(--muted)] md:mx-0 mx-auto">
             {isExecutive
-              ? "Manage every login’s role, assign chapter directors/instructors by school, and approve members."
-              : "Manage members inside your chapter only. Approve students before they can enter chapter content."}
+              ? "View every member profile, edit curriculum, and manage all chapters. Executives cannot be removed by chapter directors."
+              : isDirector
+                ? "View members in your chapter only. Approve students. Curriculum is read-only. You cannot remove executives or other directors."
+                : "View members in your chapter only. Curriculum is read-only. Instructors cannot remove members or staff."}
           </p>
         </div>
         <div className="flex gap-2">
-          <Link href="/members" className="btn btn-ghost px-4 py-2 text-sm">
-            Members
+          <Link href="/dashboard" className="btn btn-ghost px-4 py-2 text-sm">
+            Dashboard
           </Link>
           <SignOutButton />
         </div>
@@ -109,11 +124,12 @@ export default async function AdminPage() {
       {isExecutive ? (
         <section className="mt-14 space-y-10">
           <div>
-            <h2 className="display text-2xl text-white">Chapters</h2>
+            <p className="eyebrow">Chapters</p>
+            <h2 className="display section-title mt-4 text-2xl text-[var(--ink)]">All campuses</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
               {chapters.map((chapter) => (
-                <article key={chapter.id} className="rounded-[1.25rem] border border-[var(--line)] p-4">
-                  <p className="display text-xl text-white">{chapter.short_name}</p>
+                <article key={chapter.id} className="rounded-[1.25rem] border border-[var(--line)] p-4 text-center">
+                  <p className="display text-xl text-[var(--ink)]">{chapter.short_name}</p>
                   <p className="mt-1 text-sm text-[var(--muted)]">{chapter.name}</p>
                   <p className="mt-2 text-xs uppercase tracking-wide text-[var(--brand-soft)]">
                     {chapter.status}
@@ -128,7 +144,13 @@ export default async function AdminPage() {
       ) : null}
 
       <section className="mt-14">
-        <h2 className="display text-2xl text-white">Membership requests</h2>
+        <p className="eyebrow">Membership</p>
+        <h2 className="display section-title mt-4 text-2xl text-[var(--ink)]">Membership requests</h2>
+        {!canReview && isInstructor ? (
+          <p className="mx-auto mt-3 max-w-xl text-center text-sm text-[var(--muted)]">
+            Instructors can view requests but cannot approve, reject, or remove members.
+          </p>
+        ) : null}
         <div className="mt-4 overflow-x-auto rounded-[1.25rem] border border-[var(--line)]">
           <table className="min-w-full text-left text-sm">
             <thead className="border-b border-[var(--line)] text-[var(--muted)]">
@@ -144,16 +166,20 @@ export default async function AdminPage() {
               {membershipViews.map((row) => (
                 <tr key={row.id} className="border-b border-[var(--line)] align-top">
                   <td className="px-4 py-3">
-                    <p className="text-white">{row.profile?.display_name ?? "—"}</p>
+                    <p className="text-[var(--ink)]">{row.profile?.display_name ?? "-"}</p>
                     <p className="text-[var(--muted)]">{row.profile?.email}</p>
                   </td>
                   <td className="px-4 py-3 text-[var(--muted)]">{row.chapter?.short_name}</td>
-                  <td className="px-4 py-3 capitalize text-white">{row.status}</td>
+                  <td className="px-4 py-3 capitalize text-[var(--ink)]">{row.status}</td>
                   <td className="px-4 py-3 text-[var(--muted)]">
                     {new Date(row.requested_at).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-3">
-                    <MembershipActions membershipId={row.id} status={row.status} />
+                    {canReview ? (
+                      <MembershipActions membershipId={row.id} status={row.status} />
+                    ) : (
+                      <span className="text-[var(--muted)]">View only</span>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -174,9 +200,9 @@ export default async function AdminPage() {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[1.25rem] border border-[var(--line)] p-5">
+    <div className="rounded-[1.25rem] border border-[var(--line)] p-5 text-center">
       <p className="text-xs uppercase tracking-[0.16em] text-[var(--muted)]">{label}</p>
-      <p className="display mt-2 text-3xl text-white">{value}</p>
+      <p className="display mt-2 text-3xl text-[var(--ink)]">{value}</p>
     </div>
   );
 }

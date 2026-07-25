@@ -1,31 +1,17 @@
 ## Auth + roles (Supabase)
 
-All users, chapters, memberships, and staff roles live in Supabase.
+### Roles
+- **Executive:** all chapters, edit curriculum, manage staff. Cannot be removed by chapter directors.
+- **Chapter director:** own chapter only; approve/reject members; curriculum read-only; cannot remove executives or other directors.
+- **Instructor:** own chapter view; cannot approve/reject/remove members; curriculum read-only (revoked when removed).
+- **Approved member:** dashboard for chapter materials.
 
-### Easy role control
-
-1. Create your account at `/auth/sign-up`
-2. Open `/admin` → **Become first executive** (one-time)
-3. In **People & roles**:
-   - search any signed-up login
-   - **Make executive** for org-wide access
-   - assign **Chapter director** or **Instructor** to BISV / Lynbrook / Harker
-4. Students request chapter access from `/members`
-5. Directors/instructors approve them in `/admin`
-
-### Auth URLs (Supabase)
-
-Dashboard → Authentication → URL configuration:
-
+### Auth URLs
 - Site URL: `https://syntaxia.org`
-- Redirect URLs:
-  - `http://localhost:3000/auth/callback`
-  - `http://127.0.0.1:3000/auth/callback`
-  - `https://syntaxia.org/auth/callback`
-  - `https://www.syntaxia.org/auth/callback`
-  - `https://syntaxia.org/**`
-  - `https://www.syntaxia.org/**`
-  - `https://syntaxia-gold.vercel.app/auth/callback`
-  - `https://*.vercel.app/auth/callback`
+- Redirects: `https://syntaxia.org/**`, `https://www.syntaxia.org/**`, localhost callbacks, Vercel previews
 
-Optional: Authentication → Providers → Email → turn off “Confirm email” for faster local/prod onboarding.
+### Google Sign-In
+Enable Google under Authentication → Providers. After Google signup, users complete a username on `/auth/complete-profile`.
+
+### Email from team.apsds@gmail.com
+Configure custom SMTP under Authentication → Emails with `team.apsds@gmail.com`, and add “Do not reply to this email.” to templates.

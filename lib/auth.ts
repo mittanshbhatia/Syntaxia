@@ -84,3 +84,49 @@ export async function canAccessChapter(chapterId: string, userId: string) {
   }
   return { ok: false as const, reason: membership.status, membership };
 }
+
+/** Approved chapter memberships / staff chapters / all open chapters for executives. */
+export async function getMemberChapters(userId: string): Promise<ChapterRow[]> {
+  const profile = await getProfile();
+  if (!profile || profile.id !== userId) return [];
+
+  const chapters = await listChapters();
+  if (profile.global_role === "executive") {
+    return chapters.filter((c) => c.status === "open");
+  }
+
+  const staff = await getStaffRoles(userId);
+  const staffIds = new Set(staff.map((s) => s.chapter_id));
+
+  const supabase = await createClient();
+  const { data: memberships } = await supabase
+    .from("chapter_memberships")
+    .select("chapter_id")
+    .eq("user_id", userId)
+    .eq("status", "approved");
+
+  const approvedIds = new Set((memberships ?? []).map((m) => m.chapter_id as string));
+
+  return chapters.filter(
+    (c) => c.status === "open" && (staffIds.has(c.id) || approvedIds.has(c.id)),
+  );
+}
+
+export async function hasAdminAccess(userId: string) {
+  const profile = await getProfile();
+  if (!profile || profile.id !== userId) return false;
+  if (profile.global_role === "executive") return true;
+  const staff = await getStaffRoles(userId);
+  return staff.length > 0;
+}
+
+/** Directors (and executives) can review memberships; instructors cannot. */
+export async function canReviewMemberships(userId: string, chapterId?: string) {
+  const profile = await getProfile();
+  if (!profile || profile.id !== userId) return false;
+  if (profile.global_role === "executive") return true;
+  const staff = await getStaffRoles(userId);
+  return staff.some(
+    (s) => s.role === "director" && (chapterId ? s.chapter_id === chapterId : true),
+  );
+}

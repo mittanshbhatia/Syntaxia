@@ -9,13 +9,13 @@ type Props = {
 
 export default async function SignInPage({ searchParams }: Props) {
   const params = await searchParams;
-  const nextPath = params.next?.startsWith("/") ? params.next : "/members";
+  const nextPath = params.next?.startsWith("/") ? params.next : "/dashboard";
 
   return (
     <main className="container py-20">
       <div className="mx-auto max-w-md text-center">
-        <p className="eyebrow justify-center">Welcome back</p>
-        <h1 className="display mt-4 text-4xl text-white">Sign in</h1>
+        <p className="eyebrow">Welcome back</p>
+        <h1 className="display section-title mt-4 text-4xl text-[var(--ink)]">Sign in</h1>
         <p className="mt-3 text-sm text-[var(--muted)]">
           Members need an account before requesting chapter access.
         </p>
