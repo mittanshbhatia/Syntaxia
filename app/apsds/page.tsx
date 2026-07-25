@@ -18,7 +18,7 @@ export default function ApsdsPage() {
           <p className="eyebrow">Promoted by Syntaxia</p>
           <div className="mx-auto mt-8 flex justify-center">
             <Image
-              src="/brand/APSDS_Logo.png"
+              src="/brand/APSDS_Logo.svg"
               alt="APSDS"
               width={520}
               height={220}

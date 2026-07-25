@@ -24,11 +24,8 @@ export default function HomePage() {
           </Reveal>
           <Reveal delay={2}>
             <div className="hero-actions">
-              <Link href="/join" className="btn btn-ghost">
-                I want to join
-              </Link>
-              <Link href="/members" className="btn btn-primary">
-                I&apos;m already a member
+              <Link href="/join" className="btn btn-primary">
+                Join a chapter
               </Link>
               <Link href="/start" className="btn btn-ghost">
                 Start a chapter

@@ -94,12 +94,14 @@ export default async function AdminPage() {
   return (
     <main className="container py-16 sm:py-20">
       <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="w-full text-center md:w-auto md:text-left">
-          <p className="eyebrow md:!mx-0">
+        <div className="w-full text-center">
+          <p className="eyebrow">
             {isExecutive ? "Executive access" : isDirector ? "Chapter director" : "Instructor"}
           </p>
-          <h1 className="display mt-3 text-4xl text-[var(--ink)] sm:text-5xl">Admin panel</h1>
-          <p className="mt-3 max-w-2xl text-sm text-[var(--muted)] md:mx-0 mx-auto">
+          <h1 className="mt-4 text-center text-sm font-bold uppercase tracking-[0.22em] text-[var(--ink)]">
+            Admin Panel
+          </h1>
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-[var(--muted)]">
             {isExecutive
               ? "View every member profile, edit curriculum, and manage all chapters. Executives cannot be removed by chapter directors."
               : isDirector

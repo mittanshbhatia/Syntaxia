@@ -76,9 +76,9 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
 
   return (
     <div>
-      <div className="max-w-2xl">
+      <div className="mx-auto max-w-2xl text-center">
         <p className="eyebrow">Member access</p>
-        <h1 className="display mt-4 text-4xl text-white sm:text-5xl lg:text-6xl">
+        <h1 className="display section-title mt-4 text-4xl text-[var(--ink)] sm:text-5xl lg:text-6xl">
           Where are you from?
         </h1>
         <p className="mt-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg">
@@ -88,11 +88,11 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
         {!signedIn ? (
           <p className="mt-4 text-sm text-[var(--brand-soft)]">
             You need an account first.{" "}
-            <Link href="/auth/sign-in" className="underline underline-offset-4">
+            <Link href="/auth/sign-in" className="underline underline-offset-4 decoration-2">
               Sign in
             </Link>{" "}
             or{" "}
-            <Link href="/auth/sign-up" className="underline underline-offset-4">
+            <Link href="/auth/sign-up" className="underline underline-offset-4 decoration-2">
               create one
             </Link>
             .

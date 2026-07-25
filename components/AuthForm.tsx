@@ -149,7 +149,7 @@ export function AuthForm({ mode, nextPath = "/dashboard" }: { mode: Mode; nextPa
             New here?{" "}
             <Link
               href="/auth/sign-up"
-              className="text-[var(--ink)] underline decoration-[var(--brand)] underline-offset-4"
+              className="text-[var(--ink)] underline underline-offset-4 decoration-2 decoration-[var(--brand)]"
             >
               Create an account
             </Link>
@@ -159,7 +159,7 @@ export function AuthForm({ mode, nextPath = "/dashboard" }: { mode: Mode; nextPa
             Already have an account?{" "}
             <Link
               href="/auth/sign-in"
-              className="text-[var(--ink)] underline decoration-[var(--brand)] underline-offset-4"
+              className="text-[var(--ink)] underline underline-offset-4 decoration-2 decoration-[var(--brand)]"
             >
               Sign in
             </Link>

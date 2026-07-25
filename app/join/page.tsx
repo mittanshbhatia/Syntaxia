@@ -16,14 +16,15 @@ export default async function JoinPage() {
     <main>
       {!user ? (
         <div className="join-banner">
-          You must first have an account in order to join a chapter.{" "}
-          <Link href="/auth/sign-up" className="underline underline-offset-4">
-            Create an account
-          </Link>
-          {" · "}
-          <Link href="/auth/sign-in" className="underline underline-offset-4">
+          You must first have an account in order to join a chapter. Click{" "}
+          <Link href="/auth/sign-up" className="underline underline-offset-4 decoration-2">
+            here
+          </Link>{" "}
+          to create an account, or{" "}
+          <Link href="/auth/sign-in" className="underline underline-offset-4 decoration-2">
             Sign in
           </Link>
+          .
         </div>
       ) : null}
 

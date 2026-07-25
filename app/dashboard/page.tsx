@@ -36,7 +36,7 @@ export default async function DashboardPage() {
       {admin ? (
         <div className="admin-access-banner mb-8">
           Your account has admin access. Click{" "}
-          <Link href="/admin" className="underline underline-offset-4">
+          <Link href="/admin" className="font-semibold underline underline-offset-4 decoration-2">
             here
           </Link>{" "}
           to see more.
@@ -45,7 +45,7 @@ export default async function DashboardPage() {
 
       <Reveal>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="eyebrow">Dashboard</p>
+          <p className="eyebrow eyebrow-left">Dashboard</p>
           <SignOutButton />
         </div>
         <h1 className="display section-title mt-6 text-5xl text-[var(--ink)]">
