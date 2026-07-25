@@ -59,7 +59,9 @@ export default function HomePage() {
       <section className="border-y border-[var(--line)] bg-[var(--surface)]">
         <div className="container py-24">
           <Reveal>
-            <p className="eyebrow">Flagship club</p>
+            <div className="eyebrow-center">
+              <p className="eyebrow">Flagship club</p>
+            </div>
             <h2 className="display section-title mt-4 max-w-3xl mx-auto text-4xl text-[var(--ink)] sm:text-5xl">
               Learn Computer Science the Way It Sticks.
             </h2>
@@ -89,7 +91,9 @@ export default function HomePage() {
 
       <section className="container py-24">
         <Reveal>
-          <p className="eyebrow">Tracks</p>
+          <div className="eyebrow-center">
+            <p className="eyebrow">Tracks</p>
+          </div>
           <h2 className="display section-title mt-4 text-4xl text-[var(--ink)] sm:text-5xl">
             Level up, not loop.
           </h2>
@@ -102,7 +106,9 @@ export default function HomePage() {
                   className="absolute inset-x-0 top-0 h-px"
                   style={{ background: `linear-gradient(90deg, transparent, ${track.accent}, transparent)` }}
                 />
-                <p className="display text-sm text-[var(--brand)]">{track.level}</p>
+                <p className="display text-sm" style={{ color: track.accent }}>
+                  {track.level}
+                </p>
                 <h3 className="display mt-3 text-3xl text-[var(--ink)]">{track.name}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{track.summary}</p>
               </article>
