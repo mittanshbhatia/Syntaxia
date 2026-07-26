@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import { MaterialWorkspace } from "@/components/MaterialWorkspace";
 import {
   canAccessChapter,
   getMemberChapters,
@@ -10,7 +11,9 @@ import {
   getStaffRoles,
 } from "@/lib/auth";
 import { getMaterial, SECTION_META } from "@/lib/curriculum/catalog";
-import { getMaterialBody, googleDocPreviewUrl } from "@/lib/curriculum/view";
+import { getLesson } from "@/lib/curriculum/lessons";
+import { getMaterialBody } from "@/lib/curriculum/view";
+import { createClient } from "@/lib/supabase/server";
 import { getChapterVisibility, isMaterialVisible } from "@/lib/visibility";
 
 type Props = {
@@ -61,11 +64,22 @@ export default async function MaterialPage({ params, searchParams }: Props) {
     redirect(`/dashboard?chapter=${selected.slug}`);
   }
 
+  const lesson = getLesson(material.id);
   const body = getMaterialBody(material);
-  const previewUrl = googleDocPreviewUrl(material.driveUrl);
   const memberCanSee = isMaterialVisible(material, visibility, false);
   const hiddenFromMembers = asStaff && !memberCanSee;
   const backHref = `/dashboard?chapter=${selected.slug}`;
+
+  const supabase = await createClient();
+  const { data: responseRow } = await supabase
+    .from("material_responses")
+    .select("answers")
+    .eq("chapter_id", selected.id)
+    .eq("material_id", material.id)
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  const initialAnswers = (responseRow?.answers as Record<string, string> | null) ?? {};
 
   return (
     <main className="container py-16 sm:py-24">
@@ -85,24 +99,6 @@ export default async function MaterialPage({ params, searchParams }: Props) {
         {asStaff ? <span className="text-[var(--muted)]">Staff view</span> : null}
       </div>
 
-      <div className="mt-6 flex flex-wrap gap-3">
-        {material.driveUrl ? (
-          <a
-            href={material.driveUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-primary btn-no-glow"
-          >
-            Open in Drive
-          </a>
-        ) : null}
-        {material.assetUrl ? (
-          <a href={material.assetUrl} target="_blank" rel="noreferrer" className="btn btn-ghost">
-            Open file
-          </a>
-        ) : null}
-      </div>
-
       {material.assetUrl ? (
         <div className="mt-10 border border-[var(--line)] bg-[var(--surface)] p-4">
           <Image
@@ -116,30 +112,24 @@ export default async function MaterialPage({ params, searchParams }: Props) {
         </div>
       ) : null}
 
-      {previewUrl ? (
-        <div className="mt-10 overflow-hidden border border-[var(--line)] bg-[var(--surface)]">
-          <iframe
-            title={`${material.title} preview`}
-            src={previewUrl}
-            className="h-[70vh] w-full bg-white"
-            loading="lazy"
-          />
-        </div>
-      ) : null}
-
-      {body ? (
+      {lesson ? (
+        <MaterialWorkspace
+          chapterId={selected.id}
+          materialId={material.id}
+          lesson={lesson}
+          initialAnswers={initialAnswers}
+        />
+      ) : body ? (
         <article className="mt-10 border border-[var(--line)] bg-[var(--surface)] p-6 sm:p-8">
           <pre className="whitespace-pre-wrap font-[family-name:var(--font-dm)] text-sm leading-relaxed text-[var(--ink)]">
             {body}
           </pre>
         </article>
-      ) : null}
-
-      {!body && !material.assetUrl && !previewUrl ? (
+      ) : (
         <p className="mt-10 max-w-2xl text-sm text-[var(--muted)]">
-          This item is linked to APSDS Drive. Use Open in Drive to view the full files.
+          This material is being prepared for Syntaxia.
         </p>
-      ) : null}
+      )}
     </main>
   );
 }

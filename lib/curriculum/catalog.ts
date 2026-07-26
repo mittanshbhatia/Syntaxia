@@ -20,11 +20,8 @@ export type CurriculumMaterial = {
   summary: string;
   /** When false, default hidden from members until staff enables it. */
   defaultVisible: boolean;
-  /** Staff-only items never appear for regular members. */
   staffOnly?: boolean;
-  driveUrl?: string;
   assetUrl?: string;
-  /** Key into materialBodies for in-app text. */
   bodyKey?: string;
 };
 
@@ -38,23 +35,23 @@ export const SECTION_META: Record<
   },
   teaching_materials: {
     label: "Teaching materials",
-    description: "Slides, code, worksheets, and lesson packs.",
+    description: "Lessons, code, worksheets, and practice on Syntaxia.",
   },
   online_tests: {
     label: "Online tests",
-    description: "Foundations and cumulative assessments.",
+    description: "Foundations and cumulative assessments you complete here.",
   },
   quizzes: {
     label: "Quizzes",
-    description: "Short checks and pop quizzes.",
+    description: "Short checks and pop quizzes completed on Syntaxia.",
   },
   homework: {
     label: "Homework",
-    description: "Practice assigned between meetings.",
+    description: "Practice you submit between meetings.",
   },
   assignments: {
     label: "Assignments",
-    description: "Projects and longer builds.",
+    description: "Projects you build and submit on Syntaxia.",
   },
   competition_prep: {
     label: "Competition prep",
@@ -62,7 +59,7 @@ export const SECTION_META: Record<
   },
   grades: {
     label: "Grades",
-    description: "Scores and progress tracking.",
+    description: "Scores and progress for your chapter.",
   },
   chapter_directory: {
     label: "Chapter directory",
@@ -76,9 +73,6 @@ export const SECTION_META: Record<
 
 export const SECTION_KEYS = Object.keys(SECTION_META) as MaterialSection[];
 
-export const APSDS_DRIVE_ROOT =
-  "https://drive.google.com/drive/folders/1G8omn-GHP75fWAZeRL7_7tFjrgjkaRzF?usp=sharing";
-
 export const curriculumCatalog: CurriculumMaterial[] = [
   {
     id: "l1-course-plan",
@@ -87,8 +81,6 @@ export const curriculumCatalog: CurriculumMaterial[] = [
     track: "l1",
     summary: "29-session plan covering Python starter, number bases, ACSL, and sorting.",
     defaultVisible: true,
-    driveUrl:
-      "https://docs.google.com/document/d/1tvZrKBhOokBGSzYaczEzjwc3cNINgPPcdO3XgQg9buk/edit",
     bodyKey: "l1-course-plan",
   },
   {
@@ -98,8 +90,6 @@ export const curriculumCatalog: CurriculumMaterial[] = [
     track: "l2",
     summary: "29-session plan: Python review, PyGame projects, Pong, Snake, and ACSL.",
     defaultVisible: true,
-    driveUrl:
-      "https://docs.google.com/document/d/1sBn1XvFHSNR2qTkeOwTUbn8woBu_yCUF7CIo2R5ijHU/edit",
     bodyKey: "l2-course-plan",
   },
   {
@@ -113,58 +103,51 @@ export const curriculumCatalog: CurriculumMaterial[] = [
   },
   {
     id: "python-starter-slides",
-    title: "APSDS Python Starter slides",
+    title: "APSDS Python Starter",
     section: "teaching_materials",
     track: "l1",
-    summary: "Core intro-to-Python slide deck used across early L1 and L2 meetings.",
+    summary: "Full intro-to-Python lesson with practice you complete on Syntaxia.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "l2-teaching-pack",
-    title: "L2 Teaching Materials pack",
+    title: "L2 Teaching Materials",
     section: "teaching_materials",
     track: "l2",
-    summary: "PyGame exercises, Meeting 10 videos, mouse/button labs, Pong and Snake assets.",
+    summary: "PyGame lessons, events, and OOP animation practice on Syntaxia.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "search-sort-code",
-    title: "Search & sort algorithm code",
+    title: "Search & sort algorithms",
     section: "teaching_materials",
     track: "l2",
-    summary: "Binary, bubble, insertion, linear, and selection sort reference code.",
+    summary: "Reference code and practice for search and sort algorithms.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "big-o-worksheet",
     title: "Big-O / time complexity worksheet",
     section: "teaching_materials",
     track: "l1",
-    summary: "How to do time complexity worksheet used in late L1 sessions.",
+    summary: "Learn Big-O and submit complexity answers on Syntaxia.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "acsl-worksheets",
     title: "ACSL worksheets",
     section: "competition_prep",
     track: "all",
-    summary: "Contest practice worksheets and CWLesson materials for ACSL prep.",
+    summary: "ACSL practice problems you complete here.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "apcsa-prep-guide",
     title: "APCSA Prep workshop guide",
     section: "competition_prep",
     track: "all",
-    summary: "Seven workshop sessions plus March and May review days.",
+    summary: "Workshop sessions and reflection prompts on Syntaxia.",
     defaultVisible: true,
-    driveUrl:
-      "https://docs.google.com/document/d/1FBNrruw-_RQ9nj_Pxcu1lILmzgRRpmej3Gw4w9765hM/edit",
     bodyKey: "apcsa-prep-guide",
   },
   {
@@ -172,126 +155,112 @@ export const curriculumCatalog: CurriculumMaterial[] = [
     title: "26-27 Python Foundations Test 1",
     section: "online_tests",
     track: "l1",
-    summary: "First foundations assessment (around late October).",
+    summary: "Take Test 1 entirely on Syntaxia when staff unhide it.",
     defaultVisible: false,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "python-foundations-test-2",
     title: "26-27 Python Foundations Test 2",
     section: "online_tests",
     track: "l1",
-    summary: "Second foundations assessment (around February).",
+    summary: "Take Test 2 entirely on Syntaxia when staff unhide it.",
     defaultVisible: false,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "ultimate-cumulative-test",
     title: "Ultimate Cumulative Python Foundations Test",
     section: "online_tests",
     track: "l2",
-    summary: "Cumulative placement-style test used early in L2.",
+    summary: "Cumulative assessment completed on Syntaxia.",
     defaultVisible: false,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "pop-quiz-slot",
     title: "Pop quiz",
     section: "quizzes",
     track: "all",
-    summary: "Enable only when you want members to see an active pop quiz.",
+    summary: "Live pop quiz completed on Syntaxia when staff unhide it.",
     defaultVisible: false,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "weekly-practice",
     title: "Weekly practice set",
     section: "homework",
     track: "all",
-    summary: "Between-meeting practice problems posted by instructors.",
+    summary: "Between-meeting practice submitted on Syntaxia.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "pygame-basic-exercises",
     title: "PyGame basic exercises",
     section: "assignments",
     track: "l2",
-    summary: "Shapes and drawing lab (basic_exercises.py).",
+    summary: "Shapes and drawing lab submitted on Syntaxia.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "stars-project",
     title: "Stars animation project",
     section: "assignments",
     track: "l2",
-    summary: "First OOP animation: falling and twinkling stars.",
+    summary: "First OOP animation project submitted on Syntaxia.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "ball-game-project",
     title: "Ball Game project",
     section: "assignments",
     track: "l2",
-    summary: "Paddle collection game with scoring.",
+    summary: "Paddle collection game submitted on Syntaxia.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "tic-tac-toe-project",
     title: "Tic-Tac-Toe project",
     section: "assignments",
     track: "l2",
-    summary: "Full board-game logic project.",
+    summary: "Board-game logic project submitted on Syntaxia.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "pong-project",
     title: "Pong project",
     section: "assignments",
     track: "l2",
-    summary: "Classic Pong build from Drive teaching materials.",
+    summary: "Classic Pong build submitted on Syntaxia.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "snake-project",
     title: "Snake project",
     section: "assignments",
     track: "l2",
-    summary: "Snake with list append/pop body mechanics.",
+    summary: "Snake with list append/pop submitted on Syntaxia.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "games-menu-project",
     title: "Games menu project",
     section: "assignments",
     track: "l2",
-    summary: "Combine prior games into one menu-driven program.",
+    summary: "Menu-driven games program submitted on Syntaxia.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "grades-overview",
     title: "Grades overview",
     section: "grades",
     track: "all",
-    summary: "Chapter grading sheet and progress notes.",
+    summary: "Your chapter progress notes on Syntaxia.",
     defaultVisible: false,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "chapter-directory",
     title: "Chapter directory",
     section: "chapter_directory",
     track: "all",
-    summary: "Campus roster links and chapter contacts.",
+    summary: "Campus contacts and chapter notes on Syntaxia.",
     defaultVisible: true,
-    driveUrl: APSDS_DRIVE_ROOT,
   },
   {
     id: "club-description",
@@ -300,8 +269,6 @@ export const curriculumCatalog: CurriculumMaterial[] = [
     track: "all",
     summary: "Full and short club descriptions for 2026-27.",
     defaultVisible: true,
-    driveUrl:
-      "https://docs.google.com/document/d/16XIqkN4F1fkzWJVbl2386tJqXqN70_aH-U1a1nlBvvA/edit",
     bodyKey: "club-description",
   },
   {
@@ -309,7 +276,7 @@ export const curriculumCatalog: CurriculumMaterial[] = [
     title: "Recruiting flyer v1",
     section: "club_resources",
     track: "all",
-    summary: "Print-ready APSDS flyer.",
+    summary: "APSDS flyer displayed on Syntaxia.",
     defaultVisible: true,
     assetUrl: "/posters/flyer-v1.png",
   },
@@ -318,7 +285,7 @@ export const curriculumCatalog: CurriculumMaterial[] = [
     title: "Recruiting flyer v2",
     section: "club_resources",
     track: "all",
-    summary: "Alternate APSDS flyer design.",
+    summary: "Alternate APSDS flyer displayed on Syntaxia.",
     defaultVisible: true,
     assetUrl: "/posters/flyer-v2.png",
   },
@@ -327,7 +294,7 @@ export const curriculumCatalog: CurriculumMaterial[] = [
     title: "Club Fest poster",
     section: "club_resources",
     track: "all",
-    summary: "Back-to-school festival poster.",
+    summary: "Back-to-school festival poster on Syntaxia.",
     defaultVisible: true,
     assetUrl: "/posters/flyer-v2.png",
   },

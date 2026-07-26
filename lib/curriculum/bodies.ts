@@ -51,22 +51,22 @@ Meeting 8 - 10/20
 * Recap number conversions: base 2, base 6, base 8, base 16, base 10
 * Review & practice the 25-26 Python Foundations Test and make sure they know everything on it
 * Next meeting will be Python Foundations Test 1 (make a new version duh don’t use the old one)
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 1 OPENS
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 1 OPENS
 Meeting 9 - 10/27
 * 26-27 Python Foundations Test 1
 * PIZZA (cuz they deserve it after their first test)
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 1 OPENS
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 1 OPENS
 Likely November-January
 Meeting 10 - 11/3
 * Give back & Review the 26-27 Python Foundations Test 1
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 2 OPENS
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 2 OPENS
 Meetings 11-17 - 11/10 to 1/12
 * For Intro to ACSL, cover APSDS 10/8/25 CWLesson worksheet
 * All rest basically ACSL Worksheets like 25-26, Anubhav print worksheets and cover in class
 * PIZZA on Meeting 12 - 11/17
 * PIZZA on Meeting 15 - 12/15
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 1 CLOSES (Meeting 15&16)
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 2 OPENS (Meeting 15)
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 1 CLOSES (Meeting 15&16)
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 2 OPENS (Meeting 15)
 Meeting 18 — LIKELY WON’T HAPPEN  - 1/19
 * Likely the Tuesday of pre-comps weeks, help them review (this is all inclusive club)
 Meeting 19 - 1/26
@@ -79,17 +79,17 @@ Likely February
 Meeting 20 - 2/2
 * Recap last time learned Intro to Python (APSDS Python Starter) slides 1-65
 * Intro to Python (APSDS Python Starter) slides 66-74
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 3 OPENS
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 3 OPENS
 * Review the 26-27 Python Foundations Test 2
 Meeting 21 - 2/9
 * 26-27 Python Foundations Test 2
 * PIZZA (cuz they deserve it after their test)
 Meeting 22 - 2/23
 * Give back & Review the 26-27 Python Foundations Test 2
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 2 CLOSES
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 2 CLOSES
 Likely March
 Meeting 23 - 3/2
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 4 OPENS
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 4 OPENS
 * ACSL again
 * ASK WHO WANTS A HOODIE, IT IS FREE BUT IS THE SAME DESIGN AS 2025-2026
 Meetings 24-25 - 3/9 & 3/16
@@ -101,18 +101,18 @@ Meetings 26-27 - 3/23 & 4/6
 * Searching and sorting algorithms (do the interactive activities but this time use sticky notes not whiteboards)
 * Teach binary search, linear search, selection sort, insertion sort
 * Make sure they understand the Big-O notation for the algorithms too
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 3 CLOSES
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 3 CLOSES
 _____SEPARATION OF ROOMS DOES NOT MATTER ANYMORE_____
 Likely April
 Meetings 28-29 - 4/13 & 4/20
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 3 CLOSES
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 3 CLOSES
 * These will likely end up being buffer days because Anubhav often needs to do business travel
 * REFER TO THE LAST FEW DAYS SECTION OF FULL YEAR GUIDE
 * PIZZA on 4/20
 THE END
 Likely May
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 4 CLOSES
-* ACSL REMINDER: REMIND (via email and Schoology) TO REGISTER FOR FINALS AND GIVE FINALS INSTRUCTIONS`,
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 4 CLOSES
+* ACSL REMINDER: REMIND (via email and Syntaxia) TO REGISTER FOR FINALS AND GIVE FINALS INSTRUCTIONS`,
   "l2-course-plan": `APSDS | Course Plan | L2
 — Practical Programming
 Estimated 29 sessions, all tentative
@@ -141,7 +141,7 @@ Meeting 4 - 9/15
 * Send out email to parents on ACSL registration again (include section in meeting minutes)
 * PIZZA
 Meeting 5 - 9/22
-* Teach Search and sort algorithms (binary, bubble, insertion, linear, selection) code on Google Drive 
+* Teach Search and sort algorithms (binary, bubble, insertion, linear, selection) code in the Search & sort algorithms material on Syntaxia 
 * Do practice and make sure everyone comfortable with topics
 * Confirm ACSL parent registration with students (if there are any new)
 * Send out email to parents on ACSL registration again (include section in meeting minutes)
@@ -184,7 +184,7 @@ Meeting 8   - 10/20
 * Then have everyone in the Python folder create a folder called APSDS L2
 * Then in VScode or IDLE click open on the Mac menu bar and select the stuff
 * Then create a file called “minimum_code.py”
-* Introduce the bare minimum code and post it on Schoology during club so everyone can copy and paste into minimum_code.py
+* Introduce the bare minimum code and have everyone type the starter code into the Syntaxia assignment answers
 import pygame
 pygame.init()
 screen = pygame.display.set_mode((640,480))
@@ -205,21 +205,21 @@ red=(255,0,0)
 green=(0,255,0)
 blue=(0,0,255)
 yellow=(235,225,0)
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 1 OPENS
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 1 OPENS
 Meeting 9  - 10/27
 * Basic Exercises in PyGame (YoungWonks Basic Exercises lesson in Level 2 folder)
 * Tell everyone make a new file in that APSDS L2 called basic_exercises.py
-* For every shape draw syntax once you talk about it, paste it (ex: “pygame.draw.circle(screen, color, (x, y), radius, thickness)”) into a post and post update on Schoology (so no need look at board)
+* For every shape draw syntax once you talk about it, paste it (ex: “pygame.draw.circle(screen, color, (x, y), radius, thickness)”) into the Syntaxia teaching material so everyone can copy from here
 * What you will realize is that 0,0 is the top left corner. X increases going right, but y increases going down
 * Now you need to do some math to get the center of the screen
 * PIZZA (cuz they deserve it after their first PyGame creations)
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 1 OPENS
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 1 OPENS
 Likely November
 Meeting 10 - 11/3
 * Applied Shapes in PyGame (YoungWonks Applied Shapes lesson in Level 2 folder)
 * Tell everyone make a new file in that APSDS L2 called applied_shapes.py
 * For each practice comment out previous code hit enter 5 times and paste in bare minimum code
-* In APSDS Google Drive L2 Teaching Materials there is videos for Meeting 10
+* Follow the L2 Teaching Materials lesson on Syntaxia for Meeting 10 practice
 * First do white tile move across and reappear the top screen
 * Then do it go down a level each time pass screen and change color
 * Then do it diagonal
@@ -229,7 +229,7 @@ Meeting 10 - 11/3
 * Do the checkerboard problem and then extend the previous code such that each rectangle has a random color from a list of colors
 * Then put that code into a function
 * Then put that as a background and make 2 balls bounce off each other upon impact in the foreground
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 2 OPENS
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 2 OPENS
 Meeting 11 - 11/10
 * Create new file called stars.py
 * This is going to be their first animation project
@@ -247,18 +247,18 @@ Meeting 12 - 11/17
 Likely December
  
 Meetings 13-14 - 12/1 & 12/8
-* Mouse and button Events, (exercises on Google Drive)
+* Mouse and button Events, (exercises in the L2 Teaching Materials lesson on Syntaxia)
 * Make sure they can do the flag variable clicking thing
 Meeting 15 - 12/15
 * Do the Ball Game project where balls fall from the sky and you control a paddle to collect them, once they touch the ball disappears and you score a point
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 1 CLOSES 
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 2 OPENS
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 1 CLOSES 
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 2 OPENS
 * PIZZA
 Likely January
 Meeting 16-17 - 1/5 & 1/12
 * Continue the Ball Game project if not finished
 * If finished, ACSL
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 1 CLOSES 
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 1 CLOSES 
 Meeting 18 — LIKELY WON’T HAPPEN - 1/19
 * Likely the Tuesday of pre-comps weeks, help them review (this is all inclusive club)
 * Those who don’t have pre-comps do ACSL
@@ -269,18 +269,18 @@ Meeting 19 - 1/26
 Likely February
 Meetings 20-21 - 2/2 & 2/9
 * Make a new file called pong.py
-* Pong project, stuff on Google Drive
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 3 OPENS (Meeting 20)
+* Pong project in the Pong project material on Syntaxia
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 3 OPENS (Meeting 20)
 * PIZZA on 2/9
 Meeting 22 - 2/23
 * Make a new file called snake.py
-* Snake project, stuff on Google Drive
+* Snake project in the Snake project material on Syntaxia
 * Make sure they understand the list append and pop of snake’s body
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 2 CLOSES
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 2 CLOSES
 Likely March
 Meeting 23-25 - 3/2 & 3/9 & 3/16
 * Continue snake game by themselves, least help offered
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 4 OPENS
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 4 OPENS
 * ASK WHO WANTS A HOODIE, IT IS FREE BUT IS THE SAME DESIGN AS 2025-2026
 * LAST CALL FOR WHO WANTS A HOODIE, IT IS FREE BUT IS THE SAME DESIGN AS 2025-2026
 * PIZZA on 3/16
@@ -294,14 +294,14 @@ Meeting 27 - 4/6
 _____SEPARATION OF ROOMS DOES NOT MATTER ANYMORE_____
 Likely April
 Meetings 28-29 - 4/13 & 4/20
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 3 CLOSES
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 3 CLOSES
 * These will likely end up being buffer days because Anubhav often needs to do business travel
 * REFER TO THE LAST FEW DAYS SECTION OF FULL YEAR GUIDE
 * PIZZA on 4/20
 THE END
 Likely May
-* ACSL REMINDER: REMIND (via email and Schoology) WHEN CONTEST 4 CLOSES
-* ACSL REMINDER: REMIND (via email and Schoology) TO REGISTER FOR FINALS AND GIVE FINALS INSTRUCTIONS`,
+* ACSL REMINDER: REMIND (via email and Syntaxia) WHEN CONTEST 4 CLOSES
+* ACSL REMINDER: REMIND (via email and Syntaxia) TO REGISTER FOR FINALS AND GIVE FINALS INSTRUCTIONS`,
   "apcsa-prep-guide": `APSDS | APCSA Prep Guide
 Session 1 — September 13 
 Primitives, Variables & Operators
@@ -379,6 +379,6 @@ Spring — Projects, Mentorship & Finals Push
 
 Year-round
 * Problem-solving journal and editorial write-ups encouraged
-* Staff posts a weekly problem list on Schoology
+* Staff posts a weekly problem list in Weekly practice on Syntaxia
 * Advanced-only contest training (USACO, CALICO, etc.) — opt-in with placement approval`,
 };
