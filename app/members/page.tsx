@@ -39,7 +39,7 @@ export default async function MembersPage() {
       <div className="mb-10 flex flex-wrap items-center justify-between gap-3">
         <div className="text-sm text-[var(--muted)]">
           {user ? (
-            <>Signed in as <span className="text-white">{profile?.email ?? user.email}</span></>
+            <>Signed in as <span className="text-[var(--ink)]">{profile?.email ?? user.email}</span></>
           ) : (
             "Not signed in"
           )}

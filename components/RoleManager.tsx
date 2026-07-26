@@ -97,7 +97,7 @@ export function RoleManager() {
   return (
     <section className="space-y-5">
       <div>
-        <h2 className="display text-2xl text-white">People & roles</h2>
+        <h2 className="display text-2xl text-[var(--ink)]">People & roles</h2>
         <p className="mt-2 max-w-2xl text-sm text-[var(--muted)]">
           Search anyone who signed up, make them an executive, or assign them as a chapter
           director/instructor for a specific school.
@@ -108,11 +108,11 @@ export function RoleManager() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search by name or email"
-        className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-white outline-none focus:border-[rgba(var(--brand-soft-rgb),0.45)]"
+        className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-[var(--ink)] outline-none focus:border-[rgba(var(--brand-soft-rgb),0.45)]"
       />
 
-      {error ? <p className="text-sm text-red-300">{error}</p> : null}
-      {message ? <p className="text-sm text-[var(--mint)]">{message}</p> : null}
+      {error ? <p className="form-error text-sm">{error}</p> : null}
+      {message ? <p className="form-success text-sm">{message}</p> : null}
 
       <div className="space-y-3">
         {filtered.map((person) => {
@@ -127,7 +127,7 @@ export function RoleManager() {
             >
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="display text-xl text-white">
+                  <p className="display text-xl text-[var(--ink)]">
                     {person.display_name || person.email || "User"}
                   </p>
                   <p className="text-sm text-[var(--muted)]">{person.email}</p>
@@ -169,13 +169,13 @@ export function RoleManager() {
                         key={row.id}
                         className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--line)] px-3 py-2 text-sm"
                       >
-                        <span className="text-white">
+                        <span className="text-[var(--ink)]">
                           {chapterName(row.chapter_id)} · {row.role}
                         </span>
                         <button
                           type="button"
                           disabled={pending}
-                          className="text-[var(--muted)] hover:text-white"
+                          className="text-[var(--muted)] hover:text-[var(--ink)]"
                           onClick={() => run("remove_staff", { staffId: row.id })}
                         >
                           Remove
@@ -194,7 +194,7 @@ export function RoleManager() {
                   onChange={(e) =>
                     setSelectedChapter((prev) => ({ ...prev, [person.id]: e.target.value }))
                   }
-                  className="rounded-xl border border-[var(--line)] bg-[var(--bg)] px-3 py-2.5 text-sm text-white outline-none"
+                  className="rounded-xl border border-[var(--line)] bg-[var(--bg)] px-3 py-2.5 text-sm text-[var(--ink)] outline-none"
                 >
                   {chapters.map((chapter) => (
                     <option key={chapter.id} value={chapter.id}>
@@ -210,7 +210,7 @@ export function RoleManager() {
                       [person.id]: e.target.value as "director" | "instructor",
                     }))
                   }
-                  className="rounded-xl border border-[var(--line)] bg-[var(--bg)] px-3 py-2.5 text-sm text-white outline-none"
+                  className="rounded-xl border border-[var(--line)] bg-[var(--bg)] px-3 py-2.5 text-sm text-[var(--ink)] outline-none"
                 >
                   <option value="director">Chapter director</option>
                   <option value="instructor">Instructor</option>

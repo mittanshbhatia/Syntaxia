@@ -95,10 +95,7 @@ export default async function AdminPage() {
     <main className="container py-16 sm:py-20">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="w-full text-center">
-          <p className="eyebrow">
-            {isExecutive ? "Executive access" : isDirector ? "Chapter director" : "Instructor"}
-          </p>
-          <h1 className="mt-4 text-center text-sm font-bold uppercase tracking-[0.22em] text-[var(--ink)]">
+          <h1 className="text-center text-4xl font-bold uppercase tracking-[0.22em] text-[var(--ink)] sm:text-6xl">
             Admin Panel
           </h1>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-[var(--muted)]">

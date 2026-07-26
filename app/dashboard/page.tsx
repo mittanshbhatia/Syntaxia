@@ -61,7 +61,8 @@ export default async function DashboardPage() {
             : ""}
         </p>
         <p className="mx-auto mt-2 text-center text-sm text-[var(--muted)]">
-          Signed in as {profile?.email ?? user.email}
+          Signed in as{" "}
+          <span className="text-[var(--ink)]">{profile?.email ?? user.email}</span>
           {staff.length ? " · Chapter staff" : ""}
           {profile?.global_role === "executive" ? " · Executive" : ""}
         </p>

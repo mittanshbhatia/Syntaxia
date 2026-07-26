@@ -15,8 +15,7 @@ export default function ApsdsPage() {
     <main>
       <section className="container py-20 text-center sm:py-28">
         <Reveal>
-          <p className="eyebrow">Promoted by Syntaxia</p>
-          <div className="mx-auto mt-8 flex justify-center">
+          <div className="mx-auto flex justify-center">
             <Image
               src="/brand/APSDS_Logo.svg"
               alt="APSDS"
@@ -25,6 +24,9 @@ export default function ApsdsPage() {
               className="h-auto w-full max-w-[28rem] object-contain"
               priority
             />
+          </div>
+          <div className="eyebrow-center mt-4">
+            <p className="eyebrow">by Syntaxia</p>
           </div>
           <p className="mx-auto mt-6 max-w-xl text-lg text-[var(--muted)]">{apsds.tagline}</p>
           <p className="mx-auto mt-4 max-w-2xl text-[var(--muted)]">{apsds.mission}</p>
@@ -49,7 +51,7 @@ export default function ApsdsPage() {
         <div className="container grid gap-4 py-20 md:grid-cols-3">
           {tracks.map((track, index) => (
             <Reveal key={track.id} delay={(index + 1) as 1 | 2 | 3}>
-              <article className="rounded-[1.5rem] border border-[var(--line)] p-6 text-center">
+              <article className="p-6 text-center">
                 <p className="display text-sm" style={{ color: track.accent }}>
                   {track.level}
                 </p>

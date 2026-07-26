@@ -39,7 +39,7 @@ export default async function JoinPage() {
           <div className="mx-auto max-w-xl text-center">
             <Reveal>
               <p className="eyebrow">Join</p>
-              <h1 className="display section-title mt-4 text-5xl text-white sm:text-6xl">
+              <h1 className="display section-title mt-4 text-5xl text-[var(--ink)] sm:text-6xl">
                 Find a Chapter
               </h1>
               <p className="mt-5 text-[var(--muted)]">

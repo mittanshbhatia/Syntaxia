@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { getSessionUser } from "@/lib/auth";
-import { startSteps, syntaxia } from "@/lib/content";
+import { startSteps } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Start a chapter",
@@ -48,9 +48,6 @@ export default async function StartPage() {
                   {String(index + 1).padStart(2, "0")}
                 </p>
                 <h2 className="display relative z-10 mt-4 text-2xl text-[var(--ink)]">{step.title}</h2>
-                <p className="relative z-10 mt-3 text-sm leading-relaxed text-[var(--muted)]">
-                  {step.body}
-                </p>
               </article>
             </Reveal>
           ))}
@@ -64,7 +61,9 @@ export default async function StartPage() {
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <a
-                href={`mailto:${syntaxia.email}?subject=${encodeURIComponent("New APSDS chapter")}`}
+                href="https://forms.gle/9yVBjGQ1qZ8aYPTs7"
+                target="_blank"
+                rel="noreferrer"
                 className="btn btn-primary"
               >
                 Propose a chapter

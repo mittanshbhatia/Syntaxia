@@ -96,11 +96,11 @@ export const tracks = [
 export const pillars = [
   {
     title: "Teach for real",
-    body: "Weekly meetings, practice, and projects, not hangouts dressed up as clubs.",
+    body: "Weekly meetings, practice, and projects",
   },
   {
     title: "Grow by level",
-    body: "Students place into L1, L2, or L3 and advance instead of restarting every year.",
+    body: "Students place into L1, L2, or L3 and advance every year",
   },
   {
     title: "Compete with support",
@@ -108,7 +108,7 @@ export const pillars = [
   },
   {
     title: "Scale to new schools",
-    body: "Shared standards so new chapters can launch without rebuilding everything.",
+    body: "Shared standards allow for efficient expansion of APSDS",
   },
 ] as const;
 
@@ -119,9 +119,9 @@ export const joinSteps = [
 ] as const;
 
 export const startSteps = [
-  { title: "Tell us your school", body: "Share your campus, team, and launch window." },
-  { title: "Receive the playbook", body: "Curriculum, diagnostics, ACSL, and workshop structure." },
-  { title: "Launch locally", body: "Recruit instructors, run interest meetings, place students." },
+  { title: "Tell us your school" },
+  { title: "Receive the playbook" },
+  { title: "Launch locally" },
 ] as const;
 
 export const dashboardSections = [

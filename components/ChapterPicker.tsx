@@ -106,11 +106,11 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search school or region"
-          className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3.5 text-white outline-none transition placeholder:text-[var(--muted)] focus:border-[rgba(var(--brand-soft-rgb),0.45)]"
+          className="w-full rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3.5 text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)] focus:border-[rgba(var(--brand-soft-rgb),0.45)]"
         />
       </label>
 
-      {error ? <p className="mt-4 text-sm text-red-300">{error}</p> : null}
+      {error ? <p className="form-error mt-4 text-sm">{error}</p> : null}
 
       <ul className="mt-6 grid gap-3 sm:grid-cols-2">
         {filtered.map((chapter) => {
@@ -128,7 +128,7 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
                 <Link href={`/members/${chapter.slug}`} className="chapter-card block" data-status="open">
                   <Header chapter={chapter} statusLabel="Approved" statusClass="open" />
                   <p className="mt-4 text-sm text-[var(--muted)]">{chapter.blurb}</p>
-                  <p className="mt-5 text-sm font-semibold text-white">Enter chapter →</p>
+                  <p className="mt-5 text-sm font-semibold text-[var(--ink)]">Enter chapter →</p>
                 </Link>
               ) : membership?.status === "pending" ? (
                 <Link href={`/members/${chapter.slug}`} className="chapter-card block" data-status="open">
@@ -136,7 +136,7 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
                   <p className="mt-4 text-sm text-[var(--muted)]">
                     Waiting for instructor approval.
                   </p>
-                  <p className="mt-5 text-sm font-semibold text-white">View status →</p>
+                  <p className="mt-5 text-sm font-semibold text-[var(--ink)]">View status →</p>
                 </Link>
               ) : membership?.status === "rejected" ? (
                 <div className="chapter-card" data-status="coming">
@@ -155,7 +155,7 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
                 >
                   <Header chapter={chapter} statusLabel="Open" statusClass="open" />
                   <p className="mt-4 text-sm text-[var(--muted)]">{chapter.blurb}</p>
-                  <p className="mt-5 text-sm font-semibold text-white">
+                  <p className="mt-5 text-sm font-semibold text-[var(--ink)]">
                     {signedIn ? "Request access →" : "Sign in to request →"}
                   </p>
                 </button>
@@ -180,7 +180,7 @@ function Header({
   return (
     <div className="flex items-start justify-between gap-3">
       <div>
-        <p className="display text-xl text-white">{chapter.short_name}</p>
+        <p className="display text-xl text-[var(--ink)]">{chapter.short_name}</p>
         <p className="mt-1 text-sm text-[var(--muted)]">{chapter.name}</p>
         <p className="mt-1 text-xs text-[var(--brand-soft)]">{chapter.region}</p>
       </div>

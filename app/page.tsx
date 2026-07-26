@@ -113,7 +113,7 @@ export default function HomePage() {
 
       <section className="container pb-24">
         <Reveal>
-          <div className="overflow-hidden border border-[var(--line)] bg-[var(--surface)] p-8 sm:p-12 text-center">
+          <div className="cta-box overflow-hidden border border-[var(--line)] bg-[var(--surface)] p-8 sm:p-12 text-center">
             <p className="eyebrow">Open now</p>
             <h2 className="display section-title mt-4 max-w-2xl mx-auto text-4xl text-[var(--ink)]">
               Multiple active chapters, coming to a school near you.

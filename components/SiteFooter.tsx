@@ -10,20 +10,20 @@ export function SiteFooter() {
         </div>
 
         <div className="md:text-right">
-          <div className="flex justify-start md:justify-end">
-            <p className="eyebrow">Follow Us</p>
-          </div>
-          <div className="footer-links mt-4 flex flex-wrap items-end gap-6 md:justify-end">
-            <a
-              href={apsds.instagramUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 text-sm hover:opacity-70"
-            >
-              <InstagramIcon />
-              @{apsds.instagram}
-            </a>
-            <div className="footer-talk flex flex-col items-center gap-2">
+          <div className="footer-links flex flex-wrap items-start gap-8 md:justify-end">
+            <div className="footer-follow flex flex-col items-start gap-2 md:items-center">
+              <p className="eyebrow">Follow Us</p>
+              <a
+                href={apsds.instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-sm hover:opacity-70"
+              >
+                <InstagramIcon />
+                @{apsds.instagram}
+              </a>
+            </div>
+            <div className="footer-talk flex flex-col items-start gap-2 md:items-center">
               <p className="eyebrow">Talk to us</p>
               <a
                 href={`mailto:${apsds.email}`}

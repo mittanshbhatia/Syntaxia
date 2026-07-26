@@ -58,12 +58,12 @@ export function AssignStaffForm({ chapters }: { chapters: ChapterOption[] }) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="member@email.com"
-        className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 text-sm text-white outline-none"
+        className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--ink)] outline-none"
       />
       <select
         value={chapterId}
         onChange={(e) => setChapterId(e.target.value)}
-        className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 text-sm text-white outline-none"
+        className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--ink)] outline-none"
       >
         {chapters.map((chapter) => (
           <option key={chapter.id} value={chapter.id}>
@@ -74,7 +74,7 @@ export function AssignStaffForm({ chapters }: { chapters: ChapterOption[] }) {
       <select
         value={role}
         onChange={(e) => setRole(e.target.value as "director" | "instructor")}
-        className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 text-sm text-white outline-none"
+        className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--ink)] outline-none"
       >
         <option value="director">Director</option>
         <option value="instructor">Instructor</option>

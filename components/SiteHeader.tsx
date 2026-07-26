@@ -90,7 +90,7 @@ export function SiteHeader() {
 
           <div className="z-10 flex items-center gap-2">
             {signedIn ? (
-              <Link href={dashboardHref} className="btn btn-primary px-4 py-2 text-sm">
+              <Link href={dashboardHref} className="btn btn-primary btn-sm">
                 Dashboard
               </Link>
             ) : (

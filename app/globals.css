@@ -17,6 +17,8 @@ html[data-theme="dark"] {
   --surface-2: rgba(255, 255, 255, 0.055);
   --shell-glow: rgba(var(--brand-rgb), 0.22);
   --nav-bg: rgba(5, 6, 10, 0.72);
+  --danger: #ff8f8f;
+  --success: #6fe0b4;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -37,6 +39,16 @@ html[data-theme="light"] {
   --surface-2: rgba(255, 255, 255, 0.75);
   --shell-glow: rgba(var(--brand-rgb), 0.12);
   --nav-bg: rgba(241, 236, 223, 0.86);
+  --danger: #a32020;
+  --success: #146c4a;
+}
+
+.form-error {
+  color: var(--danger);
+}
+
+.form-success {
+  color: var(--success);
 }
 
 * {
@@ -145,7 +157,7 @@ main h3,
   gap: 0.45rem;
   min-height: 2.85rem;
   padding: 0 1.25rem;
-  border-radius: 0;
+  border-radius: 999px;
   font-size: 0.92rem;
   font-weight: 600;
   transition:
@@ -155,6 +167,13 @@ main h3,
     color 0.12s var(--ease),
     box-shadow 0.12s var(--ease);
   will-change: transform;
+}
+
+.btn-sm {
+  min-height: 2.1rem;
+  padding: 0 0.85rem;
+  font-size: 0.78rem;
+  gap: 0.3rem;
 }
 
 .btn:hover {
@@ -480,36 +499,36 @@ html[data-theme="light"] .marquee-track span {
   color: var(--track-accent);
 }
 
-/* Dark mode: accent labels + darker translucent fills */
+/* Dark mode: bright accent labels + darker translucent fills of each accent */
 .track-card-l1 {
   --track-accent: #c4a574;
-  background: rgba(110, 82, 42, 0.28);
+  background: rgba(74, 54, 26, 0.45);
 }
 
 .track-card-l2 {
   --track-accent: #b8bcc4;
-  background: rgba(70, 76, 88, 0.32);
+  background: rgba(45, 50, 59, 0.5);
 }
 
 .track-card-l3 {
   --track-accent: #f0c44d;
-  background: rgba(150, 110, 20, 0.26);
+  background: rgba(100, 73, 11, 0.42);
 }
 
-/* Light mode: darker accents + translucent fills of those colors */
+/* Light mode: darker accents + translucent fills of those same colors */
 html[data-theme="light"] .track-card-l1 {
-  --track-accent: #7a5c32;
-  background: rgba(122, 92, 50, 0.18);
+  --track-accent: #5f4622;
+  background: rgba(95, 70, 34, 0.24);
 }
 
 html[data-theme="light"] .track-card-l2 {
-  --track-accent: #5c636e;
-  background: rgba(92, 99, 110, 0.16);
+  --track-accent: #434952;
+  background: rgba(67, 73, 82, 0.22);
 }
 
 html[data-theme="light"] .track-card-l3 {
-  --track-accent: #b08912;
-  background: rgba(176, 137, 18, 0.18);
+  --track-accent: #8a6a08;
+  background: rgba(138, 106, 8, 0.24);
 }
 
 .site-footer {
@@ -567,7 +586,7 @@ html[data-theme="light"] .hero .btn-start-chapter:hover {
 .account-avatar {
   width: 2.35rem;
   height: 2.35rem;
-  border-radius: 0;
+  border-radius: 999px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.35);
   padding: 0;
@@ -579,7 +598,7 @@ html[data-theme="light"] .hero .btn-start-chapter:hover {
   justify-content: center;
   width: 2.35rem;
   height: 2.35rem;
-  border-radius: 0;
+  border-radius: 999px;
   border: 1px solid var(--line-2);
   background: var(--surface);
   color: #ffffff;
@@ -734,9 +753,19 @@ html[data-theme="light"] .nav-blur .btn-ghost {
   color: #0a0a0a;
 }
 
-/* Square every box / container across the site */
-[class*="rounded"] {
+/* The nav Dashboard / Sign in primary button keeps white text on its blue fill */
+html[data-theme="light"] .nav-blur a.btn-primary {
+  color: #ffffff;
+}
+
+/* Square every box / container across the site, except clickable controls */
+[class*="rounded"]:not(.btn):not(.icon-btn):not(.account-avatar):not(.cta-box) {
   border-radius: 0 !important;
+}
+
+/* Rounded call-to-action panel on the home page */
+.cta-box {
+  border-radius: 2rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

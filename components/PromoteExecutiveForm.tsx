@@ -50,7 +50,7 @@ export function PromoteExecutiveForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="executive@email.com"
-        className="flex-1 rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 text-sm text-white outline-none"
+        className="flex-1 rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--ink)] outline-none"
       />
       <button type="submit" disabled={pending} className="btn btn-ghost px-4 py-2 text-sm">
         Make executive
