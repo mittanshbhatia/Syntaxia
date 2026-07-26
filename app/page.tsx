@@ -22,10 +22,10 @@ export default function HomePage() {
             <p className="brand-mark hero-rise text-[clamp(3.4rem,9vw,5.6rem)] text-[var(--ink)]">
               {syntaxia.name}
             </p>
-            <h1 className="hero-rise-2 mt-5 max-w-xl text-left text-[clamp(1.55rem,3.2vw,2.15rem)] font-semibold leading-[1.15] tracking-[-0.03em] text-[var(--ink)]">
+            <h1 className="hero-rise-2 mt-5 max-w-3xl text-left text-[clamp(1.55rem,2.6vw,2.35rem)] font-semibold leading-[1.15] tracking-[-0.03em] text-[var(--ink)]">
               {syntaxia.headline}
             </h1>
-            <p className="hero-rise-3 mt-5 max-w-xl text-base leading-relaxed text-[var(--muted)] sm:text-lg">
+            <p className="hero-rise-3 mt-5 max-w-2xl text-base leading-relaxed text-[var(--muted)] sm:text-lg">
               {syntaxia.description}
             </p>
             <p className="hero-rise-3 mt-3 text-sm font-medium text-[var(--ink)]">{syntaxia.icp}</p>
