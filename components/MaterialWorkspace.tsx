@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 import type { LessonModule } from "@/lib/curriculum/lessons";
+import { CodeEditorWorkspace } from "@/components/CodeEditorWorkspace";
 
 type Props = {
   chapterId: string;
@@ -96,15 +97,21 @@ export function MaterialWorkspace({ chapterId, materialId, lesson, initialAnswer
                       setAnswers((prev) => ({ ...prev, [prompt.id]: e.target.value }))
                     }
                   />
+                ) : prompt.kind === "code" ? (
+                  <CodeEditorWorkspace
+                    chapterId={chapterId}
+                    materialId={materialId}
+                    promptId={prompt.id}
+                    value={answers[prompt.id] ?? ""}
+                    placeholder={prompt.placeholder ?? "# Type your code here"}
+                    onChange={(next) => setAnswers((prev) => ({ ...prev, [prompt.id]: next }))}
+                  />
                 ) : (
                   <textarea
                     id={prompt.id}
-                    className={`field mt-3 min-h-[7rem] ${prompt.kind === "code" ? "font-mono text-xs" : ""}`}
+                    className="field mt-3 min-h-[7rem]"
                     value={answers[prompt.id] ?? ""}
-                    placeholder={
-                      prompt.placeholder ??
-                      (prompt.kind === "code" ? "# Type your code here" : "Type your answer")
-                    }
+                    placeholder={prompt.placeholder ?? "Type your answer"}
                     onChange={(e) =>
                       setAnswers((prev) => ({ ...prev, [prompt.id]: e.target.value }))
                     }

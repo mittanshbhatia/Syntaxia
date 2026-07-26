@@ -154,9 +154,9 @@ export const productFeatures = [
   },
   {
     title: "Code submissions",
-    body: "Students submit and eventually execute code directly inside Syntaxia.",
+    body: "Students submit code in Monaco with misconception tags; isolated execution coming soon.",
     status: "partial" as const,
-    note: "Text submission live · in-browser run & autograding coming soon",
+    note: "Editor + submit live · secure runner & autograding coming soon",
   },
   {
     title: "Instructor dashboard",
@@ -168,7 +168,7 @@ export const productFeatures = [
     title: "Chapter operations",
     body: "Memberships, roles, cohorts, announcements, and curriculum visibility.",
     status: "partial" as const,
-    note: "Memberships & roles live · cohorts coming soon",
+    note: "Memberships, roles & cohorts live · announcements expanding",
   },
   {
     title: "Socratic support",
@@ -338,9 +338,9 @@ export const joinSteps = [
 ] as const;
 
 export const startSteps = [
-  { title: "Tell us your school" },
-  { title: "Receive the playbook" },
-  { title: "Launch locally" },
+  { title: "Tell us your school", body: "Share your campus, team, and launch window." },
+  { title: "Receive the playbook", body: "Curriculum, diagnostics, ACSL, and workshop structure." },
+  { title: "Launch locally", body: "Recruit instructors, run interest meetings, place students." },
 ] as const;
 
 export const dashboardSections = [

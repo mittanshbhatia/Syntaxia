@@ -73,6 +73,12 @@ export default async function DashboardPage({ searchParams }: Props) {
               Control member visibility
             </Link>
           ) : null}
+          <Link
+            href={`/dashboard/program?chapter=${selected.slug}`}
+            className="btn btn-ghost px-4 py-2 text-sm"
+          >
+            Placement & cohorts
+          </Link>
           <SignOutButton />
         </div>
       </div>
