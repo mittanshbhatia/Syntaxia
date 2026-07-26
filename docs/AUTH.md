@@ -1,10 +1,10 @@
 ## Auth + roles (Supabase)
 
 ### Roles
-- **Executive:** all chapters, edit curriculum, manage staff. Cannot be removed by chapter directors.
-- **Chapter director:** own chapter only; approve/reject members; curriculum read-only; cannot remove executives or other directors.
-- **Instructor:** own chapter view; cannot approve/reject/remove members; curriculum read-only (revoked when removed).
-- **Approved member:** dashboard for chapter materials.
+- **Executive:** all chapters, manage curriculum visibility, manage staff. Cannot be removed by chapter directors.
+- **Chapter director:** own chapter only; approve/reject members; control what members see on the dashboard; cannot remove executives or other directors.
+- **Instructor:** own chapter view; cannot approve/reject/remove members; can view curriculum including hidden items; cannot change visibility.
+- **Approved member:** dashboard for chapter materials that executives/directors have made visible.
 
 ### Auth URLs
 - Site URL: `https://syntaxia.org`
