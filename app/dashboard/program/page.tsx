@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { AttendancePanel } from "@/components/AttendancePanel";
 import { CohortManager } from "@/components/CohortManager";
 import { DiagnosticQuiz } from "@/components/DiagnosticQuiz";
+import { InterventionQueue } from "@/components/InterventionQueue";
 import {
   canManageVisibility,
   getMemberChapters,
   getSessionUser,
+  getStaffRoles,
+  getProfile,
 } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Program tools",
-  description: "Diagnostics, placement, and cohorts.",
+  description: "Diagnostics, placement, cohorts, attendance, and interventions.",
 };
 
 type Props = {
@@ -29,6 +33,10 @@ export default async function ProgramPage({ searchParams }: Props) {
   const selected =
     memberChapters.find((c) => c.slug === params.chapter) ?? memberChapters[0];
   const canEdit = await canManageVisibility(user.id, selected.id);
+  const profile = await getProfile();
+  const staff = await getStaffRoles(user.id);
+  const isStaffViewer =
+    profile?.global_role === "executive" || staff.some((s) => s.chapter_id === selected.id);
 
   return (
     <main className="container py-16 sm:py-24">
@@ -39,11 +47,11 @@ export default async function ProgramPage({ searchParams }: Props) {
         </Link>
       </div>
       <h1 className="display mt-6 text-left text-4xl text-[var(--ink)] sm:text-5xl">
-        {selected.short_name} · placement & cohorts
+        {selected.short_name} · placement & operations
       </h1>
       <p className="mt-3 max-w-2xl text-sm text-[var(--muted)]">
-        Complete the diagnostic to get a track recommendation. Staff can create cohorts for weekly
-        instruction and attendance.
+        Diagnostic placement, cohorts, attendance meetings, and an intervention queue fed by real
+        chapter activity.
       </p>
 
       {memberChapters.length > 1 ? (
@@ -64,7 +72,11 @@ export default async function ProgramPage({ searchParams }: Props) {
 
       <div className="mt-10 space-y-8">
         <DiagnosticQuiz chapterId={selected.id} />
+        {isStaffViewer ? (
+          <InterventionQueue chapterId={selected.id} chapterSlug={selected.slug} />
+        ) : null}
         <CohortManager chapterId={selected.id} canEdit={canEdit} />
+        <AttendancePanel chapterId={selected.id} canEdit={canEdit} />
       </div>
     </main>
   );

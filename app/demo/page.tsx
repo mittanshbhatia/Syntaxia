@@ -3,24 +3,25 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ProductDashboardPreview } from "@/components/ProductDashboardPreview";
+import { openChapters } from "@/lib/content";
 
 type Role = "student" | "instructor" | "director";
 
 const roles: { id: Role; label: string; blurb: string }[] = [
   {
     id: "student",
-    label: "Student demo",
-    blurb: "Assigned track, lesson, submission, progress, and hint history.",
+    label: "Student view",
+    blurb: "Placement, lessons, code workspace, and progress — empty until you join a chapter.",
   },
   {
     id: "instructor",
-    label: "Instructor demo",
-    blurb: "Progress, misconceptions, pending submissions, and intervention queue.",
+    label: "Instructor view",
+    blurb: "Dashboard chrome for submissions, curriculum controls, and interventions.",
   },
   {
     id: "director",
-    label: "Program-director demo",
-    blurb: "Chapters, cohorts, instructors, memberships, billing, and org analytics.",
+    label: "Program-director view",
+    blurb: "Verified chapters plus empty cohorts and analytics until you create them.",
   },
 ];
 
@@ -35,13 +36,13 @@ export default function DemoPage() {
   return (
     <main className="container py-14 sm:py-20">
       <div className="max-w-3xl text-left">
-        <p className="eyebrow eyebrow-left">Live demo</p>
+        <p className="eyebrow eyebrow-left">Product tour</p>
         <h1 className="display mt-4 text-4xl text-[var(--ink)] sm:text-5xl">
-          Try Syntaxia without creating an account.
+          See the product surfaces — without invented numbers.
         </h1>
         <p className="mt-4 text-[var(--muted)]">
-          Synthetic data only. No email verification, chapter request, or approval wait. Demo resets
-          periodically.
+          This tour shows the real UI layout with empty states. Metrics fill in from your chapter after
+          you sign in. No sample students or fake analytics.
         </p>
       </div>
 
@@ -51,9 +52,9 @@ export default function DemoPage() {
             key={r.id}
             type="button"
             onClick={() => setRole(r.id)}
-            className={`border p-4 text-left transition ${
+            className={`rounded-[1rem] border p-5 text-left transition ${
               role === r.id
-                ? "border-[var(--brand)] bg-[rgba(var(--brand-rgb),0.08)]"
+                ? "border-[var(--brand)] bg-[rgba(var(--brand-rgb),0.08)] shadow-[0_12px_40px_rgba(31,43,213,0.12)]"
                 : "border-[var(--line)] bg-[var(--surface)] hover:border-[var(--line-2)]"
             }`}
           >
@@ -66,7 +67,10 @@ export default function DemoPage() {
       <div className="mt-8">{panel}</div>
 
       <div className="mt-10 flex flex-wrap gap-3">
-        <Link href="/start" className="btn btn-primary">
+        <Link href="/auth/sign-up" className="btn btn-primary">
+          Create an account
+        </Link>
+        <Link href="/start" className="btn btn-ghost">
           Start a pilot
         </Link>
         <Link href="/pricing" className="btn btn-ghost">
@@ -82,31 +86,26 @@ function StudentDemo() {
     <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
       <div className="space-y-4">
         <Card title="Placement">
-          <p className="display text-3xl text-[var(--ink)]">L1 · Foundations</p>
-          <p className="mt-2 text-sm text-[var(--muted)]">Starting lesson: Variables & types · Confidence 74%</p>
+          <Empty
+            title="No diagnostic yet"
+            body="After you join a chapter, take the Python foundations diagnostic under Placement & cohorts."
+          />
         </Card>
         <Card title="Progress">
-          <Row label="Lessons completed" value="6 / 18" />
-          <Row label="Assignments passed" value="4 / 7" />
-          <Row label="Hints used" value="3" />
+          <Row label="Lessons completed" value="—" />
+          <Row label="Assignments passed" value="—" />
+          <Row label="Hints used" value="—" />
         </Card>
       </div>
-      <Card title="Current assignment · Sum to n">
-        <pre className="overflow-x-auto border border-[var(--line)] bg-[var(--bg)] p-3 font-mono text-xs text-[var(--ink)]">{`def sum_to(n):
-    total = 0
-    for i in range(1, n):  # off-by-one
-        total += i
-    return total
+      <Card title="Code workspace">
+        <pre className="overflow-x-auto rounded-lg border border-[var(--line)] bg-[var(--bg)] p-3 font-mono text-xs text-[var(--muted)]">{`# Your assignment code appears here
+# Monaco editor · submit · misconception tags
 `}</pre>
-        <p className="mt-3 text-sm text-[#b45309]">Tests 2/4 failed · category: loop boundaries</p>
-        <div className="mt-4 border border-[var(--line)] bg-[var(--surface)] p-3 text-sm">
-          <p className="font-semibold text-[var(--ink)]">Hint history</p>
-          <ol className="mt-2 list-decimal space-y-1 pl-4 text-[var(--muted)]">
-            <li>What did you expect `range(1, n)` to include?</li>
-            <li>Failing category: off-by-one on the upper bound.</li>
-            <li>Look at the end of your loop range.</li>
-          </ol>
-        </div>
+        <Empty
+          className="mt-4"
+          title="No submission yet"
+          body="Open a dashboard material with a code prompt to write and submit real work."
+        />
       </Card>
     </div>
   );
@@ -118,14 +117,12 @@ function InstructorDemo() {
       <ProductDashboardPreview />
       <div className="grid gap-4 lg:grid-cols-2">
         <Card title="Pending submissions">
-          <Row label="L1 · Loops quiz" value="9 waiting" />
-          <Row label="L2 · Lists project" value="4 waiting" />
-          <Row label="L3 · Recursion warmup" value="2 waiting" />
+          <Empty title="Queue empty" body="Student code submissions for your chapter show up here." />
         </Card>
         <Card title="Curriculum controls">
-          <Row label="Published this week" value="Loops · Part 2" />
-          <Row label="Visible to L1 only" value="Yes" />
-          <Row label="Answers unlocked for staff" value="Yes" />
+          <Row label="Visibility tools" value="Admin → Member visibility" />
+          <Row label="Materials" value="Dashboard sections" />
+          <Row label="Placement override" value="Coming with staff tools" />
         </Card>
       </div>
     </div>
@@ -135,30 +132,30 @@ function InstructorDemo() {
 function DirectorDemo() {
   return (
     <div className="grid gap-4 lg:grid-cols-3">
-      <Card title="Chapters">
-        <Row label="BISV" value="Active" />
-        <Row label="Lynbrook" value="Active" />
-        <Row label="Harker" value="Active" />
+      <Card title="Verified chapters">
+        {openChapters.map((c) => (
+          <Row key={c.id} label={c.shortName} value={c.status === "open" ? "Open" : c.status} />
+        ))}
       </Card>
       <Card title="Cohorts">
-        <Row label="BISV · L1 Fall 2026" value="28 students" />
-        <Row label="BISV · L2 Fall 2026" value="19 students" />
-        <Row label="Lynbrook · L1" value="22 students" />
+        <Empty title="No cohorts yet" body="Create cohorts from Dashboard → Placement & cohorts after signing in as staff." />
       </Card>
       <Card title="Organization">
-        <Row label="Instructors" value="6" />
-        <Row label="Membership approvals" value="5 pending" />
-        <Row label="Plan" value="Community (APSDS)" />
-        <Row label="Billing" value="N/A · flagship program" />
+        <Row label="Plan" value="APSDS flagship / Community" />
+        <Row label="Billing" value="Not connected yet" />
+        <Row label="Approvals" value="Live in Admin" />
       </Card>
       <div className="lg:col-span-3">
-        <Card title="Org analytics (synthetic)">
+        <Card title="Org analytics">
           <div className="grid gap-3 sm:grid-cols-4">
-            <Metric value="84" label="Active students" />
-            <Metric value="61%" label="Weekly active" />
-            <Metric value="146" label="Submissions / week" />
-            <Metric value="8" label="Need support" />
+            <Metric value="—" label="Active students" />
+            <Metric value="—" label="Weekly active" />
+            <Metric value="—" label="Submissions / week" />
+            <Metric value="—" label="Need support" />
           </div>
+          <p className="mt-3 text-xs text-[var(--muted)]">
+            Analytics populate from real memberships, attendance, and submissions — never seeded samples.
+          </p>
         </Card>
       </div>
     </div>
@@ -167,10 +164,27 @@ function DirectorDemo() {
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="border border-[var(--line)] bg-[var(--surface)] p-5 text-left">
+    <section className="rounded-[1.1rem] border border-[var(--line)] bg-[var(--surface)] p-5 text-left shadow-[0_12px_40px_rgba(15,23,42,0.04)]">
       <h2 className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--muted)]">{title}</h2>
       <div className="mt-3">{children}</div>
     </section>
+  );
+}
+
+function Empty({
+  title,
+  body,
+  className = "",
+}: {
+  title: string;
+  body: string;
+  className?: string;
+}) {
+  return (
+    <div className={`border border-dashed border-[var(--line)] bg-[var(--bg)] px-4 py-6 text-center ${className}`}>
+      <p className="text-sm font-medium text-[var(--ink)]">{title}</p>
+      <p className="mt-1 text-xs leading-relaxed text-[var(--muted)]">{body}</p>
+    </div>
   );
 }
 
@@ -185,7 +199,7 @@ function Row({ label, value }: { label: string; value: string }) {
 
 function Metric({ value, label }: { value: string; label: string }) {
   return (
-    <div className="border border-[var(--line)] bg-[var(--bg)] p-4">
+    <div className="rounded-lg border border-[var(--line)] bg-[var(--bg)] p-4">
       <p className="display text-3xl text-[var(--ink)]">{value}</p>
       <p className="mt-1 text-xs text-[var(--muted)]">{label}</p>
     </div>

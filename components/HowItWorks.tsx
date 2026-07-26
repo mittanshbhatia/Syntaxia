@@ -4,7 +4,10 @@ export function HowItWorks() {
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
       {howItWorks.map((step, index) => (
-        <article key={step.id} className="border border-[var(--line)] bg-[var(--surface)] p-4 text-left">
+        <article
+          key={step.id}
+          className="border border-[var(--line)] bg-[var(--surface)] p-5 text-left shadow-[0_12px_40px_rgba(15,23,42,0.04)]"
+        >
           <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--brand)]">
             Step {String(index + 1).padStart(2, "0")}
           </p>
@@ -19,11 +22,12 @@ export function HowItWorks() {
   );
 }
 
+/** UI chrome for the product loop — illustrative interface, not claimed live metrics. */
 function StepPreview({ kind }: { kind: string }) {
   if (kind === "diagnostic") {
     return (
       <div className="space-y-2 text-xs">
-        <p className="font-semibold text-[var(--ink)]">Q14 · Loops</p>
+        <p className="font-semibold text-[var(--ink)]">Sample question format</p>
         <p className="text-[var(--muted)]">What does `range(1, 5)` produce?</p>
         <div className="space-y-1">
           {["[1, 2, 3, 4]", "[1, 2, 3, 4, 5]", "[0, 1, 2, 3, 4]"].map((opt, i) => (
@@ -42,11 +46,11 @@ function StepPreview({ kind }: { kind: string }) {
   if (kind === "placement") {
     return (
       <div className="space-y-2 text-xs">
-        <p className="text-[var(--muted)]">Recommended track</p>
-        <p className="display text-xl text-[var(--ink)]">L1 · Foundations</p>
-        <p className="text-[var(--muted)]">Start: Variables & types · Confidence 72%</p>
+        <p className="text-[var(--muted)]">Placement result fields</p>
+        <p className="display text-xl text-[var(--ink)]">L1 · L2 · L3</p>
+        <p className="text-[var(--muted)]">Track · starting lesson · confidence · strengths / weaknesses</p>
         <div className="h-1.5 bg-[var(--line)]">
-          <div className="h-full w-[72%] bg-[var(--brand)]" />
+          <div className="h-full w-1/3 bg-[var(--brand)]" />
         </div>
       </div>
     );
@@ -55,13 +59,10 @@ function StepPreview({ kind }: { kind: string }) {
   if (kind === "learn") {
     return (
       <div className="space-y-2 font-mono text-[0.7rem] text-[var(--ink)]">
-        <p className="text-[var(--muted)]"># assignment.py</p>
-        <p>def sum_to(n):</p>
-        <p className="pl-3">total = 0</p>
-        <p className="pl-3">for i in range(1, n):</p>
-        <p className="pl-6">total += i</p>
-        <p className="pl-3">return total</p>
-        <p className="mt-2 text-[#b45309]">Tests 2/4 · loop boundary</p>
+        <p className="text-[var(--muted)]"># code workspace</p>
+        <p>def solve(...):</p>
+        <p className="pl-3">...</p>
+        <p className="mt-2 text-[var(--muted)]">Submit · analyze · misconception tags</p>
       </div>
     );
   }
@@ -69,16 +70,9 @@ function StepPreview({ kind }: { kind: string }) {
   return (
     <div className="space-y-2 text-xs">
       <p className="font-semibold text-[var(--ink)]">Intervention queue</p>
-      {[
-        "5 students · loop boundaries",
-        "3 ready for L2 promotion",
-        "2 inactive this week",
-      ].map((item) => (
-        <div key={item} className="flex items-center justify-between border border-[var(--line)] px-2 py-1">
-          <span className="text-[var(--muted)]">{item}</span>
-          <span className="font-semibold text-[var(--brand)]">Act</span>
-        </div>
-      ))}
+      <div className="border border-dashed border-[var(--line)] px-2 py-3 text-[var(--muted)]">
+        Empty until real submissions and attendance need action
+      </div>
     </div>
   );
 }

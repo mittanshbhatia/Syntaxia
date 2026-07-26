@@ -124,6 +124,33 @@ main h3,
   color: var(--ink);
 }
 
+.feature-card {
+  border-radius: 1.15rem;
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    border-color 0.25s var(--ease);
+}
+
+.feature-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(var(--brand-rgb), 0.28);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+}
+
+.hero-product {
+  background:
+    radial-gradient(ellipse 70% 55% at 85% 15%, rgba(var(--brand-rgb), 0.1), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 10% 80%, rgba(var(--brand-rgb), 0.05), transparent 50%),
+    var(--bg);
+}
+
+html[data-theme="light"] .product-preview {
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.08);
+}
+
+
 
 .eyebrow {
   display: inline-flex;

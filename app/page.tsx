@@ -8,27 +8,25 @@ import {
   openChapters,
   productFeatures,
   syntaxia,
-  testimonials,
   verifiedTraction,
 } from "@/lib/content";
 
 export default function HomePage() {
   return (
     <main className="product-home">
-      {/* 1. Product-focused hero */}
-      <section className="border-b border-[var(--line)]">
-        <div className="container grid items-center gap-10 py-16 lg:grid-cols-2 lg:py-20">
+      <section className="hero-product border-b border-[var(--line)]">
+        <div className="container grid items-center gap-12 py-16 lg:grid-cols-2 lg:gap-14 lg:py-24">
           <Reveal>
             <div className="text-left">
               <p className="eyebrow eyebrow-left">Syntaxia</p>
-              <h1 className="display mt-5 max-w-xl text-left text-[clamp(2.4rem,5vw,3.8rem)] leading-[0.98] text-[var(--ink)]">
+              <h1 className="display mt-5 max-w-xl text-left text-[clamp(2.5rem,5.2vw,4rem)] leading-[0.96] text-[var(--ink)]">
                 {syntaxia.tagline}
               </h1>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-[var(--muted)] sm:text-lg">
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-[var(--muted)] sm:text-lg">
                 Syntaxia gives schools, clubs, and after-school programs structured curriculum, student
                 placement, code submissions, chapter management, and instructor analytics in one platform.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-9 flex flex-wrap gap-3">
                 <Link href="/demo" className="btn btn-primary">
                   Try the live demo
                 </Link>
@@ -36,7 +34,7 @@ export default function HomePage() {
                   Start a pilot
                 </Link>
               </div>
-              <p className="mt-5 text-sm text-[var(--muted)]">{verifiedTraction.proofLine}</p>
+              <p className="mt-6 text-sm text-[var(--muted)]">{verifiedTraction.proofLine}</p>
             </div>
           </Reveal>
           <Reveal delay={1}>
@@ -45,20 +43,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. Trusted-by / chapter proof */}
       <section className="border-b border-[var(--line)] bg-[var(--surface)]">
-        <div className="container flex flex-col items-start gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="container flex flex-col items-start gap-5 py-9 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-[var(--muted)]">Powering APSDS chapters at</p>
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold text-[var(--ink)]">
+          <div className="flex flex-wrap gap-2">
             {openChapters.map((c) => (
-              <span key={c.id}>{c.shortName}</span>
+              <span
+                key={c.id}
+                className="rounded-full border border-[var(--line)] bg-[var(--bg)] px-4 py-1.5 text-sm font-semibold text-[var(--ink)]"
+              >
+                {c.shortName}
+              </span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3. Product dashboard screenshot */}
-      <section id="product" className="container scroll-mt-24 py-20">
+      <section id="product" className="container scroll-mt-24 py-20 sm:py-24">
         <Reveal>
           <div className="text-left">
             <p className="eyebrow eyebrow-left">Product</p>
@@ -66,19 +67,18 @@ export default function HomePage() {
               See who is stuck — and what to do next.
             </h2>
             <p className="mt-4 max-w-2xl text-[var(--muted)]">
-              The instructor dashboard turns curriculum, submissions, and chapter ops into one operating
-              view. Numbers below are synthetic demo data.
+              The instructor dashboard is empty until your chapter has real members and submissions. We
+              show the interface, not invented activity.
             </p>
           </div>
         </Reveal>
-        <div className="mt-10">
+        <div className="mt-12">
           <ProductDashboardPreview />
         </div>
       </section>
 
-      {/* 4. How it works */}
       <section id="solutions" className="scroll-mt-24 border-y border-[var(--line)] bg-[var(--surface)]">
-        <div className="container py-20">
+        <div className="container py-20 sm:py-24">
           <Reveal>
             <div className="text-left">
               <p className="eyebrow eyebrow-left">How Syntaxia works</p>
@@ -93,8 +93,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. Features */}
-      <section className="container py-20">
+      <section className="container py-20 sm:py-24">
         <Reveal>
           <div className="text-left">
             <p className="eyebrow eyebrow-left">Capabilities</p>
@@ -106,7 +105,7 @@ export default function HomePage() {
         <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {productFeatures.map((feature, index) => (
             <Reveal key={feature.title} delay={(Math.min(index + 1, 3)) as 1 | 2 | 3}>
-              <article className="h-full border border-[var(--line)] bg-[var(--surface)] p-6 text-left">
+              <article className="feature-card h-full border border-[var(--line)] bg-[var(--surface)] p-6 text-left">
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="display text-2xl text-[var(--ink)]">{feature.title}</h3>
                   <StatusBadge status={feature.status} />
@@ -126,9 +125,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. Workflow */}
       <section className="border-y border-[var(--line)] bg-[var(--surface)]">
-        <div className="container grid gap-10 py-20 lg:grid-cols-2">
+        <div className="container grid gap-10 py-20 lg:grid-cols-2 sm:py-24">
           <Reveal>
             <div className="text-left">
               <p className="eyebrow eyebrow-left">Student workflow</p>
@@ -160,8 +158,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. APSDS founder story */}
-      <section className="container py-20">
+      <section className="container py-20 sm:py-24">
         <Reveal>
           <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
             <div className="text-left">
@@ -169,7 +166,7 @@ export default function HomePage() {
               <h2 className="display section-title mt-4 text-left text-4xl text-[var(--ink)] sm:text-5xl">
                 {founderStory.title}
               </h2>
-              <p className="mt-5 text-[var(--muted)] leading-relaxed">{founderStory.body}</p>
+              <p className="mt-5 leading-relaxed text-[var(--muted)]">{founderStory.body}</p>
               <p className="mt-4 text-sm leading-relaxed text-[var(--muted)]">{apsds.relationship}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link href="/apsds" className="btn btn-ghost">
@@ -181,7 +178,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="border border-[var(--line)] bg-[var(--surface)] p-5 text-left">
+              <div className="rounded-[1.1rem] border border-[var(--line)] bg-[var(--surface)] p-6 text-left">
                 <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--muted)]">Before</p>
                 <ul className="mt-3 space-y-2 text-sm text-[var(--muted)]">
                   {founderStory.before.map((item) => (
@@ -189,7 +186,7 @@ export default function HomePage() {
                   ))}
                 </ul>
               </div>
-              <div className="border border-[var(--brand)] bg-[rgba(var(--brand-rgb),0.06)] p-5 text-left">
+              <div className="rounded-[1.1rem] border border-[var(--brand)] bg-[rgba(var(--brand-rgb),0.06)] p-6 text-left">
                 <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--brand)]">After</p>
                 <ul className="mt-3 space-y-2 text-sm text-[var(--ink)]">
                   {founderStory.after.map((item) => (
@@ -202,9 +199,8 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* 8. Verified traction */}
       <section id="results" className="scroll-mt-24 border-y border-[var(--line)] bg-[var(--surface)]">
-        <div className="container py-20">
+        <div className="container py-20 sm:py-24">
           <Reveal>
             <div className="text-left">
               <p className="eyebrow eyebrow-left">Results</p>
@@ -216,7 +212,10 @@ export default function HomePage() {
           </Reveal>
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
             {verifiedTraction.items.map((item) => (
-              <article key={item.label} className="border border-[var(--line)] bg-[var(--bg)] p-6 text-left">
+              <article
+                key={item.label}
+                className="rounded-[1.1rem] border border-[var(--line)] bg-[var(--bg)] p-7 text-left shadow-[0_12px_40px_rgba(15,23,42,0.04)]"
+              >
                 <p className="display text-4xl text-[var(--ink)]">{item.value}</p>
                 <p className="mt-2 text-sm text-[var(--muted)]">{item.label}</p>
               </article>
@@ -229,39 +228,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 9. Testimonials / case quotes */}
-      <section className="container py-20">
-        <Reveal>
-          <div className="text-left">
-            <p className="eyebrow eyebrow-left">From the network</p>
-            <h2 className="display section-title mt-4 text-left text-4xl text-[var(--ink)] sm:text-5xl">
-              Specific outcomes over vague praise.
-            </h2>
-            <p className="mt-3 max-w-2xl text-sm text-[var(--muted)]">
-              Quotes are role-attributed until named permissions are on file. Replace with full names once
-              approved.
-            </p>
-          </div>
-        </Reveal>
-        <div className="mt-10 grid gap-4 lg:grid-cols-3">
-          {testimonials.map((t) => (
-            <blockquote
-              key={t.role + t.organization}
-              className="border border-[var(--line)] bg-[var(--surface)] p-6 text-left"
-            >
-              <p className="text-sm leading-relaxed text-[var(--ink)]">&ldquo;{t.quote}&rdquo;</p>
-              <footer className="mt-5 text-sm text-[var(--muted)]">
-                <p className="font-semibold text-[var(--ink)]">{t.role}</p>
-                <p>{t.organization}</p>
-              </footer>
-            </blockquote>
-          ))}
-        </div>
-      </section>
-
-      {/* 10. Pricing teaser */}
-      <section className="border-y border-[var(--line)] bg-[var(--surface)]">
-        <div className="container flex flex-col items-start justify-between gap-6 py-16 sm:flex-row sm:items-center">
+      <section className="border-b border-[var(--line)] bg-[var(--surface)]">
+        <div className="container flex flex-col items-start justify-between gap-6 py-16 sm:flex-row sm:items-center sm:py-20">
           <div className="text-left">
             <p className="eyebrow eyebrow-left">Pricing</p>
             <h2 className="display section-title mt-4 text-left text-3xl text-[var(--ink)] sm:text-4xl">
@@ -274,10 +242,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 11. Security / privacy */}
-      <section className="container py-20">
+      <section className="container py-20 sm:py-24">
         <Reveal>
-          <div className="grid gap-8 border border-[var(--line)] bg-[var(--surface)] p-8 text-left sm:p-10 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="grid gap-8 rounded-[1.5rem] border border-[var(--line)] bg-[var(--surface)] p-8 text-left sm:p-10 lg:grid-cols-[1.2fr_0.8fr]">
             <div>
               <p className="eyebrow eyebrow-left">Trust</p>
               <h2 className="display section-title mt-4 text-left text-3xl text-[var(--ink)]">
@@ -303,14 +270,14 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* 12. Final CTA */}
       <section className="border-t border-[var(--line)] bg-[var(--surface)]">
-        <div className="container py-20 text-left">
+        <div className="container py-20 text-left sm:py-24">
           <h2 className="display max-w-3xl text-4xl text-[var(--ink)] sm:text-5xl">
-            Try the product in under a minute.
+            Tour the UI, then run it with your chapter.
           </h2>
           <p className="mt-4 max-w-xl text-[var(--muted)]">
-            No account, no email verify, no approval wait. Pick a demo role and click through the loop.
+            The demo uses empty states on purpose. Sign in to take the real diagnostic, create cohorts,
+            and submit code.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/demo" className="btn btn-primary">
@@ -339,7 +306,7 @@ function StatusBadge({ status }: { status: "live" | "partial" | "soon" }) {
         ? "bg-[rgba(var(--brand-rgb),0.1)] text-[var(--brand)]"
         : "bg-[var(--line)] text-[var(--muted)]";
   return (
-    <span className={`shrink-0 px-2 py-1 text-[0.65rem] font-bold uppercase tracking-wider ${className}`}>
+    <span className={`shrink-0 rounded-full px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wider ${className}`}>
       {label}
     </span>
   );

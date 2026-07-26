@@ -196,29 +196,15 @@ export const founderStory = {
 } as const;
 
 /**
- * Testimonials use roles/orgs only until named quotes are approved in writing.
- * Do not invent full names claiming permission.
+ * Testimonials reserved until named quotes are approved in writing.
+ * Do not invent attributed quotes for the marketing site.
  */
-export const testimonials = [
-  {
-    quote:
-      "Before Syntaxia, we tracked curriculum and submissions across four different tools. Our chapter now manages materials and membership from one place.",
-    role: "Chapter director",
-    organization: "APSDS · Bay Area chapter",
-  },
-  {
-    quote:
-      "Placement into L1–L3 stopped us from restarting every beginner every year. Students finally move forward instead of looping.",
-    role: "Instructor",
-    organization: "APSDS network",
-  },
-  {
-    quote:
-      "I always know which lesson I am on and what to submit next. It feels like a real class, not a club Discord.",
-    role: "Student",
-    organization: "APSDS · L1 Foundations",
-  },
-] as const;
+export const testimonials: {
+  quote: string;
+  role: string;
+  organization: string;
+}[] = [];
+
 
 export const pricingPlans = [
   {
