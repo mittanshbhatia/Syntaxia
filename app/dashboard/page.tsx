@@ -4,13 +4,15 @@ import { redirect } from "next/navigation";
 import { Reveal } from "@/components/Reveal";
 import { SignOutButton } from "@/components/SignOutButton";
 import {
+  canManageVisibility,
   getMemberChapters,
   getProfile,
   getSessionUser,
   getStaffRoles,
   hasAdminAccess,
 } from "@/lib/auth";
-import { dashboardSections } from "@/lib/content";
+import { SECTION_META } from "@/lib/curriculum/catalog";
+import { getChapterVisibility, groupedVisibleMaterials } from "@/lib/visibility";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -30,6 +32,11 @@ export default async function DashboardPage() {
   const admin = await hasAdminAccess(user.id);
   const staff = await getStaffRoles(user.id);
   const primary = memberChapters[0];
+  const isStaffViewer =
+    profile?.global_role === "executive" || staff.some((s) => s.chapter_id === primary.id);
+  const canControl = await canManageVisibility(user.id, primary.id);
+  const visibility = await getChapterVisibility(primary.id);
+  const groups = groupedVisibleMaterials(visibility, isStaffViewer);
 
   return (
     <main className="container py-16 sm:py-24">
@@ -46,7 +53,14 @@ export default async function DashboardPage() {
       <Reveal>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="eyebrow eyebrow-left">Dashboard</p>
-          <SignOutButton />
+          <div className="flex flex-wrap gap-2">
+            {canControl ? (
+              <Link href="/admin#visibility" className="btn btn-primary btn-no-glow px-4 py-2 text-sm">
+                Control member visibility
+              </Link>
+            ) : null}
+            <SignOutButton />
+          </div>
         </div>
         <h1 className="display section-title mt-6 text-5xl text-[var(--ink)]">
           {primary.short_name}
@@ -67,14 +81,61 @@ export default async function DashboardPage() {
         </p>
       </Reveal>
 
-      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {dashboardSections.map((section, index) => (
-          <Reveal key={section} delay={(Math.min(index + 1, 3)) as 1 | 2 | 3}>
-            <article className="rounded-[1.4rem] border border-[var(--line)] bg-[var(--surface)] p-6 text-center">
-              <h2 className="display text-2xl text-[var(--ink)]">{section}</h2>
-              <p className="mt-3 text-sm text-[var(--muted)]">Coming soon</p>
-            </article>
-          </Reveal>
+      <div className="mt-14 space-y-14">
+        {groups.map((group) => (
+          <section key={group.section} id={group.section}>
+            <Reveal>
+              <div className="eyebrow-center">
+                <p className="eyebrow">{SECTION_META[group.section].label}</p>
+              </div>
+              <h2 className="display section-title mt-4 text-3xl text-[var(--ink)]">
+                {SECTION_META[group.section].label}
+              </h2>
+              <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-[var(--muted)]">
+                {SECTION_META[group.section].description}
+              </p>
+            </Reveal>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {group.materials.map((material, index) => {
+                const hiddenFromMembers =
+                  isStaffViewer &&
+                  !(material.id in visibility.materials
+                    ? visibility.materials[material.id]
+                    : material.defaultVisible);
+                return (
+                  <Reveal key={material.id} delay={(Math.min(index + 1, 3)) as 1 | 2 | 3}>
+                    <Link
+                      href={`/dashboard/materials/${material.id}`}
+                      className="block border border-[var(--line)] bg-[var(--surface)] p-5 transition hover:bg-[var(--surface-2)]"
+                    >
+                      <div className="flex flex-wrap items-center gap-2">
+                        {material.track !== "all" ? (
+                          <span className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--brand-soft)]">
+                            {material.track.toUpperCase()}
+                          </span>
+                        ) : null}
+                        {hiddenFromMembers ? (
+                          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--muted)]">
+                            Hidden from members
+                          </span>
+                        ) : null}
+                      </div>
+                      <h3 className="display mt-2 text-xl text-[var(--ink)]">{material.title}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+                        {material.summary}
+                      </p>
+                    </Link>
+                  </Reveal>
+                );
+              })}
+              {!group.materials.length ? (
+                <p className="text-sm text-[var(--muted)] sm:col-span-2 lg:col-span-3">
+                  No items in this section yet.
+                </p>
+              ) : null}
+            </div>
+          </section>
         ))}
       </div>
     </main>

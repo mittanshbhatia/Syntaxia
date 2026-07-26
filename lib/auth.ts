@@ -130,3 +130,8 @@ export async function canReviewMemberships(userId: string, chapterId?: string) {
     (s) => s.role === "director" && (chapterId ? s.chapter_id === chapterId : true),
   );
 }
+
+/** Executives and chapter directors can control what members see. */
+export async function canManageVisibility(userId: string, chapterId?: string) {
+  return canReviewMemberships(userId, chapterId);
+}

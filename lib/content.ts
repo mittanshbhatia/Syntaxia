@@ -125,11 +125,14 @@ export const startSteps = [
 ] as const;
 
 export const dashboardSections = [
+  "Course plans",
+  "Teaching materials",
   "Online tests",
   "Quizzes",
   "Homework",
   "Assignments",
-  "Teaching materials",
+  "Competition prep",
   "Grades",
   "Chapter directory",
+  "Club resources",
 ] as const;

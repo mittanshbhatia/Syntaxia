@@ -5,8 +5,11 @@ import { BootstrapExecutiveButton } from "@/components/BootstrapExecutiveButton"
 import { MembershipActions } from "@/components/MembershipActions";
 import { RoleManager } from "@/components/RoleManager";
 import { SignOutButton } from "@/components/SignOutButton";
+import { VisibilityControls } from "@/components/VisibilityControls";
 import { getProfile, getSessionUser, listChapters } from "@/lib/auth";
+import { curriculumCatalog } from "@/lib/curriculum/catalog";
 import { createClient } from "@/lib/supabase/server";
+import { getChapterVisibility } from "@/lib/visibility";
 
 export const metadata: Metadata = {
   title: "Admin",
@@ -91,6 +94,22 @@ export default async function AdminPage() {
     ? chapters
     : chapters.filter((c) => staffChapterIds.includes(c.id));
 
+  const visibilityChapters = isExecutive
+    ? chapters.filter((c) => c.status === "open")
+    : chapters.filter((c) =>
+        (myStaff ?? []).some((row) => row.role === "director" && row.chapter_id === c.id),
+      );
+  const visibilityChapter = visibilityChapters[0] ?? null;
+  const initialVisibility = visibilityChapter
+    ? await getChapterVisibility(visibilityChapter.id)
+    : { materials: {}, sections: {} };
+
+  // Seed defaults into the control map for clearer UI
+  const initialMaterials: Record<string, boolean> = { ...initialVisibility.materials };
+  for (const item of curriculumCatalog) {
+    if (!(item.id in initialMaterials)) initialMaterials[item.id] = item.defaultVisible;
+  }
+
   return (
     <main className="container py-16 sm:py-20">
       <div className="flex flex-wrap items-start justify-between gap-4">
@@ -103,9 +122,9 @@ export default async function AdminPage() {
           </h1>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-[var(--muted)]">
             {isExecutive
-              ? "View every member profile, edit curriculum, and manage all chapters. Executives cannot be removed by chapter directors."
+              ? "View every member profile, control curriculum visibility, and manage all chapters. Executives cannot be removed by chapter directors."
               : isDirector
-                ? "View members in your chapter only. Approve students. Curriculum is read-only. You cannot remove executives or other directors."
+                ? "View members in your chapter only. Approve students and control what members can see. You cannot remove executives or other directors."
                 : "View members in your chapter only. Curriculum is read-only. Instructors cannot remove members or staff."}
           </p>
         </div>
@@ -123,6 +142,21 @@ export default async function AdminPage() {
         <Stat label="Pending approvals" value={String(pendingCount)} />
       </div>
 
+      {visibilityChapter && canReview ? (
+        <section id="visibility" className="mt-14">
+          <VisibilityControls
+            chapters={visibilityChapters.map((c) => ({
+              id: c.id,
+              short_name: c.short_name,
+              name: c.name,
+            }))}
+            initialChapterId={visibilityChapter.id}
+            initialMaterials={initialMaterials}
+            initialSections={initialVisibility.sections}
+          />
+        </section>
+      ) : null}
+
       {isExecutive ? (
         <section className="mt-14 space-y-10">
           <div>
@@ -130,7 +164,7 @@ export default async function AdminPage() {
             <h2 className="display section-title mt-4 text-2xl text-[var(--ink)]">All campuses</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
               {chapters.map((chapter) => (
-                <article key={chapter.id} className="rounded-[1.25rem] border border-[var(--line)] p-4 text-center">
+                <article key={chapter.id} className="border border-[var(--line)] p-4 text-center">
                   <p className="display text-xl text-[var(--ink)]">{chapter.short_name}</p>
                   <p className="mt-1 text-sm text-[var(--muted)]">{chapter.name}</p>
                   <p className="mt-2 text-xs uppercase tracking-wide text-[var(--brand-soft)]">
@@ -153,7 +187,7 @@ export default async function AdminPage() {
             Instructors can view requests but cannot approve, reject, or remove members.
           </p>
         ) : null}
-        <div className="mt-4 overflow-x-auto rounded-[1.25rem] border border-[var(--line)]">
+        <div className="mt-4 overflow-x-auto border border-[var(--line)]">
           <table className="min-w-full text-left text-sm">
             <thead className="border-b border-[var(--line)] text-[var(--muted)]">
               <tr>
@@ -202,7 +236,7 @@ export default async function AdminPage() {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[1.25rem] border border-[var(--line)] p-5 text-center">
+    <div className="border border-[var(--line)] p-5 text-center">
       <p className="text-xs uppercase tracking-[0.16em] text-[var(--muted)]">{label}</p>
       <p className="display mt-2 text-3xl text-[var(--ink)]">{value}</p>
     </div>
