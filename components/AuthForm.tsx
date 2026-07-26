@@ -45,7 +45,7 @@ export function AuthForm({ mode, nextPath = "/dashboard" }: { mode: Mode; nextPa
           return;
         }
         setMessage(
-          "Account created. Check your inbox for a verification email from team.apsds@gmail.com. Do not reply to that email, then sign in.",
+          "Account created. Check your inbox for a verification email from Syntaxia. Do not reply to that email, then sign in.",
         );
       } else {
         const { error: signInError } = await supabase.auth.signInWithPassword({

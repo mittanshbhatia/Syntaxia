@@ -113,6 +113,18 @@ main h3,
   text-align: center;
 }
 
+.product-home h1,
+.product-home h2,
+.product-home h3,
+.product-home .section-title {
+  text-align: left;
+}
+
+.product-preview {
+  color: var(--ink);
+}
+
+
 .eyebrow {
   display: inline-flex;
   align-items: center;

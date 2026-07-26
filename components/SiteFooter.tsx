@@ -1,60 +1,64 @@
-import { apsds, syntaxia } from "@/lib/content";
+import Link from "next/link";
+import { footerLinks, syntaxia } from "@/lib/content";
 
 export function SiteFooter() {
   return (
-    <footer className="site-footer mt-8">
-      <div className="container grid gap-10 py-12 md:grid-cols-2 md:items-start">
+    <footer className="site-footer mt-8 border-t border-[var(--line)]">
+      <div className="container grid gap-10 py-12 md:grid-cols-[1.2fr_1fr_1fr]">
         <div className="footer-copy text-left">
           <p className="display text-3xl">{syntaxia.name}</p>
-          <p className="mt-3 text-sm">Home of the APSDS Club.</p>
+          <p className="mt-3 max-w-sm text-sm leading-relaxed text-[var(--muted)]">
+            Syntaxia helps organizations launch and operate structured computer science programs.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link href="/demo" className="btn btn-primary px-4 py-2 text-sm">
+              Try demo
+            </Link>
+            <a href={`mailto:${syntaxia.emails.sales}`} className="btn btn-ghost px-4 py-2 text-sm">
+              Contact sales
+            </a>
+          </div>
         </div>
 
-        <div className="md:text-right">
-          <div className="footer-links flex flex-wrap items-start gap-8 md:justify-end">
-            <div className="footer-follow flex flex-col items-start gap-2 md:items-center">
-              <p className="eyebrow">Follow Us</p>
-              <a
-                href={apsds.instagramUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-sm hover:opacity-70"
-              >
-                <InstagramIcon />
-                @{apsds.instagram}
+        <div>
+          <p className="eyebrow eyebrow-left">Company</p>
+          <ul className="mt-4 space-y-2 text-sm">
+            {footerLinks.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="text-[var(--muted)] transition hover:text-[var(--ink)]">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <p className="eyebrow eyebrow-left">Email</p>
+          <ul className="mt-4 space-y-2 text-sm text-[var(--muted)]">
+            <li>
+              <a className="hover:text-[var(--ink)]" href={`mailto:${syntaxia.emails.founders}`}>
+                {syntaxia.emails.founders}
               </a>
-            </div>
-            <div className="footer-talk flex flex-col items-start gap-2 md:items-center">
-              <p className="eyebrow">Talk to us</p>
-              <a
-                href={`mailto:${apsds.email}`}
-                className="inline-flex items-center gap-2 text-sm hover:opacity-70"
-              >
-                <MailIcon />
-                {apsds.email}
+            </li>
+            <li>
+              <a className="hover:text-[var(--ink)]" href={`mailto:${syntaxia.emails.support}`}>
+                {syntaxia.emails.support}
               </a>
-            </div>
-          </div>
+            </li>
+            <li>
+              <a className="hover:text-[var(--ink)]" href={`mailto:${syntaxia.emails.sales}`}>
+                {syntaxia.emails.sales}
+              </a>
+            </li>
+            <li>
+              <a className="hover:text-[var(--ink)]" href={`mailto:${syntaxia.emails.privacy}`}>
+                {syntaxia.emails.privacy}
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </footer>
-  );
-}
-
-function InstagramIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.8" />
-      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
-      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
-    </svg>
-  );
-}
-
-function MailIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M4 7l8 6 8-6" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-    </svg>
   );
 }

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FilmReel } from "@/components/FilmReel";
 import { Reveal } from "@/components/Reveal";
-import { apsds, pillars, tracks } from "@/lib/content";
+import { apsds, openChapters, pillars, tracks } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "APSDS",
@@ -13,9 +13,10 @@ export const metadata: Metadata = {
 export default function ApsdsPage() {
   return (
     <main>
-      <section className="container py-20 text-center sm:py-28">
+      <section className="container py-20 text-left sm:py-28">
         <Reveal>
-          <div className="mx-auto flex justify-center">
+          <p className="eyebrow eyebrow-left">Flagship program powered by Syntaxia</p>
+          <div className="mt-8 flex justify-start">
             <Image
               src="/brand/APSDS_Logo.svg"
               alt="APSDS"
@@ -25,18 +26,35 @@ export default function ApsdsPage() {
               priority
             />
           </div>
-          <div className="eyebrow-center mt-4">
-            <p className="eyebrow">by Syntaxia</p>
-          </div>
-          <p className="mx-auto mt-6 max-w-xl text-lg text-[var(--muted)]">{apsds.tagline}</p>
-          <p className="mx-auto mt-4 max-w-2xl text-[var(--muted)]">{apsds.mission}</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <h1 className="display mt-6 max-w-3xl text-4xl text-[var(--ink)] sm:text-5xl">
+            {apsds.fullName}
+          </h1>
+          <p className="mt-4 max-w-2xl text-lg text-[var(--muted)]">{apsds.tagline}</p>
+          <p className="mt-4 max-w-2xl text-[var(--muted)]">{apsds.mission}</p>
+          <p className="mt-4 max-w-2xl text-sm text-[var(--muted)]">{apsds.relationship}</p>
+          <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/join" className="btn btn-primary">
               Join a chapter
+            </Link>
+            <Link href="/demo" className="btn btn-ghost">
+              Try demo
             </Link>
             <Link href="/members" className="btn btn-ghost">
               I&apos;m a member
             </Link>
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="container pb-16">
+        <Reveal>
+          <p className="eyebrow eyebrow-left">Active chapters</p>
+          <div className="mt-6 flex flex-wrap gap-4 text-sm font-semibold text-[var(--ink)]">
+            {openChapters.map((c) => (
+              <span key={c.id} className="border border-[var(--line)] bg-[var(--surface)] px-4 py-2">
+                {c.name}
+              </span>
+            ))}
           </div>
         </Reveal>
       </section>
@@ -51,7 +69,7 @@ export default function ApsdsPage() {
         <div className="container grid gap-4 py-20 md:grid-cols-3">
           {tracks.map((track, index) => (
             <Reveal key={track.id} delay={(index + 1) as 1 | 2 | 3}>
-              <article className="p-6 text-center">
+              <article className="border border-[var(--line)] p-6 text-left">
                 <p className="display text-sm" style={{ color: track.accent }}>
                   {track.level}
                 </p>
@@ -63,23 +81,29 @@ export default function ApsdsPage() {
         </div>
       </section>
 
-      <section className="container py-20 text-center">
+      <section className="container py-20 text-left">
         <Reveal>
-          <h2 className="display section-title mx-auto max-w-2xl text-4xl text-[var(--ink)]">
+          <h2 className="display section-title max-w-2xl text-left text-4xl text-[var(--ink)]">
             Why chapters choose APSDS
           </h2>
         </Reveal>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           {pillars.map((pillar, index) => (
             <Reveal key={pillar.title} delay={(Math.min(index + 1, 3)) as 1 | 2 | 3}>
-              <article className="border-t border-[var(--line)] pt-6 text-center">
+              <article className="border-t border-[var(--line)] pt-6 text-left">
                 <h3 className="display text-2xl text-[var(--ink)]">{pillar.title}</h3>
-                <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-[var(--muted)]">
-                  {pillar.body}
-                </p>
+                <p className="mt-3 max-w-md text-sm leading-relaxed text-[var(--muted)]">{pillar.body}</p>
               </article>
             </Reveal>
           ))}
+        </div>
+        <div className="mt-12 flex flex-wrap gap-3">
+          <Link href="/start" className="btn btn-primary">
+            Start a chapter
+          </Link>
+          <Link href="/" className="btn btn-ghost">
+            Back to Syntaxia product
+          </Link>
         </div>
       </section>
     </main>

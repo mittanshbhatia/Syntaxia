@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { getSessionUser } from "@/lib/auth";
-import { startSteps } from "@/lib/content";
+import { startSteps, syntaxia } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Start a chapter",
-  description: "Launch an APSDS chapter with Syntaxia.",
+  title: "Start a pilot",
+  description: "Launch a Syntaxia-powered CS program or APSDS chapter.",
 };
 
 export default async function StartPage() {
@@ -30,13 +30,13 @@ export default async function StartPage() {
 
       <div className="container py-20 text-center sm:py-28">
         <Reveal>
-          <p className="eyebrow">Founders</p>
+          <p className="eyebrow">Pilots</p>
           <h1 className="display section-title mt-4 mx-auto max-w-3xl text-5xl text-[var(--ink)] sm:text-6xl">
-            Start the next chapter.
+            Start a Syntaxia pilot.
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-[var(--muted)]">
-            Syntaxia gives new campuses shared curriculum, placement, competitions, and a clear launch
-            path. You build the local community.
+            Bring structured curriculum, placement, submissions, and instructor analytics to your school
+            or after-school program. APSDS chapters use the same stack.
           </p>
         </Reveal>
 
@@ -48,6 +48,9 @@ export default async function StartPage() {
                   {String(index + 1).padStart(2, "0")}
                 </p>
                 <h2 className="display relative z-10 mt-4 text-2xl text-[var(--ink)]">{step.title}</h2>
+                <p className="relative z-10 mt-3 text-sm leading-relaxed text-[var(--muted)]">
+                  {step.body}
+                </p>
               </article>
             </Reveal>
           ))}
@@ -57,19 +60,21 @@ export default async function StartPage() {
           <div className="mt-16 rounded-[2rem] border border-[var(--line)] p-8 sm:p-10">
             <h2 className="display section-title text-3xl text-[var(--ink)]">Ready to launch?</h2>
             <p className="mx-auto mt-3 max-w-xl text-sm text-[var(--muted)]">
-              Email us your school, estimated term, and instructor leads. We&apos;ll send the playbook.
+              Email sales with your organization type, estimated students, and launch window. Prefer a
+              click-through first? Try the live demo.
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <a
-                href="https://forms.gle/9yVBjGQ1qZ8aYPTs7"
-                target="_blank"
-                rel="noreferrer"
+                href={`mailto:${syntaxia.emails.sales}?subject=${encodeURIComponent("Syntaxia pilot")}`}
                 className="btn btn-primary"
               >
-                Propose a chapter
+                Email sales
               </a>
+              <Link href="/demo" className="btn btn-ghost">
+                Try demo
+              </Link>
               <Link href="/apsds" className="btn btn-ghost">
-                Review APSDS
+                APSDS chapters
               </Link>
             </div>
           </div>

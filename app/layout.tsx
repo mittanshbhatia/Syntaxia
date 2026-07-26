@@ -22,7 +22,22 @@ export const metadata: Metadata = {
     default: "Syntaxia",
     template: "%s · Syntaxia",
   },
-  description: "Syntaxia: home for APSDS chapters. Join, learn, or launch a school chapter.",
+  description:
+    "Syntaxia helps schools, clubs, and after-school programs run structured computer science education with curriculum, code submissions, student placement, and instructor analytics.",
+  openGraph: {
+    title: "Syntaxia",
+    description:
+      "Run a serious computer science program without building everything yourself.",
+    type: "website",
+    url: "https://syntaxia.org",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Syntaxia",
+    description:
+      "Structured CS curriculum, placement, submissions, and instructor analytics in one platform.",
+  },
+  metadataBase: new URL("https://syntaxia.org"),
 };
 
 const themeBoot = `

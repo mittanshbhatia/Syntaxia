@@ -1,22 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { SettingsPanel } from "@/components/SettingsPanel";
+import { navLinks } from "@/lib/content";
 import { createClient } from "@/lib/supabase/client";
-
-const centerLinks = [
-  { href: "/apsds", label: "APSDS" },
-  { href: "/members", label: "Members" },
-  { href: "/join", label: "Join" },
-  { href: "/start", label: "Start" },
-];
 
 export function SiteHeader() {
   const [signedIn, setSignedIn] = useState(false);
   const [isMember, setIsMember] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuId = useId();
 
   useEffect(() => {
     const supabase = createClient();
@@ -67,21 +63,30 @@ export function SiteHeader() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setMenuOpen(false);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
   const dashboardHref = isMember ? "/dashboard" : "/members";
 
   return (
     <>
       <header className="nav-blur sticky top-0 z-50 border-b border-[var(--line)]">
         <div className="container relative flex items-center justify-between gap-3 py-3.5">
-          <Link href="/" className="display z-10 text-[1.35rem] text-white transition hover:opacity-80">
+          <Link href="/" className="display z-10 text-[1.35rem] text-[var(--ink)] transition hover:opacity-80">
             Syntaxia
           </Link>
 
           <nav
-            className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-4 text-sm text-white sm:gap-8"
+            className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-6 text-sm text-[var(--ink)] lg:flex"
             aria-label="Primary"
           >
-            {centerLinks.map((link) => (
+            {navLinks.map((link) => (
               <Link key={link.href} href={link.href} className="transition hover:opacity-70">
                 {link.label}
               </Link>
@@ -89,12 +94,16 @@ export function SiteHeader() {
           </nav>
 
           <div className="z-10 flex items-center gap-2">
+            <Link href="/demo" className="btn btn-primary hidden px-4 py-2 text-sm sm:inline-flex">
+              Try demo
+            </Link>
+
             {signedIn ? (
-              <Link href={dashboardHref} className="btn btn-primary btn-sm">
+              <Link href={dashboardHref} className="btn btn-ghost hidden px-4 py-2 text-sm md:inline-flex">
                 Dashboard
               </Link>
             ) : (
-              <Link href="/auth/sign-in" className="btn btn-ghost px-4 py-2 text-sm text-white">
+              <Link href="/auth/sign-in" className="btn btn-ghost hidden px-4 py-2 text-sm md:inline-flex">
                 Sign in
               </Link>
             )}
@@ -119,12 +128,71 @@ export function SiteHeader() {
                 )}
               </button>
             ) : null}
+
+            <button
+              type="button"
+              className="icon-btn lg:hidden"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              aria-controls={menuId}
+              onClick={() => setMenuOpen((v) => !v)}
+            >
+              <MenuIcon open={menuOpen} />
+            </button>
           </div>
         </div>
+
+        {menuOpen ? (
+          <div
+            id={menuId}
+            className="border-t border-[var(--line)] bg-[var(--nav-bg)] px-4 py-4 lg:hidden"
+            role="dialog"
+            aria-label="Mobile navigation"
+          >
+            <div className="container flex flex-col gap-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="rounded-sm px-3 py-3 text-sm font-medium hover:bg-[var(--surface)]"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Link
+                href="/demo"
+                className="rounded-sm px-3 py-3 text-sm font-medium hover:bg-[var(--surface)]"
+                onClick={() => setMenuOpen(false)}
+              >
+                Try demo
+              </Link>
+              <Link
+                href={signedIn ? dashboardHref : "/auth/sign-in"}
+                className="rounded-sm px-3 py-3 text-sm font-medium hover:bg-[var(--surface)]"
+                onClick={() => setMenuOpen(false)}
+              >
+                {signedIn ? "Dashboard" : "Sign in"}
+              </Link>
+            </div>
+          </div>
+        ) : null}
       </header>
 
       <SettingsPanel open={settingsOpen} onClose={() => setSettingsOpen(false)} />
     </>
+  );
+}
+
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      {open ? (
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      ) : (
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      )}
+    </svg>
   );
 }
 
