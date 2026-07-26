@@ -467,6 +467,12 @@ html[data-theme="light"] .marquee-track span {
   text-align: center;
 }
 
+.material-card {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
 .track-card {
   border: none;
   border-radius: 0;
