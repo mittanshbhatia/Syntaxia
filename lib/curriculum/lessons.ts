@@ -347,7 +347,8 @@ To convert base-10 to another base, use repeated division or bin(), hex(), oct()
       {
         id: "ps-if",
         label: "Grade checker",
-        prompt: "Write an if/elif/else that prints A for score>=90, B for >=80, C for >=70, else F.",
+        prompt:
+          "Read an integer `score` from input (or assume `score` is already set). Print A for score>=90, B for >=80, C for >=70, else F.",
         kind: "code",
       },
       {

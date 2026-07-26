@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { canAccessChapter, getSessionUser, getStaffRoles, getProfile } from "@/lib/auth";
 import { classifyMisconceptions } from "@/lib/diagnostics/misconceptions";
+import { applyMasteryFromGrade } from "@/lib/mastery/update";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
@@ -51,8 +52,8 @@ export async function POST(request: Request) {
     sourceCode?: string;
     stdout?: string;
     stderr?: string;
-    testsPassed?: number;
-    testsTotal?: number;
+    testsPassed?: number | null;
+    testsTotal?: number | null;
   } | null;
 
   if (!body?.chapterId || !body.materialId || typeof body.sourceCode !== "string") {
@@ -85,8 +86,28 @@ export async function POST(request: Request) {
     )
     .single();
 
+  if (
+    typeof body.testsPassed === "number" &&
+    typeof body.testsTotal === "number" &&
+    body.testsTotal > 0 &&
+    body.promptId
+  ) {
+    try {
+      await applyMasteryFromGrade({
+        chapterId: body.chapterId,
+        userId: user.id,
+        materialId: body.materialId,
+        promptId: body.promptId,
+        passed: body.testsPassed,
+        total: body.testsTotal,
+        tags,
+      });
+    } catch {
+      // Mastery table may not be migrated yet.
+    }
+  }
+
   if (error) {
-    // Still return local classification if table missing
     return NextResponse.json({
       submission: null,
       misconceptionTags: tags,

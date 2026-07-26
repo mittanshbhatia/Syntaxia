@@ -134,6 +134,17 @@ export async function POST(request: Request) {
     .eq("status", "approved")
     .is("track", null);
 
+  try {
+    const { applyMasteryFromDiagnostic } = await import("@/lib/mastery/update");
+    await applyMasteryFromDiagnostic({
+      chapterId,
+      userId: user.id,
+      byConcept: result.byConcept,
+    });
+  } catch {
+    // phase5 may not be applied yet
+  }
+
   return NextResponse.json({ result, placement, persisted: true });
 }
 

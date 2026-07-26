@@ -5,6 +5,7 @@ import { AttendancePanel } from "@/components/AttendancePanel";
 import { CohortManager } from "@/components/CohortManager";
 import { DiagnosticQuiz } from "@/components/DiagnosticQuiz";
 import { InterventionQueue } from "@/components/InterventionQueue";
+import { MasteryPanel } from "@/components/MasteryPanel";
 import { PlacementOverridePanel } from "@/components/PlacementOverridePanel";
 import {
   canManageVisibility,
@@ -73,8 +74,12 @@ export default async function ProgramPage({ searchParams }: Props) {
 
       <div className="mt-10 space-y-8">
         <DiagnosticQuiz chapterId={selected.id} />
+        <MasteryPanel chapterId={selected.id} staffView={false} />
         {isStaffViewer ? (
-          <InterventionQueue chapterId={selected.id} chapterSlug={selected.slug} />
+          <>
+            <MasteryPanel chapterId={selected.id} staffView />
+            <InterventionQueue chapterId={selected.id} chapterSlug={selected.slug} />
+          </>
         ) : null}
         {canEdit ? <PlacementOverridePanel chapterId={selected.id} /> : null}
         <CohortManager chapterId={selected.id} canEdit={canEdit} />

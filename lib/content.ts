@@ -197,9 +197,15 @@ export const productFeatures = [
   },
   {
     title: "Code submissions",
-    body: "Students write in Monaco, run Python in-browser, submit work, and get misconception tags.",
+    body: "Students write in Monaco, run Python in a browser WASM sandbox, submit work, and get misconception tags.",
     status: "partial" as const,
-    note: "Editor · Run · Submit live · remote sandbox & autograding coming soon",
+    note: "Editor · Run · Grade · Submit live · remote multi-tenant jail still planned",
+  },
+  {
+    title: "Deterministic autograding",
+    body: "Hidden and visible test cases for Python Starter prompts; categories shown on visible failures only.",
+    status: "partial" as const,
+    note: "Live on python-starter-slides · expanding catalog",
   },
   {
     title: "Instructor ops",
@@ -214,9 +220,14 @@ export const productFeatures = [
   },
   {
     title: "Socratic support",
-    body: "Hints that help students debug instead of immediately showing answers.",
-    status: "soon" as const,
-    note: "Coming soon",
+    body: "Progressive hints from failed categories and misconception tags — never dumps a full solution.",
+    status: "partial" as const,
+    note: "Rule-based hints live · model-backed hints later",
+  },
+  {
+    title: "Concept mastery",
+    body: "Per-concept scores from diagnostics and graded submissions.",
+    status: "live" as const,
   },
 ] as const;
 
@@ -286,9 +297,9 @@ export const pricingPlans = [
       "Diagnostics & placement",
       "Instructor dashboard",
       "Attendance & interventions",
-      "Code submissions (browser run)",
+      "Code submissions (browser run + grade)",
       "Email support",
-      "Autograding — coming soon",
+      "Remote isolated runner — planned",
     ],
   },
   {
