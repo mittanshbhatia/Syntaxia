@@ -1,45 +1,71 @@
-import { openChapters } from "@/lib/content";
+import { curriculumCatalog } from "@/lib/curriculum/catalog";
+import { pythonDiagnosticQuestions } from "@/lib/diagnostics/questions";
+import { openChapters, tracks } from "@/lib/content";
 
-/** Honest product chrome — empty states and verified chapter count only. No invented metrics. */
+/**
+ * Hero product panel with verified product facts only —
+ * chapters, tracks, and published curriculum items. No invented student metrics.
+ */
 export function ProductDashboardPreview({ compact = false }: { compact?: boolean }) {
-  const chapterCount = openChapters.length;
+  const materialCount = curriculumCatalog.length;
+  const diagnosticCount = pythonDiagnosticQuestions.length;
 
   return (
     <div
       className={`product-preview overflow-hidden border border-[var(--line)] bg-[var(--surface-2)] shadow-[0_28px_80px_rgba(15,23,42,0.08)] ${
         compact ? "rounded-md" : "rounded-[1.25rem]"
       }`}
-      aria-label="Instructor dashboard preview"
+      aria-label="Syntaxia product overview"
     >
       <div className="flex items-center justify-between border-b border-[var(--line)] bg-[var(--surface)] px-4 py-3.5">
         <div className="flex items-center gap-2">
           <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-          <p className="ml-2 text-xs font-semibold text-[var(--muted)]">Instructor dashboard</p>
+          <p className="ml-2 text-xs font-semibold text-[var(--muted)]">Syntaxia · program console</p>
         </div>
-        <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--muted)]">Live product UI</p>
+        <p className="rounded-full bg-[rgba(var(--brand-rgb),0.1)] px-2.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-[var(--brand)]">
+          Live product
+        </p>
       </div>
 
-      <div className={`grid gap-3 p-4 ${compact ? "" : "sm:grid-cols-[1.1fr_0.9fr]"}`}>
+      <div className={`grid gap-3 p-4 ${compact ? "" : "sm:grid-cols-[1.05fr_0.95fr]"}`}>
         <div className="grid grid-cols-2 gap-3">
-          <Metric label="Active students" value="—" hint="Appears after members join" />
-          <Metric label="School chapters" value={String(chapterCount)} hint="Verified campuses" />
-          <Metric label="Submitted today" value="—" hint="From real submissions" />
-          <Metric label="Need intervention" value="—" hint="From failing work" />
+          <Metric label="School chapters" value={String(openChapters.length)} hint="BISV · Lynbrook · Harker" />
+          <Metric label="Curriculum tracks" value={String(tracks.length)} hint="L1 · L2 · L3" />
+          <Metric label="Materials published" value={String(materialCount)} hint="In-app APSDS catalog" />
+          <Metric
+            label="Placement diagnostic"
+            value={String(diagnosticCount)}
+            hint="Python foundations questions"
+          />
         </div>
 
-        <div className="border border-[var(--line)] bg-[var(--surface)] p-4">
-          <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--muted)]">
-            Misconception feed
-          </p>
-          <p className="mt-3 text-sm font-semibold text-[var(--ink)]">No tagged submissions yet</p>
-          <p className="mt-1 text-xs leading-relaxed text-[var(--muted)]">
-            When students submit code, Syntaxia classifies common errors such as loop boundaries and
-            off-by-one mistakes.
-          </p>
-          <div className="mt-4 h-2 overflow-hidden rounded-full bg-[var(--line)]">
-            <div className="h-full w-0 bg-[var(--brand)]" />
+        <div className="flex flex-col gap-3">
+          <div className="flex-1 border border-[var(--line)] bg-[var(--surface)] p-4">
+            <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--muted)]">Tracks</p>
+            <div className="mt-3 space-y-2">
+              {tracks.map((track) => (
+                <div
+                  key={track.id}
+                  className="flex items-center justify-between gap-2 border border-[var(--line)] bg-[var(--bg)] px-3 py-2"
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="h-2 w-2 rounded-full"
+                      style={{ background: track.accent }}
+                      aria-hidden
+                    />
+                    <span className="text-sm font-semibold text-[var(--ink)]">
+                      {track.level} · {track.name}
+                    </span>
+                  </div>
+                  <span className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--brand)]">
+                    Live
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -47,14 +73,28 @@ export function ProductDashboardPreview({ compact = false }: { compact?: boolean
       {!compact ? (
         <div className="border-t border-[var(--line)] px-4 py-4">
           <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--muted)]">
-            Recent activity
+            What instructors operate
           </p>
-          <div className="mt-3 border border-dashed border-[var(--line)] bg-[var(--bg)] px-4 py-8 text-center">
-            <p className="text-sm font-medium text-[var(--ink)]">Waiting for the first submission</p>
-            <p className="mt-1 text-xs text-[var(--muted)]">
-              Activity from your chapter appears here — we do not invent sample students.
-            </p>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {[
+              "Diagnostic placement → L1 / L2 / L3",
+              "Curriculum + visibility controls",
+              "Code submit · misconception tags",
+              "Cohorts · attendance · interventions",
+            ].map((item) => (
+              <div
+                key={item}
+                className="flex items-start gap-2 border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--ink)]"
+              >
+                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--brand)]" />
+                {item}
+              </div>
+            ))}
           </div>
+          <p className="mt-3 text-xs text-[var(--muted)]">
+            Student counts and submission totals appear after your chapter is active — we only show
+            verified product facts here.
+          </p>
         </div>
       ) : null}
     </div>
@@ -74,7 +114,7 @@ function Metric({
     <div className="border border-[var(--line)] bg-[var(--surface)] p-3.5">
       <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--muted)]">{label}</p>
       <p className="display mt-2 text-3xl text-[var(--ink)]">{value}</p>
-      <p className="mt-1 text-[0.7rem] text-[var(--muted)]">{hint}</p>
+      <p className="mt-1 text-[0.7rem] leading-snug text-[var(--muted)]">{hint}</p>
     </div>
   );
 }

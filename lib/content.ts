@@ -1,3 +1,6 @@
+import { curriculumCatalog } from "@/lib/curriculum/catalog";
+import { pythonDiagnosticQuestions } from "@/lib/diagnostics/questions";
+
 export const syntaxia = {
   name: "Syntaxia",
   tagline: "Run a serious computer science program without building everything yourself.",
@@ -85,7 +88,11 @@ export const verifiedTraction = {
   items: [
     { label: "Active school chapters", value: String(openChapters.length) },
     { label: "Curriculum tracks", value: "3" },
-    { label: "Paying customers outside APSDS", value: "0" },
+    { label: "Materials in catalog", value: String(curriculumCatalog.length) },
+    {
+      label: "Placement questions",
+      value: String(pythonDiagnosticQuestions.length),
+    },
   ],
   proofLine: `Used across ${openChapters.length} school chapters · Built from operating APSDS ourselves`,
 } as const;
@@ -154,9 +161,9 @@ export const productFeatures = [
   },
   {
     title: "Code submissions",
-    body: "Students submit code in Monaco with misconception tags; isolated execution coming soon.",
+    body: "Students write in Monaco, run Python in-browser, submit work, and get misconception tags.",
     status: "partial" as const,
-    note: "Editor + submit live · secure runner & autograding coming soon",
+    note: "Editor · Run · Submit live · remote sandbox & autograding coming soon",
   },
   {
     title: "Instructor dashboard",

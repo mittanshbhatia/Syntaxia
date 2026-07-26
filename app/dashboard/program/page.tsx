@@ -5,6 +5,7 @@ import { AttendancePanel } from "@/components/AttendancePanel";
 import { CohortManager } from "@/components/CohortManager";
 import { DiagnosticQuiz } from "@/components/DiagnosticQuiz";
 import { InterventionQueue } from "@/components/InterventionQueue";
+import { PlacementOverridePanel } from "@/components/PlacementOverridePanel";
 import {
   canManageVisibility,
   getMemberChapters,
@@ -75,6 +76,7 @@ export default async function ProgramPage({ searchParams }: Props) {
         {isStaffViewer ? (
           <InterventionQueue chapterId={selected.id} chapterSlug={selected.slug} />
         ) : null}
+        {canEdit ? <PlacementOverridePanel chapterId={selected.id} /> : null}
         <CohortManager chapterId={selected.id} canEdit={canEdit} />
         <AttendancePanel chapterId={selected.id} canEdit={canEdit} />
       </div>

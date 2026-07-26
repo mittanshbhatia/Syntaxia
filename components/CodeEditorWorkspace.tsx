@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { classifyMisconceptions } from "@/lib/diagnostics/misconceptions";
 
 const Monaco = dynamic(() => import("@monaco-editor/react"), {
@@ -22,6 +22,42 @@ type Props = {
   placeholder?: string;
 };
 
+type PyodideLike = {
+  runPythonAsync: (code: string) => Promise<unknown>;
+  setStdout: (opts: { batched: (s: string) => void }) => void;
+  setStderr: (opts: { batched: (s: string) => void }) => void;
+};
+
+declare global {
+  interface Window {
+    loadPyodide?: (opts: { indexURL: string }) => Promise<PyodideLike>;
+  }
+}
+
+async function ensurePyodide(): Promise<PyodideLike> {
+  if (!window.loadPyodide) {
+    await new Promise<void>((resolve, reject) => {
+      const existing = document.querySelector<HTMLScriptElement>("script[data-pyodide]");
+      if (existing) {
+        existing.addEventListener("load", () => resolve());
+        existing.addEventListener("error", () => reject(new Error("Failed to load Pyodide")));
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/pyodide/v0.27.5/full/pyodide.js";
+      script.async = true;
+      script.dataset.pyodide = "1";
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error("Failed to load Pyodide"));
+      document.head.appendChild(script);
+    });
+  }
+  if (!window.loadPyodide) throw new Error("Pyodide unavailable");
+  return window.loadPyodide({
+    indexURL: "https://cdn.jsdelivr.net/pyodide/v0.27.5/full/",
+  });
+}
+
 export function CodeEditorWorkspace({
   chapterId,
   materialId,
@@ -36,15 +72,55 @@ export function CodeEditorWorkspace({
   const [tags, setTags] = useState<{ tag: string; label: string }[]>([]);
   const [message, setMessage] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [running, setRunning] = useState(false);
+  const pyodideRef = useRef<PyodideLike | null>(null);
 
-  const runLocalChecks = useCallback(() => {
+  const analyze = useCallback(() => {
     const found = classifyMisconceptions(value);
     setTags(found);
-    setStdout(
-      "Isolated Python runner is coming soon (network-disabled containers).\nFor now Syntaxia classifies common misconceptions from your source.",
-    );
-    setStderr(null);
+    if (!found.length) {
+      setMessage("No common misconception patterns detected in this source.");
+    }
   }, [value]);
+
+  async function runPython() {
+    setRunning(true);
+    setMessage(null);
+    setStdout(null);
+    setStderr(null);
+    try {
+      if (!pyodideRef.current) {
+        setMessage("Loading in-browser Python runtime…");
+        pyodideRef.current = await ensurePyodide();
+      }
+      const pyodide = pyodideRef.current;
+      let out = "";
+      let err = "";
+      pyodide.setStdout({ batched: (s) => { out += `${s}\n`; } });
+      pyodide.setStderr({ batched: (s) => { err += `${s}\n`; } });
+
+      const wrapped = `
+import sys
+from io import StringIO
+_stdin = ${JSON.stringify(stdin)}
+sys.stdin = StringIO(_stdin)
+${value}
+`;
+      await pyodide.runPythonAsync(wrapped);
+      setStdout(out.trim() || "(no stdout)");
+      setStderr(err.trim() || null);
+      setTags(classifyMisconceptions(value));
+      setMessage("Ran in your browser via Pyodide (not a remote sandbox). Server isolation still coming.");
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      setStderr(msg);
+      setStdout(null);
+      setTags(classifyMisconceptions(value));
+      setMessage("Runtime error — see stderr.");
+    } finally {
+      setRunning(false);
+    }
+  }
 
   async function submit() {
     setBusy(true);
@@ -86,7 +162,7 @@ export function CodeEditorWorkspace({
 
   return (
     <div className="mt-3 space-y-3">
-      <div className="overflow-hidden border border-[var(--line)]">
+      <div className="overflow-hidden rounded-lg border border-[var(--line)]">
         <Monaco
           height="240px"
           language="python"
@@ -108,17 +184,25 @@ export function CodeEditorWorkspace({
       ) : null}
 
       <label className="block text-xs text-[var(--muted)]">
-        Standard input (for future runner)
+        Standard input
         <textarea
           className="field mt-1 min-h-[3rem] font-mono text-xs"
           value={stdin}
           onChange={(e) => setStdin(e.target.value)}
-          placeholder="Optional stdin"
+          placeholder="Optional stdin for Run"
         />
       </label>
 
       <div className="flex flex-wrap gap-2">
-        <button type="button" className="btn btn-ghost px-4 py-2 text-sm" onClick={runLocalChecks}>
+        <button
+          type="button"
+          className="btn btn-ghost px-4 py-2 text-sm"
+          disabled={running || !value.trim()}
+          onClick={() => void runPython()}
+        >
+          {running ? "Running…" : "Run"}
+        </button>
+        <button type="button" className="btn btn-ghost px-4 py-2 text-sm" onClick={analyze}>
           Analyze
         </button>
         <button
@@ -132,12 +216,12 @@ export function CodeEditorWorkspace({
       </div>
 
       {stdout ? (
-        <pre className="overflow-x-auto border border-[var(--line)] bg-[var(--bg)] p-3 text-xs text-[var(--muted)]">
+        <pre className="overflow-x-auto rounded-lg border border-[var(--line)] bg-[var(--bg)] p-3 text-xs text-[var(--muted)]">
           {stdout}
         </pre>
       ) : null}
       {stderr ? (
-        <pre className="overflow-x-auto border border-[var(--line)] bg-[var(--bg)] p-3 text-xs text-[#b45309]">
+        <pre className="overflow-x-auto rounded-lg border border-[var(--line)] bg-[var(--bg)] p-3 text-xs text-[#b45309]">
           {stderr}
         </pre>
       ) : null}
@@ -147,7 +231,7 @@ export function CodeEditorWorkspace({
           {tags.map((t) => (
             <span
               key={t.tag}
-              className="bg-[rgba(180,83,9,0.12)] px-2 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#b45309]"
+              className="rounded-full bg-[rgba(180,83,9,0.12)] px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#b45309]"
             >
               {t.label}
             </span>

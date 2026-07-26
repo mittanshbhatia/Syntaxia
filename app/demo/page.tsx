@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ProductDashboardPreview } from "@/components/ProductDashboardPreview";
-import { openChapters } from "@/lib/content";
+import { curriculumCatalog } from "@/lib/curriculum/catalog";
+import { pythonDiagnosticQuestions } from "@/lib/diagnostics/questions";
+import { openChapters, tracks } from "@/lib/content";
 
 type Role = "student" | "instructor" | "director";
 
@@ -11,17 +13,17 @@ const roles: { id: Role; label: string; blurb: string }[] = [
   {
     id: "student",
     label: "Student view",
-    blurb: "Placement, lessons, code workspace, and progress — empty until you join a chapter.",
+    blurb: "Placement diagnostic, leveled tracks, and the code workspace.",
   },
   {
     id: "instructor",
     label: "Instructor view",
-    blurb: "Dashboard chrome for submissions, curriculum controls, and interventions.",
+    blurb: "Program console with verified product facts and teaching controls.",
   },
   {
     id: "director",
     label: "Program-director view",
-    blurb: "Verified chapters plus empty cohorts and analytics until you create them.",
+    blurb: "Verified chapters, tracks, and ops tools you unlock after signing in.",
   },
 ];
 
@@ -38,11 +40,11 @@ export default function DemoPage() {
       <div className="max-w-3xl text-left">
         <p className="eyebrow eyebrow-left">Product tour</p>
         <h1 className="display mt-4 text-4xl text-[var(--ink)] sm:text-5xl">
-          See the product surfaces — without invented numbers.
+          Tour Syntaxia with real product facts.
         </h1>
         <p className="mt-4 text-[var(--muted)]">
-          This tour shows the real UI layout with empty states. Metrics fill in from your chapter after
-          you sign in. No sample students or fake analytics.
+          Chapters, tracks, and curriculum counts are verified. Per-student activity appears after you
+          sign in to a chapter — we do not invent it for the tour.
         </p>
       </div>
 
@@ -86,26 +88,26 @@ function StudentDemo() {
     <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
       <div className="space-y-4">
         <Card title="Placement">
-          <Empty
-            title="No diagnostic yet"
-            body="After you join a chapter, take the Python foundations diagnostic under Placement & cohorts."
-          />
+          <p className="display text-3xl text-[var(--ink)]">
+            {pythonDiagnosticQuestions.length}-question diagnostic
+          </p>
+          <p className="mt-2 text-sm text-[var(--muted)]">
+            Python foundations → recommended L1 / L2 / L3 after you join a chapter.
+          </p>
         </Card>
-        <Card title="Progress">
-          <Row label="Lessons completed" value="—" />
-          <Row label="Assignments passed" value="—" />
-          <Row label="Hints used" value="—" />
+        <Card title="Tracks">
+          {tracks.map((t) => (
+            <Row key={t.id} label={`${t.level} · ${t.name}`} value="Available" />
+          ))}
         </Card>
       </div>
       <Card title="Code workspace">
-        <pre className="overflow-x-auto rounded-lg border border-[var(--line)] bg-[var(--bg)] p-3 font-mono text-xs text-[var(--muted)]">{`# Your assignment code appears here
-# Monaco editor · submit · misconception tags
+        <pre className="overflow-x-auto rounded-lg border border-[var(--line)] bg-[var(--bg)] p-3 font-mono text-xs text-[var(--ink)]">{`# Monaco editor in dashboard materials
+# Run Python in-browser · Submit · misconception tags
 `}</pre>
-        <Empty
-          className="mt-4"
-          title="No submission yet"
-          body="Open a dashboard material with a code prompt to write and submit real work."
-        />
+        <p className="mt-3 text-sm text-[var(--muted)]">
+          Open any code assignment after signing in to write, run, and submit real work.
+        </p>
       </Card>
     </div>
   );
@@ -116,13 +118,15 @@ function InstructorDemo() {
     <div className="space-y-4">
       <ProductDashboardPreview />
       <div className="grid gap-4 lg:grid-cols-2">
-        <Card title="Pending submissions">
-          <Empty title="Queue empty" body="Student code submissions for your chapter show up here." />
+        <Card title="Teaching surfaces">
+          <Row label="Materials catalog" value={`${curriculumCatalog.length} items`} />
+          <Row label="Visibility controls" value="Admin" />
+          <Row label="Intervention queue" value="Program tools" />
         </Card>
-        <Card title="Curriculum controls">
-          <Row label="Visibility tools" value="Admin → Member visibility" />
-          <Row label="Materials" value="Dashboard sections" />
-          <Row label="Placement override" value="Coming with staff tools" />
+        <Card title="Next actions">
+          <Row label="Approve members" value="Admin" />
+          <Row label="Create cohort" value="Program tools" />
+          <Row label="Take attendance" value="Program tools" />
         </Card>
       </div>
     </div>
@@ -134,28 +138,26 @@ function DirectorDemo() {
     <div className="grid gap-4 lg:grid-cols-3">
       <Card title="Verified chapters">
         {openChapters.map((c) => (
-          <Row key={c.id} label={c.shortName} value={c.status === "open" ? "Open" : c.status} />
+          <Row key={c.id} label={c.shortName} value="Open" />
         ))}
       </Card>
-      <Card title="Cohorts">
-        <Empty title="No cohorts yet" body="Create cohorts from Dashboard → Placement & cohorts after signing in as staff." />
+      <Card title="Tracks">
+        {tracks.map((t) => (
+          <Row key={t.id} label={t.level} value={t.name} />
+        ))}
       </Card>
       <Card title="Organization">
-        <Row label="Plan" value="APSDS flagship / Community" />
-        <Row label="Billing" value="Not connected yet" />
-        <Row label="Approvals" value="Live in Admin" />
+        <Row label="Flagship program" value="APSDS" />
+        <Row label="Platform" value="Syntaxia" />
+        <Row label="Billing" value="Pricing page" />
       </Card>
       <div className="lg:col-span-3">
-        <Card title="Org analytics">
-          <div className="grid gap-3 sm:grid-cols-4">
-            <Metric value="—" label="Active students" />
-            <Metric value="—" label="Weekly active" />
-            <Metric value="—" label="Submissions / week" />
-            <Metric value="—" label="Need support" />
+        <Card title="Verified product counts">
+          <div className="grid gap-3 sm:grid-cols-3">
+            <Metric value={String(openChapters.length)} label="School chapters" />
+            <Metric value={String(tracks.length)} label="Curriculum tracks" />
+            <Metric value={String(curriculumCatalog.length)} label="Materials published" />
           </div>
-          <p className="mt-3 text-xs text-[var(--muted)]">
-            Analytics populate from real memberships, attendance, and submissions — never seeded samples.
-          </p>
         </Card>
       </div>
     </div>
@@ -168,23 +170,6 @@ function Card({ title, children }: { title: string; children: React.ReactNode })
       <h2 className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--muted)]">{title}</h2>
       <div className="mt-3">{children}</div>
     </section>
-  );
-}
-
-function Empty({
-  title,
-  body,
-  className = "",
-}: {
-  title: string;
-  body: string;
-  className?: string;
-}) {
-  return (
-    <div className={`border border-dashed border-[var(--line)] bg-[var(--bg)] px-4 py-6 text-center ${className}`}>
-      <p className="text-sm font-medium text-[var(--ink)]">{title}</p>
-      <p className="mt-1 text-xs leading-relaxed text-[var(--muted)]">{body}</p>
-    </div>
   );
 }
 

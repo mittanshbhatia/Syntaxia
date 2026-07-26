@@ -46,7 +46,28 @@ export async function GET(request: Request) {
         .in("meeting_id", meetingIds)
     : { data: [] as { id: string; meeting_id: string; user_id: string; status: string; note: string | null }[] };
 
-  return NextResponse.json({ meetings: meetings ?? [], records: records ?? [] });
+  const { data: memberships } = await supabase
+    .from("chapter_memberships")
+    .select("user_id")
+    .eq("chapter_id", cohort.chapter_id)
+    .eq("status", "approved");
+
+  const memberIds = [...new Set((memberships ?? []).map((m) => m.user_id as string))];
+  const { data: profiles } = memberIds.length
+    ? await supabase.from("profiles").select("id, email, display_name").in("id", memberIds)
+    : { data: [] as { id: string; email: string | null; display_name: string | null }[] };
+
+  const members = (profiles ?? []).sort((a, b) => {
+    const an = (a.display_name || a.email || "").toLowerCase();
+    const bn = (b.display_name || b.email || "").toLowerCase();
+    return an.localeCompare(bn);
+  });
+
+  return NextResponse.json({
+    meetings: meetings ?? [],
+    records: records ?? [],
+    members,
+  });
 }
 
 export async function POST(request: Request) {

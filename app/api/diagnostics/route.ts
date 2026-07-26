@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { canAccessChapter, getSessionUser } from "@/lib/auth";
+import { canAccessChapter, canManageVisibility, getSessionUser } from "@/lib/auth";
 import {
   PYTHON_DIAGNOSTIC_SLUG,
   pythonDiagnosticQuestions,
@@ -136,3 +136,55 @@ export async function POST(request: Request) {
 
   return NextResponse.json({ result, placement, persisted: true });
 }
+
+/** Instructor override for a student's placement track. */
+export async function PATCH(request: Request) {
+  const user = await getSessionUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const body = (await request.json().catch(() => null)) as {
+    placementId?: string;
+    overrideTrack?: "l1" | "l2" | "l3";
+  } | null;
+
+  if (!body?.placementId || !body.overrideTrack) {
+    return NextResponse.json({ error: "placementId and overrideTrack required" }, { status: 400 });
+  }
+
+  const supabase = await createClient();
+  const { data: placement } = await supabase
+    .from("placement_results")
+    .select("id, chapter_id, user_id")
+    .eq("id", body.placementId)
+    .maybeSingle();
+
+  if (!placement) return NextResponse.json({ error: "Placement not found" }, { status: 404 });
+
+  const allowed = await canManageVisibility(user.id, placement.chapter_id);
+  if (!allowed) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+
+  const { data, error } = await supabase
+    .from("placement_results")
+    .update({
+      instructor_override_track: body.overrideTrack,
+      override_by: user.id,
+      override_at: new Date().toISOString(),
+    })
+    .eq("id", body.placementId)
+    .select(
+      "id, recommended_track, instructor_override_track, confidence, starting_lesson, user_id",
+    )
+    .single();
+
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  await supabase
+    .from("chapter_memberships")
+    .update({ track: body.overrideTrack })
+    .eq("chapter_id", placement.chapter_id)
+    .eq("user_id", placement.user_id)
+    .eq("status", "approved");
+
+  return NextResponse.json({ placement: data });
+}
+

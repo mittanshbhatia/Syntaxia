@@ -67,8 +67,8 @@ export default function HomePage() {
               See who is stuck — and what to do next.
             </h2>
             <p className="mt-4 max-w-2xl text-[var(--muted)]">
-              The instructor dashboard is empty until your chapter has real members and submissions. We
-              show the interface, not invented activity.
+              A live look at Syntaxia&apos;s program console: verified chapters, tracks, and curriculum —
+              not invented student analytics.
             </p>
           </div>
         </Reveal>
@@ -210,7 +210,7 @@ export default function HomePage() {
               <p className="mt-3 text-sm text-[var(--muted)]">Updated {verifiedTraction.updated}</p>
             </div>
           </Reveal>
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {verifiedTraction.items.map((item) => (
               <article
                 key={item.label}
