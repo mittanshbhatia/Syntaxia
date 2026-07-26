@@ -97,6 +97,12 @@ export function SiteHeader() {
             <Link href="/demo" className="btn btn-primary hidden px-4 py-2 text-sm sm:inline-flex">
               Try demo
             </Link>
+            <a
+              href="mailto:founders@syntaxia.org?subject=Syntaxia%20pilot"
+              className="btn btn-ghost hidden px-4 py-2 text-sm lg:inline-flex"
+            >
+              Email founders
+            </a>
 
             {signedIn ? (
               <Link href={dashboardHref} className="btn btn-ghost hidden px-4 py-2 text-sm md:inline-flex">
@@ -167,6 +173,13 @@ export function SiteHeader() {
               >
                 Try demo
               </Link>
+              <a
+                href="mailto:founders@syntaxia.org?subject=Syntaxia%20pilot"
+                className="rounded-sm px-3 py-3 text-sm font-medium hover:bg-[var(--surface)]"
+                onClick={() => setMenuOpen(false)}
+              >
+                Email founders
+              </a>
               <Link
                 href={signedIn ? dashboardHref : "/auth/sign-in"}
                 className="rounded-sm px-3 py-3 text-sm font-medium hover:bg-[var(--surface)]"
@@ -217,7 +230,7 @@ function GearIcon() {
 function DefaultAvatar() {
   return (
     <svg viewBox="0 0 40 40" className="h-full w-full" aria-hidden="true">
-      <circle cx="20" cy="20" r="20" fill="#1f2bd5" />
+      <circle cx="20" cy="20" r="20" fill="#0f6b52" />
       <circle cx="20" cy="15" r="7" fill="#ffffff" opacity="0.95" />
       <path d="M6 34c2.5-7 9-10 14-10s11.5 3 14 10" fill="#ffffff" opacity="0.95" />
     </svg>

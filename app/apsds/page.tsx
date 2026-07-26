@@ -33,14 +33,14 @@ export default function ApsdsPage() {
           <p className="mt-4 max-w-2xl text-[var(--muted)]">{apsds.mission}</p>
           <p className="mt-4 max-w-2xl text-sm text-[var(--muted)]">{apsds.relationship}</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/join" className="btn btn-primary">
+            <Link href="/" className="btn btn-primary">
+              See Syntaxia product
+            </Link>
+            <Link href="/join" className="btn btn-ghost">
               Join a chapter
             </Link>
             <Link href="/demo" className="btn btn-ghost">
               Try demo
-            </Link>
-            <Link href="/members" className="btn btn-ghost">
-              I&apos;m a member
             </Link>
           </div>
         </Reveal>

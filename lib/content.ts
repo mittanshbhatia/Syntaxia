@@ -3,16 +3,18 @@ import { pythonDiagnosticQuestions } from "@/lib/diagnostics/questions";
 
 export const syntaxia = {
   name: "Syntaxia",
-  tagline: "Run a serious computer science program without building everything yourself.",
+  /** Brand-first hero wordmark lives on the homepage; this is the outcome line under it. */
+  tagline: "The operating system for serious CS programs.",
+  headline: "Place every student. Catch who is stuck. Run the next meeting.",
   description:
-    "Syntaxia helps schools, clubs, and after-school programs run structured computer science education with curriculum, code submissions, student placement, and instructor analytics.",
+    "Syntaxia is software for schools, clubs, and after-school programs that teach computer science in leveled tracks — curriculum, diagnostics, code submissions, attendance, and instructor interventions in one place.",
+  icp: "Built for chapter directors, instructors, and program leads — not another generic LMS.",
   emails: {
     founders: "founders@syntaxia.org",
     support: "support@syntaxia.org",
     sales: "sales@syntaxia.org",
     privacy: "privacy@syntaxia.org",
   },
-  /** Primary public contact for sales/pilots */
   email: "sales@syntaxia.org",
   instagram: "theapsdsclub",
   instagramUrl: "https://www.instagram.com/theapsdsclub/",
@@ -25,7 +27,7 @@ export const apsds = {
   mission:
     "APSDS is the flagship computer science program powered by Syntaxia — leveled tracks, weekly meetings, real projects, and competition support across Bay Area schools.",
   relationship:
-    "APSDS is Syntaxia's first deployment, testing ground, and distribution network — proof that the founders understand the problem.",
+    "APSDS is Syntaxia’s first customer: we operate the program ourselves, ship the product against our own weekly meetings, and expand chapter by chapter.",
   email: "support@syntaxia.org",
   chapterEmail: "team.apsds@gmail.com",
   instagram: "theapsdsclub",
@@ -82,20 +84,54 @@ export function getMarketingChapter(slug: string) {
   return chapters.find((c) => c.slug === slug) ?? null;
 }
 
-/** Only numbers we can verify from the public chapter list / product surface. */
+/**
+ * Only numbers we can verify from public chapter list / shipped product surface.
+ * Framed as product readiness + wedge depth — not invented growth metrics.
+ */
 export const verifiedTraction = {
   updated: "July 2026",
+  stage: "Early · dogfooding on our own program",
   items: [
-    { label: "Active school chapters", value: String(openChapters.length) },
-    { label: "Curriculum tracks", value: "3" },
-    { label: "Materials in catalog", value: String(curriculumCatalog.length) },
     {
-      label: "Placement questions",
+      label: "Named school chapters live",
+      value: String(openChapters.length),
+      detail: openChapters.map((c) => c.shortName).join(" · "),
+    },
+    {
+      label: "Leveled curriculum tracks",
+      value: "3",
+      detail: "L1 Foundations · L2 Practical · L3 Advanced",
+    },
+    {
+      label: "Materials in product catalog",
+      value: String(curriculumCatalog.length),
+      detail: "Lessons, tests, projects, competition prep",
+    },
+    {
+      label: "Placement diagnostic items",
       value: String(pythonDiagnosticQuestions.length),
+      detail: "Python foundations → track recommendation",
     },
   ],
-  proofLine: `Used across ${openChapters.length} school chapters · Built from operating APSDS ourselves`,
+  proofLine: `Live at ${openChapters.map((c) => c.shortName).join(", ")} · Built by operating APSDS ourselves`,
+  honesty:
+    "We do not publish estimated TAM, projected ARR, waitlist counts, or interest-only school lists as traction.",
 } as const;
+
+export const problemPoints = [
+  {
+    title: "Wrong level on day one",
+    body: "Students get dumped into one room. Beginners stall; advanced kids coast.",
+  },
+  {
+    title: "Work lives in Drive",
+    body: "Curriculum, homework, and solutions scatter across folders no instructor can audit.",
+  },
+  {
+    title: "Stuck students stay invisible",
+    body: "Without submissions and misconception tags, the next meeting is guesswork.",
+  },
+] as const;
 
 export const tracks = [
   {
@@ -109,14 +145,14 @@ export const tracks = [
     id: "l2",
     level: "L2",
     name: "Practical",
-    accent: "#b8bcc4",
+    accent: "#7a8790",
     summary: "Projects that move: games, animation, and applied problem solving.",
   },
   {
     id: "l3",
     level: "L3",
     name: "Advanced",
-    accent: "#f0c44d",
+    accent: "#0f6b52",
     summary: "Data structures, contests, mentorship, and deeper builds.",
   },
 ] as const;
@@ -125,25 +161,25 @@ export const howItWorks = [
   {
     id: "diagnose",
     title: "Diagnose",
-    body: "Students complete a short programming diagnostic.",
+    body: "Students take a short programming diagnostic inside Syntaxia.",
     preview: "diagnostic",
   },
   {
     id: "place",
     title: "Place",
-    body: "Syntaxia assigns each student to the correct track and starting point.",
+    body: "Each student lands on L1, L2, or L3 with a starting lesson and confidence.",
     preview: "placement",
   },
   {
     id: "learn",
     title: "Learn",
-    body: "Students complete structured lessons and submit code inside Syntaxia.",
+    body: "Structured materials, Monaco code workspace, in-browser run, and submit.",
     preview: "learn",
   },
   {
     id: "intervene",
     title: "Intervene",
-    body: "Instructors see who is stuck, why they are stuck, and what to do next.",
+    body: "Instructors see pending members, tagged misconceptions, and attendance gaps.",
     preview: "intervene",
   },
 ] as const;
@@ -151,7 +187,7 @@ export const howItWorks = [
 export const productFeatures = [
   {
     title: "Student placement",
-    body: "Diagnostic testing and automatic level recommendations.",
+    body: "Diagnostic testing and automatic level recommendations with instructor override.",
     status: "live" as const,
   },
   {
@@ -166,14 +202,13 @@ export const productFeatures = [
     note: "Editor · Run · Submit live · remote sandbox & autograding coming soon",
   },
   {
-    title: "Instructor dashboard",
-    body: "Progress, attendance, misconceptions, and intervention alerts.",
-    status: "partial" as const,
-    note: "Progress & materials live · attendance & intervention queue coming soon",
+    title: "Instructor ops",
+    body: "Progress, attendance roster, misconception tags, and an intervention queue.",
+    status: "live" as const,
   },
   {
     title: "Chapter operations",
-    body: "Memberships, roles, cohorts, announcements, and curriculum visibility.",
+    body: "Memberships, roles, cohorts, and curriculum visibility controls.",
     status: "partial" as const,
     note: "Memberships, roles & cohorts live · announcements expanding",
   },
@@ -185,9 +220,17 @@ export const productFeatures = [
   },
 ] as const;
 
+export const founders = [
+  {
+    name: "Mittansh Bhatia",
+    role: "Founder",
+    bio: "Operates APSDS and is building Syntaxia from the same weekly ops pain: placement, curriculum, submissions, and chapter management.",
+  },
+] as const;
+
 export const founderStory = {
-  title: "Built from real experience",
-  body: "We built Syntaxia after operating APSDS across multiple schools. As the program expanded, we were manually placing students, distributing curriculum, reviewing assignments, tracking chapter memberships, and managing different student levels. Syntaxia is the software we needed ourselves.",
+  title: "We built the software we needed to run APSDS.",
+  body: "As APSDS expanded across schools, we were manually placing students, distributing curriculum, reviewing assignments, tracking memberships, and juggling L1 / L2 / L3 in Drive and spreadsheets. Syntaxia is that stack — productized.",
   before: [
     "Drive folders per chapter",
     "Spreadsheets for placement",
@@ -196,9 +239,9 @@ export const founderStory = {
   ],
   after: [
     "One instructor dashboard",
-    "Diagnostic placement",
-    "In-platform submissions",
-    "Roles, chapters, and materials",
+    "Diagnostic placement + override",
+    "In-platform code submit",
+    "Roles, cohorts, attendance",
   ],
 } as const;
 
@@ -212,7 +255,6 @@ export const testimonials: {
   organization: string;
 }[] = [];
 
-
 export const pricingPlans = [
   {
     id: "community",
@@ -225,7 +267,7 @@ export const pricingPlans = [
     featured: false,
     features: [
       "One chapter",
-      "Basic curriculum",
+      "Curriculum catalog",
       "Membership management",
       "Limited assignments",
     ],
@@ -241,11 +283,12 @@ export const pricingPlans = [
     featured: true,
     features: [
       "Up to 100 students",
-      "Diagnostics",
-      "Autograding",
+      "Diagnostics & placement",
       "Instructor dashboard",
-      "Progress reports",
+      "Attendance & interventions",
+      "Code submissions (browser run)",
       "Email support",
+      "Autograding — coming soon",
     ],
   },
   {
@@ -263,7 +306,7 @@ export const pricingPlans = [
       "Instructor onboarding",
       "School data agreement",
       "Priority support",
-      "Organization analytics",
+      "Organization analytics — expanding",
     ],
   },
   {
@@ -287,20 +330,22 @@ export const pricingPlans = [
 
 export const navLinks = [
   { href: "/#product", label: "Product" },
-  { href: "/#solutions", label: "Solutions" },
-  { href: "/#results", label: "Results" },
+  { href: "/#how", label: "How it works" },
+  { href: "/#traction", label: "Traction" },
   { href: "/pricing", label: "Pricing" },
   { href: "/apsds", label: "APSDS" },
 ] as const;
 
 export const footerLinks = [
   { href: "/#product", label: "Product" },
-  { href: "/pricing", label: "Pricing" },
   { href: "/demo", label: "Demo" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/start", label: "Start a pilot" },
   { href: "/apsds", label: "APSDS" },
   { href: "/privacy", label: "Privacy" },
-  { href: "/terms", label: "Terms" },
+  { href: "/student-privacy", label: "Student privacy" },
   { href: "/security", label: "Security" },
+  { href: "/terms", label: "Terms" },
   { href: "/contact", label: "Contact" },
   { href: "/auth/sign-in", label: "Sign in" },
 ] as const;
@@ -331,9 +376,18 @@ export const joinSteps = [
 ] as const;
 
 export const startSteps = [
-  { title: "Tell us your school", body: "Share your campus, team, and launch window." },
-  { title: "Receive the playbook", body: "Curriculum, diagnostics, ACSL, and workshop structure." },
-  { title: "Launch locally", body: "Recruit instructors, run interest meetings, place students." },
+  {
+    title: "Email founders",
+    body: "Tell us your organization, estimated students, and launch window.",
+  },
+  {
+    title: "Tour the product",
+    body: "Walk the demo, then sign in to try placement and materials for real.",
+  },
+  {
+    title: "Pilot one cohort",
+    body: "Run diagnose → place → submit → intervene on a single group first.",
+  },
 ] as const;
 
 export const dashboardSections = [

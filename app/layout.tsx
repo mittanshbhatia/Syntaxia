@@ -23,11 +23,11 @@ export const metadata: Metadata = {
     template: "%s · Syntaxia",
   },
   description:
-    "Syntaxia helps schools, clubs, and after-school programs run structured computer science education with curriculum, code submissions, student placement, and instructor analytics.",
+    "Syntaxia is the operating system for serious CS programs — placement, curriculum, code submissions, attendance, and instructor interventions. Live at APSDS chapters.",
   openGraph: {
-    title: "Syntaxia",
+    title: "Syntaxia — the OS for serious CS programs",
     description:
-      "Run a serious computer science program without building everything yourself.",
+      "Place every student. Catch who is stuck. Run the next meeting. Dogfooded on APSDS at BISV, Lynbrook, and Harker.",
     type: "website",
     url: "https://syntaxia.org",
   },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Syntaxia",
     description:
-      "Structured CS curriculum, placement, submissions, and instructor analytics in one platform.",
+      "Software for leveled CS programs: diagnose → place → learn → intervene.",
   },
   metadataBase: new URL("https://syntaxia.org"),
 };

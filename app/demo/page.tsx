@@ -5,25 +5,25 @@ import { useMemo, useState } from "react";
 import { ProductDashboardPreview } from "@/components/ProductDashboardPreview";
 import { curriculumCatalog } from "@/lib/curriculum/catalog";
 import { pythonDiagnosticQuestions } from "@/lib/diagnostics/questions";
-import { openChapters, tracks } from "@/lib/content";
+import { openChapters, syntaxia, tracks } from "@/lib/content";
 
 type Role = "student" | "instructor" | "director";
 
 const roles: { id: Role; label: string; blurb: string }[] = [
   {
     id: "student",
-    label: "Student view",
-    blurb: "Placement diagnostic, leveled tracks, and the code workspace.",
+    label: "Student",
+    blurb: "Diagnostic → track → code workspace.",
   },
   {
     id: "instructor",
-    label: "Instructor view",
-    blurb: "Program console with verified product facts and teaching controls.",
+    label: "Instructor",
+    blurb: "Program console and teaching controls.",
   },
   {
     id: "director",
-    label: "Program-director view",
-    blurb: "Verified chapters, tracks, and ops tools you unlock after signing in.",
+    label: "Director",
+    blurb: "Chapters, tracks, and org surface.",
   },
 ];
 
@@ -40,23 +40,23 @@ export default function DemoPage() {
       <div className="max-w-3xl text-left">
         <p className="eyebrow eyebrow-left">Product tour</p>
         <h1 className="display mt-4 text-4xl text-[var(--ink)] sm:text-5xl">
-          Tour Syntaxia with real product facts.
+          Walk the loop without invented students.
         </h1>
         <p className="mt-4 text-[var(--muted)]">
-          Chapters, tracks, and curriculum counts are verified. Per-student activity appears after you
-          sign in to a chapter — we do not invent it for the tour.
+          Chapters, tracks, and catalog counts are verified. Per-student activity only appears after you
+          sign into a real chapter.
         </p>
       </div>
 
-      <div className="mt-10 grid gap-3 md:grid-cols-3">
+      <div className="mt-10 grid gap-2 sm:grid-cols-3">
         {roles.map((r) => (
           <button
             key={r.id}
             type="button"
             onClick={() => setRole(r.id)}
-            className={`rounded-[1rem] border p-5 text-left transition ${
+            className={`border p-5 text-left transition ${
               role === r.id
-                ? "border-[var(--brand)] bg-[rgba(var(--brand-rgb),0.08)] shadow-[0_12px_40px_rgba(31,43,213,0.12)]"
+                ? "border-[var(--brand)] bg-[rgba(var(--brand-rgb),0.08)]"
                 : "border-[var(--line)] bg-[var(--surface)] hover:border-[var(--line-2)]"
             }`}
           >
@@ -72,9 +72,12 @@ export default function DemoPage() {
         <Link href="/auth/sign-up" className="btn btn-primary">
           Create an account
         </Link>
-        <Link href="/start" className="btn btn-ghost">
-          Start a pilot
-        </Link>
+        <a
+          href={`mailto:${syntaxia.emails.founders}?subject=${encodeURIComponent("Syntaxia pilot")}`}
+          className="btn btn-ghost"
+        >
+          Email founders
+        </a>
         <Link href="/pricing" className="btn btn-ghost">
           View pricing
         </Link>
@@ -85,49 +88,55 @@ export default function DemoPage() {
 
 function StudentDemo() {
   return (
-    <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
-      <div className="space-y-4">
-        <Card title="Placement">
+    <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="space-y-6">
+        <Panel title="01 · Placement">
           <p className="display text-3xl text-[var(--ink)]">
             {pythonDiagnosticQuestions.length}-question diagnostic
           </p>
           <p className="mt-2 text-sm text-[var(--muted)]">
-            Python foundations → recommended L1 / L2 / L3 after you join a chapter.
+            Python foundations → recommended L1 / L2 / L3 after you join a chapter. Instructors can
+            override.
           </p>
-        </Card>
-        <Card title="Tracks">
+        </Panel>
+        <Panel title="02 · Tracks">
           {tracks.map((t) => (
             <Row key={t.id} label={`${t.level} · ${t.name}`} value="Available" />
           ))}
-        </Card>
+        </Panel>
       </div>
-      <Card title="Code workspace">
-        <pre className="overflow-x-auto rounded-lg border border-[var(--line)] bg-[var(--bg)] p-3 font-mono text-xs text-[var(--ink)]">{`# Monaco editor in dashboard materials
-# Run Python in-browser · Submit · misconception tags
+      <Panel title="03 · Code workspace">
+        <pre className="overflow-x-auto border border-[var(--line)] bg-[var(--bg)] p-3 font-mono text-xs text-[var(--ink)]">{`# Monaco in dashboard materials
+def solve(nums):
+    # write · run (Pyodide) · submit
+    return nums
 `}</pre>
         <p className="mt-3 text-sm text-[var(--muted)]">
-          Open any code assignment after signing in to write, run, and submit real work.
+          Open any code assignment after signing in to write, run in-browser, tag misconceptions, and
+          submit.
         </p>
-      </Card>
+      </Panel>
     </div>
   );
 }
 
 function InstructorDemo() {
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <ProductDashboardPreview />
-      <div className="grid gap-4 lg:grid-cols-2">
-        <Card title="Teaching surfaces">
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Panel title="Teaching surfaces">
           <Row label="Materials catalog" value={`${curriculumCatalog.length} items`} />
           <Row label="Visibility controls" value="Admin" />
           <Row label="Intervention queue" value="Program tools" />
-        </Card>
-        <Card title="Next actions">
+          <Row label="Attendance roster" value="Program tools" />
+        </Panel>
+        <Panel title="Weekly actions">
           <Row label="Approve members" value="Admin" />
           <Row label="Create cohort" value="Program tools" />
+          <Row label="Override placement" value="Program tools" />
           <Row label="Take attendance" value="Program tools" />
-        </Card>
+        </Panel>
       </div>
     </div>
   );
@@ -135,38 +144,29 @@ function InstructorDemo() {
 
 function DirectorDemo() {
   return (
-    <div className="grid gap-4 lg:grid-cols-3">
-      <Card title="Verified chapters">
+    <div className="grid gap-6 lg:grid-cols-3">
+      <Panel title="Verified chapters">
         {openChapters.map((c) => (
-          <Row key={c.id} label={c.shortName} value="Open" />
+          <Row key={c.id} label={c.shortName} value={c.name.includes("BASIS") ? "Founding" : "Open"} />
         ))}
-      </Card>
-      <Card title="Tracks">
+      </Panel>
+      <Panel title="Tracks">
         {tracks.map((t) => (
           <Row key={t.id} label={t.level} value={t.name} />
         ))}
-      </Card>
-      <Card title="Organization">
+      </Panel>
+      <Panel title="Organization">
         <Row label="Flagship program" value="APSDS" />
         <Row label="Platform" value="Syntaxia" />
         <Row label="Billing" value="Pricing page" />
-      </Card>
-      <div className="lg:col-span-3">
-        <Card title="Verified product counts">
-          <div className="grid gap-3 sm:grid-cols-3">
-            <Metric value={String(openChapters.length)} label="School chapters" />
-            <Metric value={String(tracks.length)} label="Curriculum tracks" />
-            <Metric value={String(curriculumCatalog.length)} label="Materials published" />
-          </div>
-        </Card>
-      </div>
+      </Panel>
     </div>
   );
 }
 
-function Card({ title, children }: { title: string; children: React.ReactNode }) {
+function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-[1.1rem] border border-[var(--line)] bg-[var(--surface)] p-5 text-left shadow-[0_12px_40px_rgba(15,23,42,0.04)]">
+    <section className="border border-[var(--line)] bg-[var(--surface)] p-5 text-left">
       <h2 className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--muted)]">{title}</h2>
       <div className="mt-3">{children}</div>
     </section>
@@ -175,18 +175,9 @@ function Card({ title, children }: { title: string; children: React.ReactNode })
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-3 border-b border-[var(--line)] py-2 text-sm last:border-0">
+    <div className="flex items-center justify-between gap-3 border-b border-[var(--line)] py-2.5 text-sm last:border-0">
       <span className="text-[var(--muted)]">{label}</span>
       <span className="font-medium text-[var(--ink)]">{value}</span>
-    </div>
-  );
-}
-
-function Metric({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="rounded-lg border border-[var(--line)] bg-[var(--bg)] p-4">
-      <p className="display text-3xl text-[var(--ink)]">{value}</p>
-      <p className="mt-1 text-xs text-[var(--muted)]">{label}</p>
     </div>
   );
 }

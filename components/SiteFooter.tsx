@@ -8,14 +8,15 @@ export function SiteFooter() {
         <div className="footer-copy text-left">
           <p className="display text-3xl">{syntaxia.name}</p>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-[var(--muted)]">
-            Syntaxia helps organizations launch and operate structured computer science programs.
+            Software for running leveled CS programs — placement, curriculum, submissions, and
+            instructor interventions. Dogfooded on APSDS.
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
             <Link href="/demo" className="btn btn-primary px-4 py-2 text-sm">
               Try demo
             </Link>
-            <a href={`mailto:${syntaxia.emails.sales}`} className="btn btn-ghost px-4 py-2 text-sm">
-              Contact sales
+            <a href={`mailto:${syntaxia.emails.founders}`} className="btn btn-ghost px-4 py-2 text-sm">
+              Email founders
             </a>
           </div>
         </div>

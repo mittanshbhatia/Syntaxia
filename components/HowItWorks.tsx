@@ -2,16 +2,13 @@ import { howItWorks } from "@/lib/content";
 
 export function HowItWorks() {
   return (
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
       {howItWorks.map((step, index) => (
-        <article
-          key={step.id}
-          className="border border-[var(--line)] bg-[var(--surface)] p-5 text-left shadow-[0_12px_40px_rgba(15,23,42,0.04)]"
-        >
+        <article key={step.id} className="border-t border-[var(--line)] pt-5 text-left">
           <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--brand)]">
             Step {String(index + 1).padStart(2, "0")}
           </p>
-          <h3 className="display mt-2 text-2xl text-[var(--ink)]">{step.title}</h3>
+          <h3 className="display mt-3 text-2xl text-[var(--ink)]">{step.title}</h3>
           <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{step.body}</p>
           <div className="mt-4 border border-[var(--line)] bg-[var(--bg)] p-3">
             <StepPreview kind={step.preview} />
@@ -62,7 +59,7 @@ function StepPreview({ kind }: { kind: string }) {
         <p className="text-[var(--muted)]"># code workspace</p>
         <p>def solve(...):</p>
         <p className="pl-3">...</p>
-        <p className="mt-2 text-[var(--muted)]">Submit · analyze · misconception tags</p>
+        <p className="mt-2 text-[var(--muted)]">Run · Submit · misconception tags</p>
       </div>
     );
   }

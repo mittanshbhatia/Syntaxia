@@ -16,12 +16,12 @@ export default function PricingPage() {
         <div className="max-w-3xl text-left">
           <p className="eyebrow eyebrow-left">Pricing</p>
           <h1 className="display mt-4 text-4xl text-[var(--ink)] sm:text-5xl">
-            Clear founding prices.
+            Founding prices. Honest features.
           </h1>
           <p className="mt-4 text-[var(--muted)]">
-            Start free if you are an approved student-led chapter. Upgrade when you need diagnostics,
-            autograding, and organization analytics. Payments via Stripe coming online with checkout —
-            email us to start a pilot today.
+            Start free if you are an approved student-led chapter. Paid plans unlock diagnostics,
+            instructor ops, and multi-cohort tools. Stripe checkout is coming — email founders to
+            pilot now. Anything still shipping is labeled as such.
           </p>
         </div>
       </Reveal>
@@ -42,7 +42,7 @@ export default function PricingPage() {
                 <p className="mt-2 text-sm text-[var(--muted)]">{plan.blurb}</p>
               </div>
               {plan.featured ? (
-                <span className="bg-[var(--brand)] px-2 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
+                <span className="bg-[var(--brand)] px-2 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[var(--bg)]">
                   Popular
                 </span>
               ) : null}
@@ -77,8 +77,8 @@ export default function PricingPage() {
         <Link href="/demo" className="btn btn-ghost">
           Try demo
         </Link>
-        <a href={`mailto:${syntaxia.emails.sales}`} className="btn btn-ghost">
-          {syntaxia.emails.sales}
+        <a href={`mailto:${syntaxia.emails.founders}`} className="btn btn-ghost">
+          {syntaxia.emails.founders}
         </a>
       </div>
     </main>
