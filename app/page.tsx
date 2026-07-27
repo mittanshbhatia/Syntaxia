@@ -4,25 +4,49 @@ import { ProductDashboardPreview } from "@/components/ProductDashboardPreview";
 import { Reveal } from "@/components/Reveal";
 import {
   apsds,
+  competitorThesis,
+  competitors,
+  demoDayPlan,
   founderStory,
   founders,
   openChapters,
+  operatorVoice,
   problemPoints,
   productFeatures,
   syntaxia,
+  usageProof,
   verifiedTraction,
 } from "@/lib/content";
 
 export default function HomePage() {
   return (
     <main className="product-home">
+      <section className="border-b border-[var(--line)] bg-[var(--surface)]">
+        <div className="container flex flex-wrap items-center justify-between gap-4 py-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">
+            Live traction · {verifiedTraction.updated}
+          </p>
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
+            {verifiedTraction.strip.map((item) => (
+              <div key={item.label} className="flex items-baseline gap-2">
+                <span className="display text-xl text-[var(--ink)]">{item.value}</span>
+                <span className="text-xs text-[var(--muted)]">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="hero-product border-b border-[var(--line)]">
         <div className="container grid items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-24">
           <div className="text-left">
             <p className="brand-mark hero-rise text-[clamp(3.4rem,9vw,5.6rem)] text-[var(--ink)]">
               {syntaxia.name}
             </p>
-            <h1 className="hero-rise-2 mt-5 max-w-3xl text-left text-[clamp(1.55rem,2.6vw,2.35rem)] font-semibold leading-[1.15] tracking-[-0.03em] text-[var(--ink)]">
+            <p className="hero-rise-2 mt-4 max-w-2xl text-lg font-semibold leading-snug text-[var(--ink)] sm:text-xl">
+              {syntaxia.wedge}
+            </p>
+            <h1 className="hero-rise-2 mt-5 max-w-3xl text-left text-[clamp(1.35rem,2.2vw,1.95rem)] font-semibold leading-[1.2] tracking-[-0.03em] text-[var(--muted)]">
               {syntaxia.headline}
             </h1>
             <p className="hero-rise-3 mt-5 max-w-2xl text-base leading-relaxed text-[var(--muted)] sm:text-lg">
@@ -33,12 +57,9 @@ export default function HomePage() {
               <Link href="/demo" className="btn btn-primary">
                 Try the live demo
               </Link>
-              <a
-                href={`mailto:${syntaxia.emails.founders}?subject=${encodeURIComponent("Syntaxia pilot")}`}
-                className="btn btn-ghost"
-              >
-                Email founders
-              </a>
+              <Link href="/start" className="btn btn-ghost">
+                Start a pilot this semester
+              </Link>
             </div>
             <p className="hero-rise-3 mt-6 text-sm text-[var(--muted)]">{verifiedTraction.proofLine}</p>
           </div>
@@ -61,6 +82,46 @@ export default function HomePage() {
               </span>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="demo-loop" className="scroll-mt-24 border-b border-[var(--line)]">
+        <div className="container grid gap-10 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center sm:py-24">
+          <Reveal>
+            <div className="text-left">
+              <p className="eyebrow eyebrow-left">Meeting demo</p>
+              <h2 className="display section-title mt-4 max-w-3xl text-left text-4xl text-[var(--ink)] sm:text-5xl">
+                Before Drive folders. After one instructor loop.
+              </h2>
+              <p className="mt-4 max-w-2xl text-[var(--muted)]">
+                Watch the APSDS film, then tour the product loop: diagnostic → placement → lesson →
+                submit → intervene. No invented student dashboards.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link href="/demo" className="btn btn-primary">
+                  Walk the product loop
+                </Link>
+                <Link href="/apsds" className="btn btn-ghost">
+                  See APSDS
+                </Link>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={1}>
+            <div className="overflow-hidden border border-[var(--line)] bg-black">
+              <video
+                className="aspect-video w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label={apsds.video.label}
+              >
+                <source src={apsds.video.src} type="video/mp4" />
+              </video>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -148,7 +209,32 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-[var(--line)] bg-[var(--surface)]">
+      <section id="usage" className="scroll-mt-24 border-y border-[var(--line)] bg-[var(--surface)]">
+        <div className="container py-20 sm:py-24">
+          <Reveal>
+            <div className="text-left">
+              <p className="eyebrow eyebrow-left">Usage proof</p>
+              <h2 className="display section-title mt-4 text-left text-4xl text-[var(--ink)] sm:text-5xl">
+                {usageProof.title}
+              </h2>
+              <p className="mt-4 max-w-2xl text-[var(--muted)]">{usageProof.subtitle}</p>
+            </div>
+          </Reveal>
+          <div className="mt-10 divide-y divide-[var(--line)] border border-[var(--line)] bg-[var(--bg)]">
+            {usageProof.rows.map((row) => (
+              <div
+                key={row.label}
+                className="grid gap-2 px-5 py-4 text-left sm:grid-cols-[0.9fr_1.1fr] sm:items-center"
+              >
+                <p className="text-sm font-semibold text-[var(--ink)]">{row.label}</p>
+                <p className="text-sm text-[var(--muted)]">{row.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[var(--line)]">
         <div className="container grid gap-12 py-20 lg:grid-cols-2 lg:items-center sm:py-24">
           <Reveal>
             <div className="text-left">
@@ -195,15 +281,71 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section id="competitors" className="scroll-mt-24 container py-20 sm:py-24">
+        <Reveal>
+          <div className="text-left">
+            <p className="eyebrow eyebrow-left">Competition</p>
+            <h2 className="display section-title mt-4 max-w-3xl text-left text-4xl text-[var(--ink)] sm:text-5xl">
+              Why not Classroom, Code.org, or a generic LMS?
+            </h2>
+            <p className="mt-4 max-w-2xl text-[var(--muted)]">{competitorThesis}</p>
+          </div>
+        </Reveal>
+        <div className="mt-10 grid gap-4 md:grid-cols-2">
+          {competitors.map((c, index) => (
+            <Reveal key={c.name} delay={(Math.min(index + 1, 3)) as 1 | 2 | 3}>
+              <article className="h-full border border-[var(--line)] bg-[var(--surface)] p-6 text-left">
+                <h3 className="display text-2xl text-[var(--ink)]">{c.name}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{c.weakness}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-y border-[var(--line)] bg-[var(--surface)]">
+        <div className="container py-20 sm:py-24">
+          <Reveal>
+            <div className="text-left">
+              <p className="eyebrow eyebrow-left">Operator voice</p>
+              <h2 className="display section-title mt-4 text-left text-4xl text-[var(--ink)] sm:text-5xl">
+                Built by people who run the meetings.
+              </h2>
+              <p className="mt-4 max-w-2xl text-[var(--muted)]">
+                Quotes from Syntaxia / APSDS operators only. Outside school-staff testimonials wait for
+                written approval.
+              </p>
+            </div>
+          </Reveal>
+          <div className="mt-10 grid gap-4 lg:grid-cols-3">
+            {operatorVoice.map((voice) => (
+              <blockquote
+                key={voice.quote}
+                className="border border-[var(--line)] bg-[var(--bg)] p-6 text-left"
+              >
+                <p className="text-sm leading-relaxed text-[var(--ink)]">&ldquo;{voice.quote}&rdquo;</p>
+                <footer className="mt-5">
+                  <p className="text-sm font-semibold text-[var(--ink)]">{voice.name}</p>
+                  <p className="mt-1 text-xs text-[var(--muted)]">
+                    {voice.role} · {voice.organization}
+                  </p>
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="container py-20 sm:py-24">
         <Reveal>
           <div className="text-left">
             <p className="eyebrow eyebrow-left">Founders</p>
             <h2 className="display section-title mt-4 text-left text-4xl text-[var(--ink)] sm:text-5xl">
-              Domain experts shipping software.
+              Domain monopoly: we run the customer.
             </h2>
             <p className="mt-4 max-w-2xl text-[var(--muted)]">
-              We run the program we sell for. That is the unfair advantage, not invented logos.
+              We operate APSDS weekly, then ship Syntaxia against that pain. That is the unfair
+              advantage, not invented logos.
             </p>
           </div>
         </Reveal>
@@ -216,6 +358,9 @@ export default function HomePage() {
               <p className="display text-3xl text-[var(--ink)]">{person.name}</p>
               <p className="mt-2 text-sm font-semibold text-[var(--brand)]">{person.role}</p>
               <p className="mt-4 text-sm leading-relaxed text-[var(--muted)]">{person.bio}</p>
+              <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-[var(--ink)]">
+                {person.proof}
+              </p>
             </article>
           ))}
           <article className="border border-dashed border-[var(--line)] bg-[var(--bg)] p-6 text-left sm:p-8">
@@ -223,7 +368,7 @@ export default function HomePage() {
             <p className="mt-2 text-sm font-semibold text-[var(--muted)]">Chapter staff & instructors</p>
             <p className="mt-4 text-sm leading-relaxed text-[var(--muted)]">
               Weekly feedback from live meetings at {openChapters.map((c) => c.shortName).join(", ")}{" "}
-              drives what we ship next, placement overrides, attendance rosters, intervention queue.
+              drives what we ship next: placement overrides, attendance rosters, intervention queue.
             </p>
           </article>
         </div>
@@ -241,7 +386,7 @@ export default function HomePage() {
               <p className="mt-2 text-sm text-[var(--muted)]">Updated {verifiedTraction.updated}</p>
             </div>
           </Reveal>
-          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {verifiedTraction.items.map((item) => (
               <div key={item.label} className="border-t border-[var(--line)] pt-5 text-left">
                 <p className="display text-4xl text-[var(--ink)]">{item.value}</p>
@@ -254,16 +399,52 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-b border-[var(--line)]">
+      <section id="why-yc" className="scroll-mt-24 container py-20 sm:py-24">
+        <Reveal>
+          <div className="text-left">
+            <p className="eyebrow eyebrow-left">Roadmap</p>
+            <h2 className="display section-title mt-4 max-w-3xl text-left text-4xl text-[var(--ink)] sm:text-5xl">
+              {demoDayPlan.title}
+            </h2>
+            <p className="mt-4 max-w-2xl text-[var(--muted)]">{demoDayPlan.subtitle}</p>
+          </div>
+        </Reveal>
+        <div className="mt-10 grid gap-4 md:grid-cols-3">
+          {demoDayPlan.milestones.map((m, index) => (
+            <Reveal key={m.when} delay={(Math.min(index + 1, 3)) as 1 | 2 | 3}>
+              <article className="h-full border border-[var(--line)] bg-[var(--surface)] p-6 text-left">
+                <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--brand)]">
+                  {m.when}
+                </p>
+                <p className="mt-4 text-sm leading-relaxed text-[var(--muted)]">{m.what}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+        <p className="mt-8 max-w-3xl text-sm leading-relaxed text-[var(--ink)]">{demoDayPlan.whyYc}</p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href="/start" className="btn btn-primary">
+            Start a pilot this semester
+          </Link>
+          <a
+            href={`mailto:${syntaxia.emails.founders}?subject=${encodeURIComponent("Syntaxia pilot")}`}
+            className="btn btn-ghost"
+          >
+            Email founders
+          </a>
+        </div>
+      </section>
+
+      <section className="border-y border-[var(--line)] bg-[var(--surface)]">
         <div className="container flex flex-col items-start justify-between gap-6 py-16 sm:flex-row sm:items-center sm:py-20">
           <div className="text-left">
             <p className="eyebrow eyebrow-left">Pricing</p>
             <h2 className="display section-title mt-4 text-left text-3xl text-[var(--ink)] sm:text-4xl">
-              Community free. Program $199/mo. Founding pilots $750/semester.
+              Community free. Program $199/mo. School from $3k/year. Founding pilots $750/semester.
             </h2>
             <p className="mt-3 max-w-xl text-sm text-[var(--muted)]">
-              Stripe checkout is coming online. Email us to start a pilot today, we keep feature claims
-              honest (autograding is still shipping).
+              Who pays is clear: chapters, programs, schools, or boosters. Stripe checkout is coming
+              online; start a pilot request today.
             </p>
           </div>
           <Link href="/pricing" className="btn btn-primary shrink-0">
@@ -303,7 +484,7 @@ export default function HomePage() {
       <section className="border-t border-[var(--line)] bg-[var(--surface)]">
         <div className="container py-20 text-left sm:py-24">
           <h2 className="display max-w-3xl text-4xl text-[var(--ink)] sm:text-5xl">
-            Tour the product
+            Tour the product. Then start a pilot.
           </h2>
           <p className="mt-4 max-w-xl text-[var(--muted)]">
             Demo uses verified product facts, empty where student data would live. Sign in to take the
@@ -313,15 +494,15 @@ export default function HomePage() {
             <Link href="/demo" className="btn btn-primary">
               Try demo
             </Link>
+            <Link href="/start" className="btn btn-ghost">
+              Start this semester
+            </Link>
             <a
               href={`mailto:${syntaxia.emails.founders}?subject=${encodeURIComponent("Syntaxia pilot")}`}
               className="btn btn-ghost"
             >
               Email founders
             </a>
-            <Link href="/start" className="btn btn-ghost">
-              Pilot checklist
-            </Link>
           </div>
         </div>
       </section>

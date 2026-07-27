@@ -26,6 +26,8 @@ export function PilotOnboarding({ signedIn }: { signedIn: boolean }) {
   const [contactEmail, setContactEmail] = useState("");
   const [invites, setInvites] = useState("");
   const [notes, setNotes] = useState("");
+  const [launchWindow, setLaunchWindow] = useState("This semester");
+  const [committed, setCommitted] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [orgId, setOrgId] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
@@ -57,7 +59,15 @@ export function PilotOnboarding({ signedIn }: { signedIn: boolean }) {
           planId,
           contactName,
           contactEmail,
-          notes,
+          notes: [
+            notes.trim(),
+            `Launch window: ${launchWindow}`,
+            committed
+              ? "Commitment: intends to run one cohort this semester on Syntaxia."
+              : "Commitment: exploratory only.",
+          ]
+            .filter(Boolean)
+            .join("\n"),
           inviteEmails,
         }),
       });
@@ -159,13 +169,38 @@ export function PilotOnboarding({ signedIn }: { signedIn: boolean }) {
               </select>
             </label>
             <label className="block text-sm sm:col-span-2">
-              Notes / launch window
+              Launch window
+              <select
+                className="field mt-1"
+                value={launchWindow}
+                onChange={(e) => setLaunchWindow(e.target.value)}
+              >
+                <option>This semester</option>
+                <option>Next semester</option>
+                <option>Within 90 days</option>
+                <option>Exploring only</option>
+              </select>
+            </label>
+            <label className="block text-sm sm:col-span-2">
+              Notes
               <textarea
                 className="field mt-1 min-h-[5rem]"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                placeholder="e.g. Fall 2026 after-school cohort"
+                placeholder="School name, meeting day, anything founders should know"
               />
+            </label>
+            <label className="flex items-start gap-3 text-sm sm:col-span-2">
+              <input
+                type="checkbox"
+                className="mt-1"
+                checked={committed}
+                onChange={(e) => setCommitted(e.target.checked)}
+              />
+              <span className="text-[var(--muted)]">
+                We intend to run at least one cohort on Syntaxia this semester (or the selected launch
+                window). This is intent, not a binding contract.
+              </span>
             </label>
           </div>
         ) : null}
@@ -213,10 +248,14 @@ export function PilotOnboarding({ signedIn }: { signedIn: boolean }) {
         {step === 4 ? (
           <div className="space-y-3 text-sm text-[var(--muted)]">
             <p>
-              <span className="font-semibold text-[var(--ink)]">{name || ", "}</span> · {orgType} · ~
+              <span className="font-semibold text-[var(--ink)]">{name || "—"}</span> · {orgType} · ~
               {students} students · {track.toUpperCase()} · plan {planId}
             </p>
-            <p>Contact: {contactName || ", "} &lt;{contactEmail || ", "}&gt;</p>
+            <p>
+              Launch: {launchWindow}
+              {committed ? " · committed to one cohort" : " · exploring"}
+            </p>
+            <p>Contact: {contactName || "—"} &lt;{contactEmail || "—"}&gt;</p>
             {orgId ? <p className="text-[var(--brand)]">Saved organization id: {orgId}</p> : null}
             <p>
               Prefer email?{" "}

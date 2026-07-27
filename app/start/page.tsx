@@ -20,11 +20,12 @@ export default async function StartPage() {
         <Reveal>
           <p className="eyebrow eyebrow-left">Pilots</p>
           <h1 className="display section-title mt-4 max-w-3xl text-4xl text-[var(--ink)] sm:text-6xl">
-            Start with one cohort.
+            Start a pilot this semester.
           </h1>
           <p className="mt-5 max-w-2xl text-[var(--muted)]">
-            Native onboarding replaces the old Google Form. Tell us your organization, pick a plan,
-            invite instructors, and submit. Stripe checkout comes next, no charge on submit.
+            Tell us your organization, cohort size, plan, and launch window. Invite instructors, mark
+            whether you intend to run a cohort, and submit. Stripe checkout comes next, no charge on
+            submit.
           </p>
         </Reveal>
 
