@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { chapters as marketingChapters } from "@/lib/content";
 import { createClient } from "@/lib/supabase/client";
 import type { ChapterRow, MembershipRow } from "@/lib/types";
 
@@ -11,6 +13,10 @@ type Props = {
   memberships: MembershipRow[];
   signedIn: boolean;
 };
+
+const logosBySlug = Object.fromEntries(
+  marketingChapters.map((c) => [c.slug, c.logo]),
+) as Record<string, string>;
 
 export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
   const router = useRouter();
@@ -116,22 +122,26 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
         {filtered.map((chapter) => {
           const membership = membershipByChapter.get(chapter.id);
           const isComing = chapter.status === "coming";
+          const logo = logosBySlug[chapter.slug];
 
           return (
             <li key={chapter.id}>
               {isComing ? (
                 <div className="chapter-card" data-status="coming">
+                  <ChapterLogo src={logo} alt={chapter.short_name} />
                   <Header chapter={chapter} statusLabel="Coming" statusClass="coming" />
                   <p className="mt-4 text-sm text-[var(--muted)]">{chapter.blurb}</p>
                 </div>
               ) : membership?.status === "approved" ? (
                 <Link href={`/members/${chapter.slug}`} className="chapter-card block" data-status="open">
+                  <ChapterLogo src={logo} alt={chapter.short_name} />
                   <Header chapter={chapter} statusLabel="Approved" statusClass="open" />
                   <p className="mt-4 text-sm text-[var(--muted)]">{chapter.blurb}</p>
                   <p className="mt-5 text-sm font-semibold text-[var(--ink)]">Enter chapter →</p>
                 </Link>
               ) : membership?.status === "pending" ? (
                 <Link href={`/members/${chapter.slug}`} className="chapter-card block" data-status="open">
+                  <ChapterLogo src={logo} alt={chapter.short_name} />
                   <Header chapter={chapter} statusLabel="Pending" statusClass="coming" />
                   <p className="mt-4 text-sm text-[var(--muted)]">
                     Waiting for instructor approval.
@@ -140,6 +150,7 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
                 </Link>
               ) : membership?.status === "rejected" ? (
                 <div className="chapter-card" data-status="coming">
+                  <ChapterLogo src={logo} alt={chapter.short_name} />
                   <Header chapter={chapter} statusLabel="Rejected" statusClass="coming" />
                   <p className="mt-4 text-sm text-[var(--muted)]">
                     This request was rejected. Contact your chapter team.
@@ -153,6 +164,7 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
                   className="chapter-card"
                   data-status="open"
                 >
+                  <ChapterLogo src={logo} alt={chapter.short_name} />
                   <Header chapter={chapter} statusLabel="Open" statusClass="open" />
                   <p className="mt-4 text-sm text-[var(--muted)]">{chapter.blurb}</p>
                   <p className="mt-5 text-sm font-semibold text-[var(--ink)]">
@@ -165,6 +177,21 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
         })}
       </ul>
     </div>
+  );
+}
+
+function ChapterLogo({ src }: { src?: string; alt: string }) {
+  if (!src) return null;
+  return (
+    <Image
+      src={src}
+      alt=""
+      width={220}
+      height={140}
+      className="chapter-card-logo"
+      aria-hidden
+      unoptimized={src.endsWith(".svg") || src.endsWith(".JPG") || src.endsWith(".jpg")}
+    />
   );
 }
 

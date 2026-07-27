@@ -69,7 +69,7 @@ export function CohortManager({
       <p className="eyebrow eyebrow-left">Cohorts</p>
       <h2 className="display mt-3 text-3xl text-[var(--ink)]">Instructional groups</h2>
       <p className="mt-2 text-sm text-[var(--muted)]">
-        Smaller units inside a chapter — e.g. BISV · L1 Foundations · Fall 2026.
+        Smaller units inside a chapter, e.g. BISV · L1 Foundations · Fall 2026.
       </p>
 
       {cohorts.length ? (

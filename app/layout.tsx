@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     template: "%s · Syntaxia",
   },
   description:
-    "Syntaxia is the operating system for serious CS programs — placement, curriculum, code submissions, attendance, and instructor interventions. Live at APSDS chapters.",
+    "Syntaxia is the operating system for serious CS programs, placement, curriculum, code submissions, attendance, and instructor interventions. Live at APSDS chapters.",
   openGraph: {
-    title: "Syntaxia — the OS for serious CS programs",
+    title: "Syntaxia, the OS for serious CS programs",
     description:
       "Place every student. Catch who is stuck. Run the next meeting. Dogfooded on APSDS at BISV, Lynbrook, and Harker.",
     type: "website",

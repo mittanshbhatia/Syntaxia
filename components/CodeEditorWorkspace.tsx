@@ -133,13 +133,13 @@ ${value}
       setStdout(out.trim() || "(no stdout)");
       setStderr(err.trim() || null);
       setTags(classifyMisconceptions(value));
-      setMessage("Ran in your browser WASM sandbox (Pyodide). Not a remote multi-tenant jail — still isolated from our servers.");
+      setMessage("Ran in your browser WASM sandbox (Pyodide). Not a remote multi-tenant jail, still isolated from our servers.");
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
       setStderr(msg);
       setStdout(null);
       setTags(classifyMisconceptions(value));
-      setMessage("Runtime error — see stderr.");
+      setMessage("Runtime error, see stderr.");
     } finally {
       setRunning(false);
     }
@@ -194,7 +194,7 @@ ${value}
       setMessage(
         next.passed === next.total
           ? "All autograder tests passed."
-          : "Some tests failed. Visible failures show a category — hidden cases stay hidden.",
+          : "Some tests failed. Visible failures show a category, hidden cases stay hidden.",
       );
       setHintIndex(0);
     } catch (e) {
@@ -213,7 +213,7 @@ ${value}
       hintIndex,
     });
     if (!next) {
-      setHintText("No hints for this prompt yet — try Analyze or Grade first.");
+      setHintText("No hints for this prompt yet, try Analyze or Grade first.");
       return;
     }
     setHintText(next.hint);
@@ -342,7 +342,7 @@ ${value}
               <li key={r.id}>
                 {r.passed ? "✓" : "✗"}{" "}
                 {r.visibility === "hidden" ? "Hidden case" : r.category}
-                {!r.passed && r.detail ? ` — ${r.detail}` : ""}
+                {!r.passed && r.detail ? `, ${r.detail}` : ""}
               </li>
             ))}
           </ul>

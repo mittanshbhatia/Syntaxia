@@ -8,7 +8,7 @@ import { syntaxia } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Start a pilot",
   description:
-    "Native Syntaxia pilot onboarding: organization, track, plan, and instructor invites — no Google Form.",
+    "Native Syntaxia pilot onboarding: organization, track, plan, and instructor invites, no Google Form.",
 };
 
 export default async function StartPage() {
@@ -24,7 +24,7 @@ export default async function StartPage() {
           </h1>
           <p className="mt-5 max-w-2xl text-[var(--muted)]">
             Native onboarding replaces the old Google Form. Tell us your organization, pick a plan,
-            invite instructors, and submit. Stripe checkout comes next — no charge on submit.
+            invite instructors, and submit. Stripe checkout comes next, no charge on submit.
           </p>
         </Reveal>
 

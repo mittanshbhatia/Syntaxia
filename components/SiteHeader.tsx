@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { SettingsPanel } from "@/components/SettingsPanel";
 import { navLinks } from "@/lib/content";
 import { createClient } from "@/lib/supabase/client";
@@ -12,7 +12,11 @@ export function SiteHeader() {
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hideCenterNav, setHideCenterNav] = useState(false);
   const menuId = useId();
+  const brandRef = useRef<HTMLAnchorElement>(null);
+  const centerRef = useRef<HTMLElement>(null);
+  const actionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const supabase = createClient();
@@ -72,19 +76,62 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
+  useEffect(() => {
+    const GAP = 28;
+
+    function measure() {
+      const brand = brandRef.current;
+      const center = centerRef.current;
+      const actions = actionsRef.current;
+      if (!brand || !center || !actions) return;
+
+      // Only consider center nav while it is laid out (lg+)
+      const centerStyle = window.getComputedStyle(center);
+      if (centerStyle.display === "none") {
+        setHideCenterNav(false);
+        return;
+      }
+
+      const brandRight = brand.getBoundingClientRect().right;
+      const actionsLeft = actions.getBoundingClientRect().left;
+      const centerBox = center.getBoundingClientRect();
+      const colliding =
+        centerBox.left < brandRight + GAP || centerBox.right > actionsLeft - GAP;
+      setHideCenterNav(colliding);
+    }
+
+    measure();
+    const ro = new ResizeObserver(() => measure());
+    if (brandRef.current) ro.observe(brandRef.current);
+    if (actionsRef.current) ro.observe(actionsRef.current);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [signedIn, menuOpen]);
+
   const dashboardHref = isMember ? "/dashboard" : "/members";
 
   return (
     <>
       <header className="nav-blur sticky top-0 z-50 border-b border-[var(--line)]">
         <div className="container relative flex items-center justify-between gap-3 py-3.5">
-          <Link href="/" className="display z-10 text-[1.35rem] text-[var(--ink)] transition hover:opacity-80">
+          <Link
+            ref={brandRef}
+            href="/"
+            className="display z-10 text-[1.35rem] text-[var(--ink)] transition hover:opacity-80"
+          >
             Syntaxia
           </Link>
 
           <nav
-            className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-6 text-sm text-[var(--ink)] lg:flex"
+            ref={centerRef}
+            className={`absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-6 text-sm text-[var(--ink)] lg:flex ${
+              hideCenterNav ? "invisible pointer-events-none" : ""
+            }`}
             aria-label="Primary"
+            aria-hidden={hideCenterNav}
           >
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href} className="transition hover:opacity-70">
@@ -93,7 +140,7 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          <div className="z-10 flex items-center gap-2">
+          <div ref={actionsRef} className="z-10 flex items-center gap-2">
             <Link href="/demo" className="btn btn-primary hidden px-4 py-2 text-sm sm:inline-flex">
               Try demo
             </Link>

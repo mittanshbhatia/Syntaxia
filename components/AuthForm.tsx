@@ -68,10 +68,15 @@ export function AuthForm({ mode, nextPath = "/dashboard" }: { mode: Mode; nextPa
     setOauthLoading(true);
     const supabase = createClient();
     const origin = window.location.origin;
+    const afterAuth = `/auth/complete-profile?next=${encodeURIComponent(nextPath)}`;
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${origin}/auth/callback?next=${encodeURIComponent("/auth/complete-profile")}`,
+        redirectTo: `${origin}/auth/callback?next=${encodeURIComponent(afterAuth)}`,
+        queryParams: {
+          access_type: "offline",
+          prompt: "select_account",
+        },
       },
     });
     if (oauthError) {

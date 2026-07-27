@@ -19,7 +19,7 @@ export function HowItWorks() {
   );
 }
 
-/** UI chrome for the product loop — illustrative interface, not claimed live metrics. */
+/** UI chrome for the product loop, illustrative interface, not claimed live metrics. */
 function StepPreview({ kind }: { kind: string }) {
   if (kind === "diagnostic") {
     return (

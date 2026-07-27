@@ -32,7 +32,7 @@ export function InterventionQueue({ chapterId, chapterSlug }: { chapterId: strin
       <p className="eyebrow eyebrow-left">Interventions</p>
       <h2 className="display mt-3 text-3xl text-[var(--ink)]">Action queue</h2>
       <p className="mt-2 text-sm text-[var(--muted)]">
-        Built from real pending memberships and tagged code submissions — empty when nothing needs
+        Built from real pending memberships and tagged code submissions, empty when nothing needs
         action.
       </p>
 

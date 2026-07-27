@@ -72,7 +72,7 @@ export function PilotOnboarding({ signedIn }: { signedIn: boolean }) {
       }
       setOrgId(data.organization?.id ?? null);
       setStep(steps.length - 1);
-      setMessage("Pilot request saved. Founders will follow up by email — Stripe checkout ships next.");
+      setMessage("Pilot request saved. Founders will follow up by email, Stripe checkout ships next.");
     });
   }
 
@@ -193,7 +193,7 @@ export function PilotOnboarding({ signedIn }: { signedIn: boolean }) {
             ))}
             <p className="sm:col-span-2 text-sm text-[var(--muted)]">
               Payment method / Stripe checkout is next on the roadmap. Submitting stores a pending
-              pilot — no charge yet.
+              pilot, no charge yet.
             </p>
           </div>
         ) : null}
@@ -213,10 +213,10 @@ export function PilotOnboarding({ signedIn }: { signedIn: boolean }) {
         {step === 4 ? (
           <div className="space-y-3 text-sm text-[var(--muted)]">
             <p>
-              <span className="font-semibold text-[var(--ink)]">{name || "—"}</span> · {orgType} · ~
+              <span className="font-semibold text-[var(--ink)]">{name || ", "}</span> · {orgType} · ~
               {students} students · {track.toUpperCase()} · plan {planId}
             </p>
-            <p>Contact: {contactName || "—"} &lt;{contactEmail || "—"}&gt;</p>
+            <p>Contact: {contactName || ", "} &lt;{contactEmail || ", "}&gt;</p>
             {orgId ? <p className="text-[var(--brand)]">Saved organization id: {orgId}</p> : null}
             <p>
               Prefer email?{" "}

@@ -3,7 +3,7 @@ import { pythonDiagnosticQuestions } from "@/lib/diagnostics/questions";
 import { openChapters, tracks } from "@/lib/content";
 
 /**
- * Hero product panel with verified product facts only —
+ * Hero product panel with verified product facts only , 
  * chapters, tracks, and published curriculum items. No invented student metrics.
  */
 export function ProductDashboardPreview({ compact = false }: { compact?: boolean }) {

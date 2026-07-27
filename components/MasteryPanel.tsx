@@ -44,7 +44,7 @@ export function MasteryPanel({
         {staffView ? "Chapter concept mastery" : "Your concept mastery"}
       </h2>
       <p className="mt-2 text-sm text-[var(--muted)]">
-        Updated from diagnostics and graded code submissions. Empty until those events exist — we do
+        Updated from diagnostics and graded code submissions. Empty until those events exist, we do
         not invent scores.
       </p>
 

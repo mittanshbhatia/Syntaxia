@@ -20,7 +20,7 @@ export default function PricingPage() {
           </h1>
           <p className="mt-4 text-[var(--muted)]">
             Start free if you are an approved student-led chapter. Paid plans unlock diagnostics,
-            instructor ops, and multi-cohort tools. Stripe checkout is coming — email founders to
+            instructor ops, and multi-cohort tools. Stripe checkout is coming, email founders to
             pilot now. Anything still shipping is labeled as such.
           </p>
         </div>

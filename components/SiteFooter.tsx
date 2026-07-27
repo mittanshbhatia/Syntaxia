@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div className="footer-copy text-left">
           <p className="display text-3xl">{syntaxia.name}</p>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-[var(--muted)]">
-            Software for running leveled CS programs — placement, curriculum, submissions, and
+            Software for running leveled CS programs, placement, curriculum, submissions, and
             instructor interventions. Dogfooded on APSDS.
           </p>
           <div className="mt-5 flex flex-wrap gap-3">

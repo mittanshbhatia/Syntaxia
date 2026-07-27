@@ -117,7 +117,7 @@ export default function HomePage() {
           <div className="text-left">
             <p className="eyebrow eyebrow-left">Product</p>
             <h2 className="display section-title mt-4 max-w-3xl text-left text-4xl text-[var(--ink)] sm:text-5xl">
-              See who is stuck — and what to do next.
+              See who is stuck, and what to do next.
             </h2>
             <p className="mt-4 max-w-2xl text-[var(--muted)]">
               Verified product surface only. Student counts appear after your chapter is active; we do
@@ -203,7 +203,7 @@ export default function HomePage() {
               Domain experts shipping software.
             </h2>
             <p className="mt-4 max-w-2xl text-[var(--muted)]">
-              We run the program we sell for. That is the unfair advantage — not invented logos.
+              We run the program we sell for. That is the unfair advantage, not invented logos.
             </p>
           </div>
         </Reveal>
@@ -223,7 +223,7 @@ export default function HomePage() {
             <p className="mt-2 text-sm font-semibold text-[var(--muted)]">Chapter staff & instructors</p>
             <p className="mt-4 text-sm leading-relaxed text-[var(--muted)]">
               Weekly feedback from live meetings at {openChapters.map((c) => c.shortName).join(", ")}{" "}
-              drives what we ship next — placement overrides, attendance rosters, intervention queue.
+              drives what we ship next, placement overrides, attendance rosters, intervention queue.
             </p>
           </article>
         </div>
@@ -262,7 +262,7 @@ export default function HomePage() {
               Community free. Program $199/mo. Founding pilots $750/semester.
             </h2>
             <p className="mt-3 max-w-xl text-sm text-[var(--muted)]">
-              Stripe checkout is coming online. Email us to start a pilot today — we keep feature claims
+              Stripe checkout is coming online. Email us to start a pilot today, we keep feature claims
               honest (autograding is still shipping).
             </p>
           </div>
@@ -278,7 +278,7 @@ export default function HomePage() {
             <div>
               <p className="eyebrow eyebrow-left">Trust</p>
               <h2 className="display section-title mt-4 text-left text-3xl text-[var(--ink)]">
-                Built for programs that teach minors.
+                Security at the highest priority.
               </h2>
               <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
                 Minimum necessary data, role-scoped access, deletion requests, and clear rules for student
@@ -303,10 +303,10 @@ export default function HomePage() {
       <section className="border-t border-[var(--line)] bg-[var(--surface)]">
         <div className="container py-20 text-left sm:py-24">
           <h2 className="display max-w-3xl text-4xl text-[var(--ink)] sm:text-5xl">
-            Tour the product. Then email founders.
+            Tour the product
           </h2>
           <p className="mt-4 max-w-xl text-[var(--muted)]">
-            Demo uses verified product facts — empty where student data would live. Sign in to take the
+            Demo uses verified product facts, empty where student data would live. Sign in to take the
             diagnostic, create cohorts, and submit code.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">

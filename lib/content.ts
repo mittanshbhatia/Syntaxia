@@ -7,8 +7,8 @@ export const syntaxia = {
   tagline: "The operating system for serious CS programs.",
   headline: "Place every student. Catch who is stuck. Run the next meeting.",
   description:
-    "Syntaxia is software for schools, clubs, and after-school programs that teach computer science in leveled tracks — curriculum, diagnostics, code submissions, attendance, and instructor interventions in one place.",
-  icp: "Built for chapter directors, instructors, and program leads — not another generic LMS.",
+    "Syntaxia is software for schools, clubs, and after-school programs that teach computer science in leveled tracks, curriculum, diagnostics, code submissions, attendance, and instructor interventions in one place.",
+  icp: "Built for chapter directors, instructors, and program leads, not another generic LMS.",
   emails: {
     founders: "founders@syntaxia.org",
     support: "support@syntaxia.org",
@@ -25,7 +25,7 @@ export const apsds = {
   fullName: "Algorithmic Problem Solving and Data Structures",
   tagline: "Learn computer science the way it sticks.",
   mission:
-    "APSDS is the flagship computer science program powered by Syntaxia — leveled tracks, weekly meetings, real projects, and competition support across Bay Area schools.",
+    "APSDS is the flagship computer science program powered by Syntaxia, leveled tracks, weekly meetings, real projects, and competition support across Bay Area schools.",
   relationship:
     "APSDS is Syntaxia’s first customer: we operate the program ourselves, ship the product against our own weekly meetings, and expand chapter by chapter.",
   email: "support@syntaxia.org",
@@ -86,7 +86,7 @@ export function getMarketingChapter(slug: string) {
 
 /**
  * Only numbers we can verify from public chapter list / shipped product surface.
- * Framed as product readiness + wedge depth — not invented growth metrics.
+ * Framed as product readiness + wedge depth, not invented growth metrics.
  */
 export const verifiedTraction = {
   updated: "July 2026",
@@ -138,7 +138,7 @@ export const tracks = [
     id: "l1",
     level: "L1",
     name: "Foundations",
-    accent: "#c4a574",
+    accent: "#b08d57",
     summary: "Python from the ground up: syntax, logic, and first algorithms.",
   },
   {
@@ -152,7 +152,7 @@ export const tracks = [
     id: "l3",
     level: "L3",
     name: "Advanced",
-    accent: "#0f6b52",
+    accent: "#d4af37",
     summary: "Data structures, contests, mentorship, and deeper builds.",
   },
 ] as const;
@@ -220,7 +220,7 @@ export const productFeatures = [
   },
   {
     title: "Socratic support",
-    body: "Progressive hints from failed categories and misconception tags — never dumps a full solution.",
+    body: "Progressive hints from failed categories and misconception tags, never dumps a full solution.",
     status: "partial" as const,
     note: "Rule-based hints live · model-backed hints later",
   },
@@ -241,7 +241,7 @@ export const founders = [
 
 export const founderStory = {
   title: "We built the software we needed to run APSDS.",
-  body: "As APSDS expanded across schools, we were manually placing students, distributing curriculum, reviewing assignments, tracking memberships, and juggling L1 / L2 / L3 in Drive and spreadsheets. Syntaxia is that stack — productized.",
+  body: "As APSDS expanded across schools, we were manually placing students, distributing curriculum, reviewing assignments, tracking memberships, and juggling L1 / L2 / L3 in Drive and spreadsheets. Syntaxia is that stack, productized.",
   before: [
     "Drive folders per chapter",
     "Spreadsheets for placement",
@@ -299,7 +299,7 @@ export const pricingPlans = [
       "Attendance & interventions",
       "Code submissions (browser run + grade)",
       "Email support",
-      "Remote isolated runner — planned",
+      "Remote isolated runner, planned",
     ],
   },
   {
@@ -317,7 +317,7 @@ export const pricingPlans = [
       "Instructor onboarding",
       "School data agreement",
       "Priority support",
-      "Organization analytics — expanding",
+      "Organization analytics, expanding",
     ],
   },
   {
