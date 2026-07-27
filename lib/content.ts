@@ -372,7 +372,7 @@ export const pillars = [
   },
   {
     title: "Compete with support",
-    body: "ACSL prep and APCSA workshops, with chapters covering contest fees.",
+    body: "ACSL and APCSA workshops, with chapters covering contest fees.",
   },
   {
     title: "Scale to new schools",
