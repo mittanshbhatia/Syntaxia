@@ -22,8 +22,8 @@ export default function ApsdsPage() {
       <div className="apsds-content">
         <section className="container py-20 text-center sm:py-28">
           <Reveal>
-            <p className="eyebrow eyebrow-center apsds-eyebrow">
-              THE FLAGSHIP PROGRAM POWERED BY SYNTAXIA
+            <p className="eyebrow apsds-eyebrow">
+              SYNTAXIA&apos;S FLAGSHIP PROGRAM
             </p>
             <div className="mt-8 flex justify-center">
               <Image

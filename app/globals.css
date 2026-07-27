@@ -466,6 +466,10 @@ html[data-theme="dark"] .btn-primary {
 }
 
 .apsds-page .apsds-eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  max-width: calc(100% - 2rem);
+  margin-inline: auto;
   background: var(--apsds-blue) !important;
   color: #ffffff !important;
 }
@@ -538,7 +542,8 @@ html[data-theme="dark"] .btn-primary {
   z-index: 0;
 }
 
-.chapter-card > * {
+/* Keep card content above the faded logo; do not override logo positioning */
+.chapter-card > :not(.chapter-card-logo) {
   position: relative;
   z-index: 1;
 }
