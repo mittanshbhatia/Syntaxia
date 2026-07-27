@@ -68,7 +68,7 @@ export default function DemoPage() {
 
       <div className="mt-8">{panel}</div>
 
-      <div className="mt-10 flex flex-wrap gap-3">
+      <div className="mt-10 flex flex-wrap justify-center gap-3">
         <Link href="/auth/sign-up" className="btn btn-primary">
           Create an account
         </Link>

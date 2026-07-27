@@ -50,7 +50,7 @@ export default function HomePage() {
 
       <section className="border-b border-[var(--line)] bg-[var(--surface)]">
         <div className="container flex flex-col items-start gap-5 py-9 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-[var(--muted)]">Dogfooding on APSDS chapters at</p>
+          <p className="text-sm text-[var(--muted)]">APSDS chapters at</p>
           <div className="flex flex-wrap gap-2">
             {openChapters.map((c) => (
               <span

@@ -45,7 +45,7 @@ export default function ApsdsPage() {
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link href="/" className="btn btn-primary apsds-btn">
-                See Syntaxia product
+                See Syntaxia
               </Link>
               <Link href="/join" className="btn btn-ghost apsds-btn-ghost">
                 Join a chapter

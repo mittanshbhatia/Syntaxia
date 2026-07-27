@@ -113,7 +113,7 @@ export const verifiedTraction = {
       detail: "Python foundations → track recommendation",
     },
   ],
-  proofLine: `Live at ${openChapters.map((c) => c.shortName).join(", ")} · Built by operating APSDS ourselves`,
+  proofLine: `Live at ${openChapters.map((c) => c.shortName).join(", ")} · Built from experience`,
   honesty:
     "We do not publish estimated TAM, projected ARR, waitlist counts, or interest-only school lists as traction.",
 } as const;

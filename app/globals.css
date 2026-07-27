@@ -789,6 +789,30 @@ html[data-theme="light"] .site-footer .footer-links a {
   color: #ffffff !important;
 }
 
+body:has(.apsds-page) .site-footer {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  border-top-color: rgba(238, 241, 255, 0.24);
+}
+
+body:has(.apsds-page) .site-footer .footer-copy,
+body:has(.apsds-page) .site-footer p,
+body:has(.apsds-page) .site-footer li,
+body:has(.apsds-page) .site-footer a {
+  color: #eef1ff;
+}
+
+body:has(.apsds-page) .site-footer .btn {
+  background: transparent;
+  color: #eef1ff;
+  border-color: rgba(238, 241, 255, 0.28);
+}
+
+body:has(.apsds-page) .site-footer .btn:hover {
+  background: rgba(238, 241, 255, 0.08);
+}
+
 html[data-theme="light"] .hero-desc {
   color: #ffffff;
 }
