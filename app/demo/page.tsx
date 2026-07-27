@@ -37,8 +37,8 @@ export default function DemoPage() {
 
   return (
     <main className="container py-14 sm:py-20">
-      <div className="max-w-3xl text-left">
-        <p className="eyebrow eyebrow-left">Product tour</p>
+      <div className="mx-auto max-w-3xl text-center">
+        <p className="eyebrow">Product tour</p>
         <h1 className="display mt-4 text-4xl text-[var(--ink)] sm:text-5xl">
           Walk the loop without invented students.
         </h1>
