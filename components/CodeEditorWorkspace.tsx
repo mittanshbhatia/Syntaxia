@@ -205,20 +205,57 @@ ${value}
     }
   }
 
-  function askHint() {
-    const next = getSocraticHints({
-      promptId,
-      report,
-      tags,
-      hintIndex,
-    });
-    if (!next) {
-      setHintText("No hints for this prompt yet, try Analyze or Grade first.");
-      return;
+  async function askHint() {
+    setMessage(null);
+    try {
+      const res = await fetch("/api/ai/hint", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chapterId,
+          materialId,
+          promptId,
+          sourceCode: value,
+          hintIndex,
+          report,
+          tags,
+        }),
+      });
+      const data = (await res.json()) as {
+        hint?: string;
+        source?: "llm" | "rules";
+        index?: number;
+        total?: number;
+        nextIndex?: number;
+        error?: string;
+      };
+      if (!res.ok || !data.hint) {
+        setHintText(data.error ?? "No hints available yet. Try Analyze or Grade first.");
+        return;
+      }
+      setHintText(data.hint);
+      setHintIndex(data.nextIndex ?? hintIndex);
+      setMessage(
+        `Hint ${(data.index ?? 0) + 1} of ${data.total ?? 1} · ${
+          data.source === "llm" ? "AI coach (LLM)" : "AI coach (rules)"
+        }`,
+      );
+    } catch {
+      // Offline fallback
+      const next = getSocraticHints({
+        promptId,
+        report,
+        tags,
+        hintIndex,
+      });
+      if (!next) {
+        setHintText("No hints for this prompt yet, try Analyze or Grade first.");
+        return;
+      }
+      setHintText(next.hint);
+      setHintIndex(next.index + 1 >= next.total ? next.total - 1 : next.index + 1);
+      setMessage(`Hint ${next.index + 1} of ${next.total} · AI coach (rules)`);
     }
-    setHintText(next.hint);
-    setHintIndex(next.index + 1 >= next.total ? next.total - 1 : next.index + 1);
-    setMessage(`Hint ${next.index + 1} of ${next.total}`);
   }
 
   async function submit() {
@@ -319,8 +356,12 @@ ${value}
         <button type="button" className="btn btn-ghost px-4 py-2 text-sm" onClick={analyze}>
           Analyze
         </button>
-        <button type="button" className="btn btn-ghost px-4 py-2 text-sm" onClick={askHint}>
-          Hint
+        <button
+          type="button"
+          className="btn btn-ghost px-4 py-2 text-sm"
+          onClick={() => void askHint()}
+        >
+          AI Hint
         </button>
         <button
           type="button"
@@ -352,7 +393,7 @@ ${value}
       {hintText ? (
         <div className="border border-[var(--brand)] bg-[rgba(var(--brand-rgb),0.06)] p-3 text-sm text-[var(--ink)]">
           <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--brand)]">
-            Socratic hint
+            AI coach
           </p>
           <p className="mt-1">{hintText}</p>
         </div>

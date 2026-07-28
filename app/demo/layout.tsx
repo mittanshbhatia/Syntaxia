@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Demo",
+  title: "Live product demo",
   description:
-    "Tour Syntaxia’s diagnose → place → learn → intervene loop with verified product facts, no invented student metrics.",
+    "Enter seeded Syntaxia demo accounts and use the real product: placement, code workspace, AI coach, interventions, and admin controls.",
 };
 
 export default function DemoLayout({ children }: { children: React.ReactNode }) {

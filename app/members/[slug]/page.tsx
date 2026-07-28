@@ -107,19 +107,19 @@ export default async function ChapterMemberPage({ params }: Props) {
         <div className="mt-12 overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[radial-gradient(circle_at_top,rgba(94,240,198,0.12),transparent_40%),rgba(255,255,255,0.02)] p-8 sm:p-10">
           <p className="display text-3xl text-white">You&apos;re approved</p>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
-            Lessons, quizzes, and tests for {chapter.short_name} will live here next. Your access
-            is unlocked.
+            Open the live dashboard for {chapter.short_name}: curriculum, code workspace, placement,
+            and program tools.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <span className="rounded-full border border-[var(--line)] px-4 py-2 text-sm text-[var(--muted)]">
-              Lessons · soon
-            </span>
-            <span className="rounded-full border border-[var(--line)] px-4 py-2 text-sm text-[var(--muted)]">
-              Quizzes · soon
-            </span>
-            <span className="rounded-full border border-[var(--line)] px-4 py-2 text-sm text-[var(--muted)]">
-              Tests · soon
-            </span>
+            <Link href="/dashboard" className="btn btn-primary">
+              Open dashboard
+            </Link>
+            <Link href="/dashboard/program" className="btn btn-ghost">
+              Program tools
+            </Link>
+            <Link href="/dashboard/materials/python-starter-slides" className="btn btn-ghost">
+              Python Starter (code)
+            </Link>
           </div>
         </div>
       </Reveal>

@@ -55,7 +55,7 @@ export default function HomePage() {
             <p className="hero-rise-3 mt-3 text-sm font-medium text-[var(--ink)]">{syntaxia.icp}</p>
             <div className="hero-rise-3 mt-9 flex flex-wrap gap-3">
               <Link href="/demo" className="btn btn-primary">
-                Try the live demo
+                Enter live product demo
               </Link>
               <Link href="/start" className="btn btn-ghost">
                 Start a pilot this semester
@@ -203,9 +203,9 @@ export default function HomePage() {
           ))}
         </div>
         <div className="mt-10">
-          <Link href="/demo" className="btn btn-primary">
-            Tour the product
-          </Link>
+            <Link href="/demo" className="btn btn-primary">
+              Enter live product demo
+            </Link>
         </div>
       </section>
 
@@ -484,7 +484,7 @@ export default function HomePage() {
       <section className="border-t border-[var(--line)] bg-[var(--surface)]">
         <div className="container py-20 text-left sm:py-24">
           <h2 className="display max-w-3xl text-4xl text-[var(--ink)] sm:text-5xl">
-            Tour the product. Then start a pilot.
+            Enter the live product. Then start a pilot.
           </h2>
           <p className="mt-4 max-w-xl text-[var(--muted)]">
             Demo uses verified product facts, empty where student data would live. Sign in to take the
@@ -492,7 +492,7 @@ export default function HomePage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/demo" className="btn btn-primary">
-              Try demo
+              Enter live product demo
             </Link>
             <Link href="/start" className="btn btn-ghost">
               Start this semester

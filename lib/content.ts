@@ -344,10 +344,14 @@ export const productFeatures = [
     note: "Memberships, roles & cohorts live · announcements expanding",
   },
   {
+    title: "AI coach hints",
+    body: "Socratic hints from failed autograder categories and misconception tags. Uses OpenAI when OPENAI_API_KEY is configured; otherwise rule-based coach. Hint events are logged for instructors.",
+    status: "live" as const,
+  },
+  {
     title: "Socratic support",
-    body: "Progressive hints from failed categories and misconception tags, never dumps a full solution.",
-    status: "partial" as const,
-    note: "Rule-based hints live · model-backed hints later",
+    body: "Progressive hints never dump a full solution. Students get the next guiding question only.",
+    status: "live" as const,
   },
   {
     title: "Concept mastery",
