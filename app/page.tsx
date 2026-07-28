@@ -17,10 +17,10 @@ export default function HomePage() {
     <main className="yc-home">
       <section className="border-b border-[var(--line)]">
         <div className="container py-20 text-center sm:py-28 lg:py-32">
-          <p className="brand-mark text-[clamp(2.8rem,8vw,4.8rem)] text-[var(--ink)]">
+          <p className="brand-mark text-[clamp(14rem,40vw,24rem)] text-[var(--ink)]">
             {syntaxia.name}
           </p>
-          <h1 className="mx-auto mt-6 max-w-4xl text-[clamp(1.85rem,4.5vw,3.4rem)] font-semibold leading-[1.08] tracking-[-0.04em] text-[var(--ink)]">
+          <h1 className="mx-auto mt-6 max-w-4xl text-[clamp(0.925rem,2.25vw,1.7rem)] font-semibold leading-[1.08] tracking-[-0.04em] text-[var(--ink)]">
             {syntaxia.tagline}
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-lg text-[var(--muted)] sm:text-xl">
