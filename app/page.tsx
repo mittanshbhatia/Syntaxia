@@ -1,233 +1,99 @@
 import Link from "next/link";
-import { HowItWorks } from "@/components/HowItWorks";
-import { ProductDashboardPreview } from "@/components/ProductDashboardPreview";
-import { Reveal } from "@/components/Reveal";
+import { ProductMocks } from "@/components/ProductMocks";
 import {
   apsds,
-  competitorThesis,
-  competitors,
-  demoDayPlan,
-  founderStory,
   founders,
+  founderStory,
+  homepageProblem,
+  howItWorks,
   openChapters,
-  operatorVoice,
-  problemPoints,
-  productFeatures,
   syntaxia,
-  usageProof,
   verifiedTraction,
+  whyDifferent,
 } from "@/lib/content";
 
 export default function HomePage() {
   return (
-    <main className="product-home">
-      <section className="border-b border-[var(--line)] bg-[var(--surface)]">
-        <div className="container flex flex-wrap items-center justify-between gap-4 py-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">
-            Live traction · {verifiedTraction.updated}
+    <main className="yc-home">
+      <section className="border-b border-[var(--line)]">
+        <div className="container py-20 text-center sm:py-28 lg:py-32">
+          <p className="brand-mark text-[clamp(2.8rem,8vw,4.8rem)] text-[var(--ink)]">
+            {syntaxia.name}
           </p>
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
-            {verifiedTraction.strip.map((item) => (
-              <div key={item.label} className="flex items-baseline gap-2">
-                <span className="display text-xl text-[var(--ink)]">{item.value}</span>
-                <span className="text-xs text-[var(--muted)]">{item.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="hero-product border-b border-[var(--line)]">
-        <div className="container grid items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-24">
-          <div className="text-left">
-            <p className="brand-mark hero-rise text-[clamp(3.4rem,9vw,5.6rem)] text-[var(--ink)]">
-              {syntaxia.name}
-            </p>
-            <p className="hero-rise-2 mt-4 max-w-2xl text-lg font-semibold leading-snug text-[var(--ink)] sm:text-xl">
-              {syntaxia.wedge}
-            </p>
-            <h1 className="hero-rise-2 mt-5 max-w-3xl text-left text-[clamp(1.35rem,2.2vw,1.95rem)] font-semibold leading-[1.2] tracking-[-0.03em] text-[var(--muted)]">
-              {syntaxia.headline}
-            </h1>
-            <p className="hero-rise-3 mt-5 max-w-2xl text-base leading-relaxed text-[var(--muted)] sm:text-lg">
-              {syntaxia.description}
-            </p>
-            <p className="hero-rise-3 mt-3 text-sm font-medium text-[var(--ink)]">{syntaxia.icp}</p>
-            <div className="hero-rise-3 mt-9 flex flex-wrap gap-3">
-              <Link href="/demo" className="btn btn-primary">
-                Enter live product demo
-              </Link>
-              <Link href="/start" className="btn btn-ghost">
-                Start a pilot this semester
-              </Link>
-            </div>
-            <p className="hero-rise-3 mt-6 text-sm text-[var(--muted)]">{verifiedTraction.proofLine}</p>
-          </div>
-          <div className="hero-rise-2">
-            <ProductDashboardPreview />
+          <h1 className="mx-auto mt-6 max-w-4xl text-[clamp(1.85rem,4.5vw,3.4rem)] font-semibold leading-[1.08] tracking-[-0.04em] text-[var(--ink)]">
+            {syntaxia.tagline}
+          </h1>
+          <p className="mx-auto mt-5 max-w-xl text-lg text-[var(--muted)] sm:text-xl">
+            {syntaxia.headline}
+          </p>
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <a
+              href={`mailto:${syntaxia.emails.sales}?subject=${encodeURIComponent("Syntaxia demo request")}`}
+              className="btn btn-primary"
+            >
+              Request a demo
+            </a>
+            <Link href="/start" className="btn btn-ghost">
+              Start a chapter
+            </Link>
           </div>
         </div>
       </section>
 
       <section className="border-b border-[var(--line)] bg-[var(--surface)]">
-        <div className="container flex flex-col items-start gap-5 py-9 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-[var(--muted)]">APSDS chapters at</p>
-          <div className="flex flex-wrap gap-2">
-            {openChapters.map((c) => (
-              <span
-                key={c.id}
-                className="border border-[var(--line)] bg-[var(--bg)] px-4 py-1.5 text-sm font-semibold text-[var(--ink)]"
-              >
-                {c.shortName}
-              </span>
+        <div className="container py-20 text-center sm:py-24">
+          <p className="eyebrow">The problem</p>
+          <h2 className="mx-auto mt-5 max-w-3xl text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
+            {homepageProblem.title}
+          </h2>
+          <div className="mx-auto mt-8 max-w-lg space-y-3 text-lg text-[var(--muted)]">
+            {homepageProblem.lines.map((line) => (
+              <p key={line}>{line}</p>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="demo-loop" className="scroll-mt-24 border-b border-[var(--line)]">
-        <div className="container grid gap-10 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center sm:py-24">
-          <Reveal>
-            <div className="text-left">
-              <p className="eyebrow eyebrow-left">Meeting demo</p>
-              <h2 className="display section-title mt-4 max-w-3xl text-left text-4xl text-[var(--ink)] sm:text-5xl">
-                Before Drive folders. After one instructor loop.
-              </h2>
-              <p className="mt-4 max-w-2xl text-[var(--muted)]">
-                Watch the APSDS film, then tour the product loop: diagnostic → placement → lesson →
-                submit → intervene. No invented student dashboards.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/demo" className="btn btn-primary">
-                  Walk the product loop
-                </Link>
-                <Link href="/apsds" className="btn btn-ghost">
-                  See APSDS
-                </Link>
-              </div>
-            </div>
-          </Reveal>
-          <Reveal delay={1}>
-            <div className="overflow-hidden border border-[var(--line)] bg-black">
-              <video
-                className="aspect-video w-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label={apsds.video.label}
-              >
-                <source src={apsds.video.src} type="video/mp4" />
-              </video>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="container py-20 sm:py-24">
-        <Reveal>
-          <div className="text-left">
-            <p className="eyebrow eyebrow-left">Problem</p>
-            <h2 className="display section-title mt-4 max-w-3xl text-left text-4xl text-[var(--ink)] sm:text-5xl">
-              Most CS programs still run on folders and hope.
-            </h2>
-            <p className="mt-4 max-w-2xl text-[var(--muted)]">
-              Leveled tracks break when placement is manual, work never gets submitted in one place, and
-              instructors cannot see who is stuck before the next meeting.
-            </p>
-          </div>
-        </Reveal>
-        <div className="mt-12 grid gap-8 md:grid-cols-3">
-          {problemPoints.map((point, index) => (
-            <Reveal key={point.title} delay={(Math.min(index + 1, 3)) as 1 | 2 | 3}>
-              <div className="border-t border-[var(--line)] pt-5 text-left">
-                <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--brand)]">
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-                <h3 className="display mt-3 text-2xl text-[var(--ink)]">{point.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{point.body}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section id="how" className="scroll-mt-24 border-y border-[var(--line)] bg-[var(--surface)]">
+      <section id="product" className="scroll-mt-24 border-b border-[var(--line)]">
         <div className="container py-20 sm:py-24">
-          <Reveal>
-            <div className="text-left">
-              <p className="eyebrow eyebrow-left">How it works</p>
-              <h2 className="display section-title mt-4 max-w-3xl text-left text-4xl text-[var(--ink)] sm:text-5xl">
-                Diagnose. Place. Learn. Intervene.
-              </h2>
-              <p className="mt-4 max-w-2xl text-[var(--muted)]">
-                The product loop is assignment → submit → analyze → improve, with the instructor queue
-                closing the loop.
-              </p>
-            </div>
-          </Reveal>
-          <div className="mt-12">
-            <HowItWorks />
-          </div>
-        </div>
-      </section>
-
-      <section id="product" className="container scroll-mt-24 py-20 sm:py-24">
-        <Reveal>
-          <div className="text-left">
-            <p className="eyebrow eyebrow-left">Product</p>
-            <h2 className="display section-title mt-4 max-w-3xl text-left text-4xl text-[var(--ink)] sm:text-5xl">
-              See who is stuck, and what to do next.
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">Product</p>
+            <h2 className="mt-5 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
+              {syntaxia.wedge}
             </h2>
-            <p className="mt-4 max-w-2xl text-[var(--muted)]">
-              Verified product surface only. Student counts appear after your chapter is active; we do
-              not invent them for marketing.
+            <p className="mt-4 text-[var(--muted)]">
+              Student, teacher, and parent views of the same loop.
             </p>
           </div>
-        </Reveal>
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {productFeatures.map((feature, index) => (
-            <Reveal key={feature.title} delay={(Math.min(index + 1, 3)) as 1 | 2 | 3}>
-              <article className="feature-card h-full border border-[var(--line)] bg-[var(--surface)] p-6 text-left">
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="display text-2xl text-[var(--ink)]">{feature.title}</h3>
-                  <StatusBadge status={feature.status} />
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{feature.body}</p>
-                {"note" in feature && feature.note ? (
-                  <p className="mt-3 text-xs font-medium text-[var(--brand)]">{feature.note}</p>
-                ) : null}
-              </article>
-            </Reveal>
-          ))}
-        </div>
-        <div className="mt-10">
+          <div className="mt-12">
+            <ProductMocks />
+          </div>
+          <div className="mt-10 flex justify-center">
             <Link href="/demo" className="btn btn-primary">
               Enter live product demo
             </Link>
+          </div>
         </div>
       </section>
 
-      <section id="usage" className="scroll-mt-24 border-y border-[var(--line)] bg-[var(--surface)]">
+      <section id="how" className="scroll-mt-24 border-b border-[var(--line)] bg-[var(--surface)]">
         <div className="container py-20 sm:py-24">
-          <Reveal>
-            <div className="text-left">
-              <p className="eyebrow eyebrow-left">Usage proof</p>
-              <h2 className="display section-title mt-4 text-left text-4xl text-[var(--ink)] sm:text-5xl">
-                {usageProof.title}
-              </h2>
-              <p className="mt-4 max-w-2xl text-[var(--muted)]">{usageProof.subtitle}</p>
-            </div>
-          </Reveal>
-          <div className="mt-10 divide-y divide-[var(--line)] border border-[var(--line)] bg-[var(--bg)]">
-            {usageProof.rows.map((row) => (
-              <div
-                key={row.label}
-                className="grid gap-2 px-5 py-4 text-left sm:grid-cols-[0.9fr_1.1fr] sm:items-center"
-              >
-                <p className="text-sm font-semibold text-[var(--ink)]">{row.label}</p>
-                <p className="text-sm text-[var(--muted)]">{row.value}</p>
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">How it works</p>
+            <h2 className="mt-5 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
+              Four steps. No folders.
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {howItWorks.map((step, index) => (
+              <div key={step.id} className="border border-[var(--line)] bg-[var(--bg)] p-6 text-left">
+                <p className="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[var(--brand)]">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mt-4 text-xl font-semibold tracking-tight text-[var(--ink)]">
+                  {step.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{step.body}</p>
               </div>
             ))}
           </div>
@@ -235,295 +101,107 @@ export default function HomePage() {
       </section>
 
       <section className="border-b border-[var(--line)]">
-        <div className="container grid gap-12 py-20 lg:grid-cols-2 lg:items-center sm:py-24">
-          <Reveal>
-            <div className="text-left">
-              <p className="eyebrow eyebrow-left">Wedge</p>
-              <h2 className="display section-title mt-4 text-left text-4xl text-[var(--ink)] sm:text-5xl">
-                {founderStory.title}
-              </h2>
-              <p className="mt-5 leading-relaxed text-[var(--muted)]">{founderStory.body}</p>
-              <p className="mt-4 text-sm leading-relaxed text-[var(--muted)]">{apsds.relationship}</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/apsds" className="btn btn-ghost">
-                  Explore APSDS
-                </Link>
-                <Link href="/start" className="btn btn-ghost">
-                  Start a pilot
-                </Link>
-              </div>
-            </div>
-          </Reveal>
-          <Reveal delay={1}>
-            <div className="grid gap-6 sm:grid-cols-2">
-              <div className="border-t border-[var(--line)] pt-5 text-left">
-                <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--muted)]">
-                  Before Syntaxia
-                </p>
-                <ul className="mt-4 space-y-3 text-sm text-[var(--muted)]">
-                  {founderStory.before.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="border-t border-[var(--brand)] pt-5 text-left">
-                <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--brand)]">
-                  With Syntaxia
-                </p>
-                <ul className="mt-4 space-y-3 text-sm text-[var(--ink)]">
-                  {founderStory.after.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <section id="competitors" className="scroll-mt-24 container py-20 sm:py-24">
-        <Reveal>
-          <div className="text-left">
-            <p className="eyebrow eyebrow-left">Competition</p>
-            <h2 className="display section-title mt-4 max-w-3xl text-left text-4xl text-[var(--ink)] sm:text-5xl">
-              Why not Classroom, Code.org, or a generic LMS?
-            </h2>
-            <p className="mt-4 max-w-2xl text-[var(--muted)]">{competitorThesis}</p>
-          </div>
-        </Reveal>
-        <div className="mt-10 grid gap-4 md:grid-cols-2">
-          {competitors.map((c, index) => (
-            <Reveal key={c.name} delay={(Math.min(index + 1, 3)) as 1 | 2 | 3}>
-              <article className="h-full border border-[var(--line)] bg-[var(--surface)] p-6 text-left">
-                <h3 className="display text-2xl text-[var(--ink)]">{c.name}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{c.weakness}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="border-y border-[var(--line)] bg-[var(--surface)]">
         <div className="container py-20 sm:py-24">
-          <Reveal>
-            <div className="text-left">
-              <p className="eyebrow eyebrow-left">Operator voice</p>
-              <h2 className="display section-title mt-4 text-left text-4xl text-[var(--ink)] sm:text-5xl">
-                Built by people who run the meetings.
-              </h2>
-              <p className="mt-4 max-w-2xl text-[var(--muted)]">
-                Quotes from Syntaxia / APSDS operators only. Outside school-staff testimonials wait for
-                written approval.
-              </p>
-            </div>
-          </Reveal>
-          <div className="mt-10 grid gap-4 lg:grid-cols-3">
-            {operatorVoice.map((voice) => (
-              <blockquote
-                key={voice.quote}
-                className="border border-[var(--line)] bg-[var(--bg)] p-6 text-left"
-              >
-                <p className="text-sm leading-relaxed text-[var(--ink)]">&ldquo;{voice.quote}&rdquo;</p>
-                <footer className="mt-5">
-                  <p className="text-sm font-semibold text-[var(--ink)]">{voice.name}</p>
-                  <p className="mt-1 text-xs text-[var(--muted)]">
-                    {voice.role} · {voice.organization}
-                  </p>
-                </footer>
-              </blockquote>
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">Why we&apos;re different</p>
+            <h2 className="mt-5 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
+              We teach recursion.
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {whyDifferent.map((item) => (
+              <div key={item.title} className="border-t border-[var(--line)] pt-5 text-left">
+                <h3 className="text-lg font-semibold text-[var(--ink)]">{item.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{item.body}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="container py-20 sm:py-24">
-        <Reveal>
-          <div className="text-left">
-            <p className="eyebrow eyebrow-left">Founders</p>
-            <h2 className="display section-title mt-4 text-left text-4xl text-[var(--ink)] sm:text-5xl">
-              Domain monopoly: we run the customer.
-            </h2>
-            <p className="mt-4 max-w-2xl text-[var(--muted)]">
-              We operate APSDS weekly, then ship Syntaxia against that pain. That is the unfair
-              advantage, not invented logos.
-            </p>
-          </div>
-        </Reveal>
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {founders.map((person) => (
-            <article
-              key={person.name}
-              className="border border-[var(--line)] bg-[var(--surface)] p-6 text-left sm:p-8"
-            >
-              <p className="display text-3xl text-[var(--ink)]">{person.name}</p>
-              <p className="mt-2 text-sm font-semibold text-[var(--brand)]">{person.role}</p>
-              <p className="mt-4 text-sm leading-relaxed text-[var(--muted)]">{person.bio}</p>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-[var(--ink)]">
-                {person.proof}
-              </p>
-            </article>
-          ))}
-          <article className="border border-dashed border-[var(--line)] bg-[var(--bg)] p-6 text-left sm:p-8">
-            <p className="display text-3xl text-[var(--ink)]">APSDS operators</p>
-            <p className="mt-2 text-sm font-semibold text-[var(--muted)]">Chapter staff & instructors</p>
-            <p className="mt-4 text-sm leading-relaxed text-[var(--muted)]">
-              Weekly feedback from live meetings at {openChapters.map((c) => c.shortName).join(", ")}{" "}
-              drives what we ship next: placement overrides, attendance rosters, intervention queue.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section id="traction" className="scroll-mt-24 border-y border-[var(--line)] bg-[var(--surface)]">
+      <section id="traction" className="scroll-mt-24 border-b border-[var(--line)] bg-[var(--surface)]">
         <div className="container py-20 sm:py-24">
-          <Reveal>
-            <div className="text-left">
-              <p className="eyebrow eyebrow-left">Traction</p>
-              <h2 className="display section-title mt-4 text-left text-4xl text-[var(--ink)] sm:text-5xl">
-                Early, real, and specific.
-              </h2>
-              <p className="mt-3 text-sm font-medium text-[var(--ink)]">{verifiedTraction.stage}</p>
-              <p className="mt-2 text-sm text-[var(--muted)]">Updated {verifiedTraction.updated}</p>
-            </div>
-          </Reveal>
-          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {verifiedTraction.items.map((item) => (
-              <div key={item.label} className="border-t border-[var(--line)] pt-5 text-left">
-                <p className="display text-4xl text-[var(--ink)]">{item.value}</p>
-                <p className="mt-2 text-sm font-semibold text-[var(--ink)]">{item.label}</p>
-                <p className="mt-2 text-xs leading-snug text-[var(--muted)]">{item.detail}</p>
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">Trusted by</p>
+            <h2 className="mt-5 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
+              Proof over adjectives.
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {verifiedTraction.homepageProof.map((item) => (
+              <div key={item.label} className="text-center">
+                <p className="text-3xl font-semibold tracking-tight text-[var(--ink)] sm:text-4xl">
+                  {item.value}
+                </p>
+                <p className="mt-2 text-sm text-[var(--muted)]">{item.label}</p>
               </div>
             ))}
           </div>
-          <p className="mt-8 max-w-2xl text-sm text-[var(--muted)]">{verifiedTraction.honesty}</p>
-        </div>
-      </section>
-
-      <section id="why-yc" className="scroll-mt-24 container py-20 sm:py-24">
-        <Reveal>
-          <div className="text-left">
-            <p className="eyebrow eyebrow-left">Roadmap</p>
-            <h2 className="display section-title mt-4 max-w-3xl text-left text-4xl text-[var(--ink)] sm:text-5xl">
-              {demoDayPlan.title}
-            </h2>
-            <p className="mt-4 max-w-2xl text-[var(--muted)]">{demoDayPlan.subtitle}</p>
-          </div>
-        </Reveal>
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {demoDayPlan.milestones.map((m, index) => (
-            <Reveal key={m.when} delay={(Math.min(index + 1, 3)) as 1 | 2 | 3}>
-              <article className="h-full border border-[var(--line)] bg-[var(--surface)] p-6 text-left">
-                <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[var(--brand)]">
-                  {m.when}
-                </p>
-                <p className="mt-4 text-sm leading-relaxed text-[var(--muted)]">{m.what}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-        <p className="mt-8 max-w-3xl text-sm leading-relaxed text-[var(--ink)]">{demoDayPlan.whyYc}</p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link href="/start" className="btn btn-primary">
-            Start a pilot this semester
-          </Link>
-          <a
-            href={`mailto:${syntaxia.emails.founders}?subject=${encodeURIComponent("Syntaxia pilot")}`}
-            className="btn btn-ghost"
-          >
-            Email founders
-          </a>
-        </div>
-      </section>
-
-      <section className="border-y border-[var(--line)] bg-[var(--surface)]">
-        <div className="container flex flex-col items-start justify-between gap-6 py-16 sm:flex-row sm:items-center sm:py-20">
-          <div className="text-left">
-            <p className="eyebrow eyebrow-left">Pricing</p>
-            <h2 className="display section-title mt-4 text-left text-3xl text-[var(--ink)] sm:text-4xl">
-              Community free. Program $199/mo. School from $3k/year. Founding pilots $750/semester.
-            </h2>
-            <p className="mt-3 max-w-xl text-sm text-[var(--muted)]">
-              Who pays is clear: chapters, programs, schools, or boosters. Stripe checkout is coming
-              online; start a pilot request today.
-            </p>
-          </div>
-          <Link href="/pricing" className="btn btn-primary shrink-0">
-            View pricing
-          </Link>
-        </div>
-      </section>
-
-      <section className="container py-20 sm:py-24">
-        <Reveal>
-          <div className="grid gap-8 border border-[var(--line)] bg-[var(--surface)] p-8 text-left sm:p-10 lg:grid-cols-[1.2fr_0.8fr]">
-            <div>
-              <p className="eyebrow eyebrow-left">Trust</p>
-              <h2 className="display section-title mt-4 text-left text-3xl text-[var(--ink)]">
-                Security at the highest priority.
-              </h2>
-              <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
-                Minimum necessary data, role-scoped access, deletion requests, and clear rules for student
-                submissions. We do not sell student data.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 sm:justify-center">
-              <Link href="/privacy" className="btn btn-ghost justify-start">
-                Privacy policy
-              </Link>
-              <Link href="/student-privacy" className="btn btn-ghost justify-start">
-                Student privacy
-              </Link>
-              <Link href="/security" className="btn btn-ghost justify-start">
-                Security
-              </Link>
-            </div>
-          </div>
-        </Reveal>
-      </section>
-
-      <section className="border-t border-[var(--line)] bg-[var(--surface)]">
-        <div className="container py-20 text-left sm:py-24">
-          <h2 className="display max-w-3xl text-4xl text-[var(--ink)] sm:text-5xl">
-            Enter the live product. Then start a pilot.
-          </h2>
-          <p className="mt-4 max-w-xl text-[var(--muted)]">
-            Demo uses verified product facts, empty where student data would live. Sign in to take the
-            diagnostic, create cohorts, and submit code.
+          <p className="mx-auto mt-8 max-w-xl text-center text-sm text-[var(--muted)]">
+            Chapters: {openChapters.map((c) => c.shortName).join(" · ")}. Paying schools: 0. APSDS
+            is the live classroom deployment.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/demo" className="btn btn-primary">
-              Enter live product demo
-            </Link>
-            <Link href="/start" className="btn btn-ghost">
-              Start this semester
-            </Link>
-            <a
-              href={`mailto:${syntaxia.emails.founders}?subject=${encodeURIComponent("Syntaxia pilot")}`}
-              className="btn btn-ghost"
+        </div>
+      </section>
+
+      <section className="border-b border-[var(--line)]">
+        <div className="container grid items-center gap-10 py-20 lg:grid-cols-2 sm:py-24">
+          <div className="text-left">
+            <p className="eyebrow eyebrow-left">Built from real classrooms</p>
+            <h2 className="mt-5 text-[clamp(1.8rem,3.5vw,2.6rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
+              {founderStory.title}
+            </h2>
+            <p className="mt-5 max-w-xl text-[var(--muted)]">{founderStory.body}</p>
+            <p className="mt-4 max-w-xl text-sm text-[var(--muted)]">{founders[0]?.bio}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/apsds" className="btn btn-ghost">
+                See APSDS
+              </Link>
+              <Link href="/demo" className="btn btn-ghost">
+                Use the product
+              </Link>
+            </div>
+          </div>
+          <div className="overflow-hidden border border-[var(--line)] bg-black">
+            <video
+              className="aspect-video w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label={apsds.video.label}
             >
-              Email founders
+              <source src={apsds.video.src} type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[var(--line)] bg-[var(--surface)]">
+        <div className="container py-20 text-center sm:py-28">
+          <h2 className="mx-auto max-w-3xl text-[clamp(1.9rem,4vw,3rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
+            Bring modern computer science to your school.
+          </h2>
+          <p className="mx-auto mt-4 max-w-lg text-[var(--muted)]">
+            Request a demo, or start a chapter this semester.
+          </p>
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <a
+              href={`mailto:${syntaxia.emails.sales}?subject=${encodeURIComponent("Syntaxia demo request")}`}
+              className="btn btn-primary"
+            >
+              Request a demo
             </a>
+            <Link href="/start" className="btn btn-ghost">
+              Start a chapter
+            </Link>
+            <Link href="/pricing" className="btn btn-ghost">
+              View pricing
+            </Link>
           </div>
         </div>
       </section>
     </main>
-  );
-}
-
-function StatusBadge({ status }: { status: "live" | "partial" | "soon" }) {
-  const label =
-    status === "live" ? "Live" : status === "partial" ? "Partial" : "Coming soon";
-  const className =
-    status === "live"
-      ? "bg-[rgba(22,163,74,0.12)] text-[#15803d]"
-      : status === "partial"
-        ? "bg-[rgba(var(--brand-rgb),0.1)] text-[var(--brand)]"
-        : "bg-[var(--line)] text-[var(--muted)]";
-  return (
-    <span
-      className={`shrink-0 px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wider ${className}`}
-    >
-      {label}
-    </span>
   );
 }

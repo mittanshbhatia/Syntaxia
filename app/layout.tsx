@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
-import { DM_Sans, Syne } from "next/font/google";
+import { Inter } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
-const syne = Syne({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-syne",
-  weight: ["500", "600", "700", "800"],
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm",
+  variable: "--font-inter",
   weight: ["400", "500", "600", "700"],
 });
 
@@ -23,19 +17,17 @@ export const metadata: Metadata = {
     template: "%s · Syntaxia",
   },
   description:
-    "The OS high school CS clubs use to place students, run meetings, and catch who is stuck. Live at APSDS chapters.",
+    "The AI-native computer science learning platform. Teach students to think, not just code.",
   openGraph: {
-    title: "Syntaxia, the OS for serious CS clubs",
-    description:
-      "Place every student. Catch who is stuck. Run the next meeting. Dogfooded on APSDS at BISV, Lynbrook, and Harker.",
+    title: "Syntaxia",
+    description: "The AI-native computer science curriculum for schools.",
     type: "website",
     url: "https://syntaxia.org",
   },
   twitter: {
     card: "summary_large_image",
     title: "Syntaxia",
-    description:
-      "Software for leveled CS programs: diagnose → place → learn → intervene.",
+    description: "Teach students to think, not just code.",
   },
   metadataBase: new URL("https://syntaxia.org"),
 };
@@ -57,15 +49,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${syne.variable} ${dmSans.variable}`} suppressHydrationWarning>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBoot }} />
       </head>
       <body
         className="site-shell min-h-screen antialiased"
         style={{
-          ["--font-display" as string]: "var(--font-syne), Syne, system-ui, sans-serif",
-          ["--font-body" as string]: "var(--font-dm), DM Sans, system-ui, sans-serif",
+          ["--font-display" as string]: "var(--font-inter), Inter, system-ui, sans-serif",
+          ["--font-body" as string]: "var(--font-inter), Inter, system-ui, sans-serif",
         }}
       >
         <ThemeProvider>

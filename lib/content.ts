@@ -3,14 +3,12 @@ import { pythonDiagnosticQuestions } from "@/lib/diagnostics/questions";
 
 export const syntaxia = {
   name: "Syntaxia",
-  /** Brand-first hero wordmark lives on the homepage; this is the outcome line under it. */
-  tagline: "The OS high school CS clubs use to place students, run meetings, and catch who is stuck.",
-  headline: "Place every student. Catch who is stuck. Run the next meeting.",
-  wedge:
-    "The OS high school CS clubs use to place students, run meetings, and catch who is stuck.",
+  tagline: "The AI-native computer science learning platform.",
+  headline: "Teach students to think, not just code.",
+  wedge: "We're building the AI-native computer science curriculum for schools.",
   description:
-    "Syntaxia is software for schools, clubs, and after-school programs that teach computer science in leveled tracks: curriculum, diagnostics, code submissions, attendance, and instructor interventions in one place.",
-  icp: "Built for chapter directors, instructors, and program leads, not another generic LMS.",
+    "Syntaxia places every student, runs leveled lessons with an AI coach, and gives teachers live progress so schools can teach problem solving, not syntax memorization.",
+  icp: "Built for schools, after-school programs, and chapter directors.",
   emails: {
     founders: "founders@syntaxia.org",
     support: "support@syntaxia.org",
@@ -27,16 +25,16 @@ export const apsds = {
   fullName: "Algorithmic Problem Solving and Data Structures",
   tagline: "Learn computer science the way it sticks.",
   mission:
-    "APSDS is the flagship computer science program powered by Syntaxia, leveled tracks, weekly meetings, real projects, and competition support across Bay Area schools.",
+    "APSDS is Syntaxia's flagship computer science program: leveled tracks, weekly meetings, projects, and competition support across Bay Area schools.",
   relationship:
-    "APSDS is Syntaxia’s first customer: we operate the program ourselves, ship the product against our own weekly meetings, and expand chapter by chapter.",
+    "APSDS is our first deployment. We run the program ourselves, then turn what works into software schools can run.",
   email: "support@syntaxia.org",
   chapterEmail: "team.apsds@gmail.com",
   instagram: "theapsdsclub",
   instagramUrl: "https://www.instagram.com/theapsdsclub/",
   video: {
     src: "/media/apsds-hype-2026.mp4",
-    label: "APSDS 2026-27 film",
+    label: "APSDS classroom film",
   },
 };
 
@@ -92,56 +90,69 @@ export function getMarketingChapter(slug: string) {
  */
 export const verifiedTraction = {
   updated: "July 2026",
-  stage: "Early · dogfooding on our own program",
+  stage: "First deployment live",
   items: [
     {
-      label: "Named school chapters live",
+      label: "School chapters",
       value: String(openChapters.length),
       detail: openChapters.map((c) => c.shortName).join(" · "),
     },
     {
+      label: "Curriculum tracks",
+      value: "3",
+      detail: "L1 · L2 · L3",
+    },
+    {
+      label: "Catalog materials",
+      value: String(curriculumCatalog.length),
+      detail: "Lessons, tests, projects, contests",
+    },
+    {
       label: "Paying schools",
       value: "0",
-      detail: "Pilots free while we finish sales packaging · founding seats open",
-    },
-    {
-      label: "Leveled curriculum tracks",
-      value: "3",
-      detail: "L1 Foundations · L2 Practical · L3 Advanced",
-    },
-    {
-      label: "Materials in product catalog",
-      value: String(curriculumCatalog.length),
-      detail: "Lessons, tests, projects, competition prep",
-    },
-    {
-      label: "Placement diagnostic items",
-      value: String(pythonDiagnosticQuestions.length),
-      detail: "Python foundations → track recommendation",
+      detail: "APSDS is the live deployment · founding pilots open",
     },
   ],
   strip: [
-    {
-      label: "Chapters",
-      value: String(openChapters.length),
-    },
-    {
-      label: "Paying schools",
-      value: "0",
-    },
-    {
-      label: "Tracks",
-      value: "3",
-    },
-    {
-      label: "Catalog items",
-      value: String(curriculumCatalog.length),
-    },
+    { label: "Chapters", value: String(openChapters.length) },
+    { label: "Tracks", value: "3" },
+    { label: "Materials", value: String(curriculumCatalog.length) },
+    { label: "Paying", value: "0" },
   ],
-  proofLine: `Live at ${openChapters.map((c) => c.shortName).join(", ")} · Built from experience`,
+  proofLine: `First deployment: APSDS at ${openChapters.map((c) => c.shortName).join(", ")}`,
   honesty:
-    "We do not publish estimated TAM, projected ARR, waitlist counts, or interest-only school lists as traction. Paying customers are currently 0; APSDS is the live dogfood customer.",
+    "We publish verified chapter and product counts. We do not invent student headcount or revenue.",
+  homepageProof: [
+    { value: "APSDS", label: "First deployment" },
+    { value: String(openChapters.length), label: "School chapters" },
+    { value: "ACSL", label: "Top results at BISV" },
+    { value: "L1–L3", label: "Leveled curriculum" },
+  ],
 } as const;
+
+export const homepageProblem = {
+  title: "Programming changed. Schools didn’t.",
+  lines: [
+    "Students memorize syntax.",
+    "AI writes syntax.",
+    "The future belongs to students who can solve problems.",
+  ],
+} as const;
+
+export const whyDifferent = [
+  {
+    title: "Problem solving, not syntax drills",
+    body: "We teach recursion, placement, and contests. Memorizing print() is not the product.",
+  },
+  {
+    title: "AI coach that asks",
+    body: "Hints guide thinking. They never dump the full solution.",
+  },
+  {
+    title: "Built from a live program",
+    body: "APSDS is not a case study. It is our first customer.",
+  },
+] as const;
 
 /** Weekly ops surface we can verify from the product + chapter network (not invent student MAU). */
 export const usageProof = {
@@ -172,6 +183,9 @@ export const usageProof = {
   ],
 } as const;
 
+export const competitorThesis =
+  "Schools need a CS learning platform, not another YouTube playlist. We win because we already run the program we sell.";
+
 export const competitors = [
   {
     name: "Google Classroom + Drive",
@@ -179,20 +193,17 @@ export const competitors = [
   },
   {
     name: "Code.org / playlist curricula",
-    weakness: "Great content, weak chapter ops. Clubs still need memberships, levels, and weekly interventions.",
+    weakness: "Great content, weak program ops. Schools still need levels, memberships, and weekly interventions.",
   },
   {
     name: "Outschool / tutoring marketplaces",
-    weakness: "Hourly tutors, not a reusable school chapter operating system.",
+    weakness: "Hourly tutors, not a reusable school CS platform.",
   },
   {
     name: "Generic LMS",
-    weakness: "Built for courses, not leveled CS clubs with diagnostics, contests, and student leaders.",
+    weakness: "Built for courses, not leveled CS with diagnostics, contests, and AI coaching.",
   },
 ] as const;
-
-export const competitorThesis =
-  "High school CS clubs need an operating system, not another YouTube playlist. We win because we already run the program we sell for.";
 
 /**
  * Role-attributed voice from people who operate APSDS / Syntaxia.
@@ -285,26 +296,26 @@ export const tracks = [
 export const howItWorks = [
   {
     id: "diagnose",
-    title: "Diagnose",
-    body: "Students take a short programming diagnostic inside Syntaxia.",
+    title: "Diagnostic",
+    body: "Students take a short programming diagnostic.",
     preview: "diagnostic",
   },
   {
     id: "place",
-    title: "Place",
-    body: "Each student lands on L1, L2, or L3 with a starting lesson and confidence.",
+    title: "Personalized placement",
+    body: "Syntaxia places them into L1, L2, or L3.",
     preview: "placement",
   },
   {
     id: "learn",
-    title: "Learn",
-    body: "Structured materials, Monaco code workspace, in-browser run, and submit.",
+    title: "AI-guided mastery",
+    body: "Lessons adapt with an AI coach that asks, not spoils.",
     preview: "learn",
   },
   {
     id: "intervene",
-    title: "Intervene",
-    body: "Instructors see pending members, tagged misconceptions, and attendance gaps.",
+    title: "Live teacher updates",
+    body: "Teachers see who’s stuck and what to teach next.",
     preview: "intervene",
   },
 ] as const;
@@ -364,14 +375,14 @@ export const founders = [
   {
     name: "Mittansh Bhatia",
     role: "Founder / CEO",
-    bio: "Operates APSDS and builds Syntaxia from the same weekly ops pain: placement, curriculum, submissions, and chapter management. Ships the product end-to-end.",
-    proof: "Domain monopoly: we run the customer.",
+    bio: "Founded by CS competitors and educators after watching students struggle with outdated programming education.",
+    proof: "We run APSDS. Syntaxia is the product.",
   },
 ] as const;
 
 export const founderStory = {
-  title: "We built the software we needed to run APSDS.",
-  body: "As APSDS expanded across schools, we were manually placing students, distributing curriculum, reviewing assignments, tracking memberships, and juggling L1 / L2 / L3 in Drive and spreadsheets. Syntaxia is that stack, productized.",
+  title: "Built from real classrooms.",
+  body: "We started by running APSDS, where we learned how hard it is to deliver serious CS education at scale. Syntaxia turns those lessons into software schools can run.",
   before: [
     "Drive folders per chapter",
     "Spreadsheets for placement",
@@ -379,10 +390,10 @@ export const founderStory = {
     "Manual membership tracking",
   ],
   after: [
-    "One instructor dashboard",
-    "Diagnostic placement + override",
+    "One teacher dashboard",
+    "Diagnostic placement",
     "In-platform code submit",
-    "Roles, cohorts, attendance",
+    "AI coach + live progress",
   ],
 } as const;
 
@@ -402,8 +413,8 @@ export const pricingPlans = [
     name: "Community",
     price: "Free",
     cadence: "",
-    whoPays: "Student-led / nonprofit chapters (approved)",
-    blurb: "For approved student-led and nonprofit chapters.",
+    whoPays: "Student-led / community chapters (approved)",
+    blurb: "For approved student-led and community chapters.",
     cta: "Start this semester",
     href: "/start",
     featured: false,
@@ -477,9 +488,8 @@ export const navLinks = [
   { href: "/#product", label: "Product" },
   { href: "/#how", label: "How it works" },
   { href: "/#traction", label: "Traction" },
-  { href: "/#why-yc", label: "Roadmap" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/apsds", label: "APSDS" },
+  { href: "/demo", label: "Demo" },
 ] as const;
 
 export const footerLinks = [

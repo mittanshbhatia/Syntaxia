@@ -2,43 +2,43 @@
 
 :root,
 html[data-theme="dark"] {
-  --bg: #07110e;
-  --ink: #eef7f3;
-  --muted: #8aa399;
-  --line: rgba(238, 247, 243, 0.1);
-  --line-2: rgba(238, 247, 243, 0.18);
-  --brand: #2dd4a8;
-  --brand-soft: #7ee0c4;
-  --brand-bright: #3ee0b5;
-  --brand-deep: #149e78;
-  --brand-rgb: 45, 212, 168;
-  --brand-soft-rgb: 126, 224, 196;
-  --surface: rgba(255, 255, 255, 0.035);
-  --surface-2: rgba(255, 255, 255, 0.06);
-  --shell-glow: rgba(45, 212, 168, 0.14);
-  --nav-bg: rgba(7, 17, 14, 0.82);
+  --bg: #0a0a0a;
+  --ink: #f5f5f5;
+  --muted: #a3a3a3;
+  --line: rgba(245, 245, 245, 0.12);
+  --line-2: rgba(245, 245, 245, 0.2);
+  --brand: #1f2bd5;
+  --brand-soft: #6b74f0;
+  --brand-bright: #3d48e8;
+  --brand-deep: #171fb8;
+  --brand-rgb: 31, 43, 213;
+  --brand-soft-rgb: 107, 116, 240;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-2: rgba(255, 255, 255, 0.07);
+  --shell-glow: rgba(31, 43, 213, 0.16);
+  --nav-bg: rgba(10, 10, 10, 0.88);
   --danger: #ff8f8f;
   --success: #6fe0b4;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Cool paper + deep teal — not cream/indigo */
+/* Blue / white / black — Apple-simple */
 html[data-theme="light"] {
-  --bg: #f3f6f5;
-  --ink: #0b1512;
-  --muted: #4d5f58;
-  --line: rgba(11, 21, 18, 0.1);
-  --line-2: rgba(11, 21, 18, 0.18);
-  --brand: #0f6b52;
-  --brand-soft: #0f6b52;
-  --brand-bright: #148566;
-  --brand-deep: #0a5240;
-  --brand-rgb: 15, 107, 82;
-  --brand-soft-rgb: 15, 107, 82;
-  --surface: rgba(255, 255, 255, 0.72);
-  --surface-2: rgba(255, 255, 255, 0.92);
-  --shell-glow: rgba(15, 107, 82, 0.08);
-  --nav-bg: rgba(243, 246, 245, 0.9);
+  --bg: #ffffff;
+  --ink: #0a0a0a;
+  --muted: #525252;
+  --line: rgba(10, 10, 10, 0.1);
+  --line-2: rgba(10, 10, 10, 0.18);
+  --brand: #1f2bd5;
+  --brand-soft: #1f2bd5;
+  --brand-bright: #3d48e8;
+  --brand-deep: #171fb8;
+  --brand-rgb: 31, 43, 213;
+  --brand-soft-rgb: 31, 43, 213;
+  --surface: #f7f7f8;
+  --surface-2: #ffffff;
+  --shell-glow: rgba(31, 43, 213, 0.06);
+  --nav-bg: rgba(255, 255, 255, 0.92);
   --danger: #a32020;
   --success: #146c4a;
 }
@@ -95,16 +95,23 @@ button {
 .site-shell {
   position: relative;
   overflow-x: clip;
-  background:
-    radial-gradient(ellipse 70% 45% at 80% -10%, var(--shell-glow), transparent 55%),
-    linear-gradient(180deg, transparent 0%, transparent 70%, rgba(var(--brand-rgb), 0.03) 100%),
-    var(--bg);
+  background: var(--bg);
 }
 
 .display {
   font-family: var(--font-display), system-ui, sans-serif;
-  letter-spacing: -0.05em;
-  line-height: 0.95;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.yc-home h1,
+.yc-home h2,
+.yc-home h3 {
+  text-align: inherit;
+}
+
+.product-mocks .product-mock {
+  border-radius: 0;
 }
 
 main h1,
