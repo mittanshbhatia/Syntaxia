@@ -81,8 +81,8 @@ export async function POST(request: Request) {
 
   let hint = rule?.hint ?? null;
   let source: "llm" | "rules" = "rules";
-  let total = rule?.total ?? 1;
-  let index = rule?.index ?? 0;
+  const total = rule?.total ?? 1;
+  const index = rule?.index ?? 0;
 
   const llm = await llmHint({
     promptId: body.promptId,
