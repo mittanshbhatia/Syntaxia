@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { getSessionUser } from "@/lib/auth";
-import { apsds, openChapters, tracks } from "@/lib/content";
+import { openChapters, tracks } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Find a Chapter",
@@ -29,12 +29,6 @@ export default async function JoinPage() {
       ) : null}
 
       <section className="join-hero min-h-[70vh]">
-        <div className="join-hero-video" aria-hidden="true">
-          <video autoPlay muted loop playsInline preload="auto">
-            <source src={apsds.video.src} type="video/mp4" />
-          </video>
-        </div>
-        <div className="join-hero-cut" aria-hidden="true" />
         <div className="container join-hero-copy grid min-h-[70vh] place-items-center py-20">
           <div className="mx-auto max-w-xl text-center">
             <Reveal>

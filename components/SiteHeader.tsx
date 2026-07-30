@@ -139,7 +139,7 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="nav-blur sticky top-0 z-50 border-b border-[var(--line)]">
+      <header className="nav-blur sticky top-0 z-50">
         <div className="container relative flex items-center justify-between gap-3 py-3.5">
           <Link
             ref={brandRef}

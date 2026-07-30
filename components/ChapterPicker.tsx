@@ -190,7 +190,9 @@ function ChapterLogo({ src }: { src?: string; alt: string }) {
       height={140}
       className="chapter-card-logo"
       aria-hidden
-      unoptimized={src.endsWith(".svg") || src.endsWith(".JPG") || src.endsWith(".jpg")}
+      unoptimized={
+        /\.(svg|jpe?g|png|JPG|JPEG|PNG)$/i.test(src)
+      }
     />
   );
 }

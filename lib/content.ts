@@ -33,8 +33,8 @@ export const apsds = {
   instagram: "theapsdsclub",
   instagramUrl: "https://www.instagram.com/theapsdsclub/",
   video: {
-    src: "/media/apsds-hype-2026.mp4",
-    label: "APSDS classroom film",
+    src: "/media/14596810_1920_1080_30fps.mp4",
+    label: "Syntaxia site film",
   },
 };
 
@@ -49,7 +49,7 @@ export const chapters = [
     status: "open" as const,
     blurb:
       "The founding school of APSDS and the executive capital campus. Weekly after-school sessions across L1, L2, and L3.",
-    logo: "/brand/BISV_APSDS_Logo.JPG",
+    logo: "/brand/schools/BISV.png",
     founding: true,
   },
   {
@@ -60,7 +60,7 @@ export const chapters = [
     region: "San Jose, CA",
     status: "open" as const,
     blurb: "APSDS chapter at Lynbrook High School.",
-    logo: "/brand/schools/lynbrook.svg",
+    logo: "/brand/schools/Lynbrook.jpeg",
     founding: false,
   },
   {
@@ -71,7 +71,7 @@ export const chapters = [
     region: "San Jose, CA",
     status: "open" as const,
     blurb: "APSDS chapter at The Harker School.",
-    logo: "/brand/schools/harker.svg",
+    logo: "/brand/schools/Harker.jpg",
     founding: false,
   },
 ] as const;

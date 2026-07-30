@@ -12,13 +12,6 @@ export const metadata: Metadata = {
 export default function ApsdsPage() {
   return (
     <main className="apsds-page">
-      <div className="apsds-video-bg" aria-hidden>
-        <video autoPlay muted loop playsInline preload="auto">
-          <source src={apsds.video.src} type="video/mp4" />
-        </video>
-        <div className="apsds-video-scrim" />
-      </div>
-
       <div className="apsds-content">
         <section className="container py-20 text-center sm:py-28">
           <Reveal>

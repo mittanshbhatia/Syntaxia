@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { SiteBackgroundVideo } from "@/components/SiteBackgroundVideo";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -61,12 +62,15 @@ export default function RootLayout({
         }}
       >
         <ThemeProvider>
-          <a href="#main" className="skip-link">
-            Skip to content
-          </a>
-          <SiteHeader />
-          <div id="main">{children}</div>
-          <SiteFooter />
+          <SiteBackgroundVideo />
+          <div className="site-foreground">
+            <a href="#main" className="skip-link">
+              Skip to content
+            </a>
+            <SiteHeader />
+            <div id="main">{children}</div>
+            <SiteFooter />
+          </div>
         </ThemeProvider>
       </body>
     </html>

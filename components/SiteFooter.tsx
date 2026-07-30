@@ -3,7 +3,7 @@ import { footerLinks, syntaxia } from "@/lib/content";
 
 export function SiteFooter() {
   return (
-    <footer className="site-footer mt-8 border-t border-[var(--line)]">
+    <footer className="site-footer mt-8">
       <div className="container grid gap-10 py-14 md:grid-cols-[1.3fr_1fr_1fr]">
         <div className="footer-copy text-left">
           <p className="text-2xl font-semibold tracking-tight">{syntaxia.name}</p>
