@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
-:root,
-html[data-theme="dark"] {
+:root {
   --bg: #0a0a0a;
   --ink: #f5f5f5;
   --muted: #a3a3a3;
@@ -22,25 +21,9 @@ html[data-theme="dark"] {
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Blue / white / black — Apple-simple */
-html[data-theme="light"] {
-  --bg: #ffffff;
-  --ink: #0a0a0a;
-  --muted: #525252;
-  --line: rgba(10, 10, 10, 0.1);
-  --line-2: rgba(10, 10, 10, 0.18);
-  --brand: #1f2bd5;
-  --brand-soft: #1f2bd5;
-  --brand-bright: #3d48e8;
-  --brand-deep: #171fb8;
-  --brand-rgb: 31, 43, 213;
-  --brand-soft-rgb: 31, 43, 213;
-  --surface: rgba(247, 247, 248, 0.72);
-  --surface-2: rgba(255, 255, 255, 0.78);
-  --shell-glow: rgba(31, 43, 213, 0.06);
-  --nav-bg: rgba(255, 255, 255, 0.92);
-  --danger: #a32020;
-  --success: #146c4a;
+/* Home: gray copy a few shades lighter, still below white */
+.yc-home {
+  --muted: #d0d0d0;
 }
 
 .form-error {
@@ -221,12 +204,6 @@ main h3,
   animation: hero-rise 0.7s var(--ease) 0.16s both;
 }
 
-html[data-theme="light"] .product-preview {
-  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.08);
-}
-
-
-
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -284,6 +261,7 @@ html[data-theme="light"] .product-preview {
   border-radius: 0.35rem;
   font-size: 0.92rem;
   font-weight: 600;
+  color: #ffffff;
   transition:
     transform 0.12s var(--ease),
     background 0.12s var(--ease),
@@ -332,29 +310,28 @@ html[data-theme="light"] .product-preview {
   box-shadow: none;
 }
 
-html[data-theme="dark"] .btn-primary {
-  color: #07110e;
-}
-
 .btn-primary:hover {
   background: var(--brand-bright);
+  color: #ffffff;
 }
 
 .btn-primary.btn-no-glow,
 .btn-primary.btn-no-glow:hover {
   box-shadow: none;
+  color: #ffffff;
 }
 
 .btn-ghost {
   border: 1px solid var(--line-2);
   background: var(--surface);
-  color: var(--ink);
+  color: #ffffff;
   backdrop-filter: blur(12px);
 }
 
 .btn-ghost:hover {
   border-color: var(--line-2);
   background: var(--surface-2);
+  color: #ffffff;
 }
 
 .skip-link {
@@ -540,7 +517,7 @@ html[data-theme="dark"] .btn-primary {
 .apsds-page .apsds-btn-ghost {
   border-color: rgba(238, 241, 255, 0.28) !important;
   background: rgba(10, 14, 48, 0.45) !important;
-  color: var(--apsds-ink) !important;
+  color: #ffffff !important;
 }
 
 .apsds-page .btn-ghost:hover {
@@ -737,10 +714,6 @@ html[data-theme="dark"] .btn-primary {
   white-space: nowrap;
 }
 
-html[data-theme="light"] .marquee-track span {
-  color: #c4beae;
-}
-
 .pillar-card {
   border: 1px solid var(--line);
   border-radius: 0;
@@ -784,28 +757,7 @@ html[data-theme="light"] .marquee-track span {
   background: rgba(100, 73, 11, 0.42);
 }
 
-/* Light mode: darker accents + translucent fills of those same colors */
-html[data-theme="light"] .track-card-l1 {
-  --track-accent: #5f4622;
-  background: rgba(95, 70, 34, 0.24);
-}
-
-html[data-theme="light"] .track-card-l2 {
-  --track-accent: #434952;
-  background: rgba(67, 73, 82, 0.22);
-}
-
-html[data-theme="light"] .track-card-l3 {
-  --track-accent: #8a6a08;
-  background: rgba(138, 106, 8, 0.24);
-}
-
 .site-footer {
-  background: transparent;
-  border-top: 0;
-}
-
-html[data-theme="light"] .site-footer {
   background: transparent;
   border-top: 0;
 }
@@ -814,12 +766,6 @@ html[data-theme="light"] .site-footer {
 .site-footer .footer-links,
 .site-footer .footer-links a {
   color: #ffffff;
-}
-
-html[data-theme="light"] .site-footer .footer-copy,
-html[data-theme="light"] .site-footer .footer-links,
-html[data-theme="light"] .site-footer .footer-links a {
-  color: #0a0a0a;
 }
 
 .site-footer .eyebrow {
@@ -848,20 +794,6 @@ body:has(.apsds-page) .site-footer .btn {
 
 body:has(.apsds-page) .site-footer .btn:hover {
   background: rgba(238, 241, 255, 0.08);
-}
-
-html[data-theme="light"] .hero-desc {
-  color: #ffffff;
-}
-
-html[data-theme="light"] .hero .btn-start-chapter {
-  background: #e8e2d4;
-  border-color: #d9d2c2;
-  color: #0a0a0a;
-}
-
-html[data-theme="light"] .hero .btn-start-chapter:hover {
-  background: #efe9db;
 }
 
 @keyframes marquee {
@@ -905,44 +837,6 @@ html[data-theme="light"] .hero .btn-start-chapter:hover {
 .icon-btn:hover {
   background: var(--surface-2);
   transform: translateY(-1px);
-}
-
-html[data-theme="light"] .icon-btn {
-  color: #0a0a0a;
-}
-
-.settings-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  background: rgba(0, 0, 0, 0.45);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s var(--ease);
-}
-
-.settings-backdrop.open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.settings-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 70;
-  width: min(22rem, 92vw);
-  height: 100dvh;
-  padding: 1.5rem;
-  background: var(--bg);
-  border-left: 1px solid var(--line);
-  transform: translateX(105%);
-  transition: transform 0.22s var(--ease);
-  overflow: auto;
-}
-
-.settings-panel.open {
-  transform: translateX(0);
 }
 
 .join-banner {
@@ -1018,16 +912,6 @@ html[data-theme="light"] .icon-btn {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(5, 6, 10, 0.35), rgba(5, 6, 10, 0.82));
-}
-
-html[data-theme="light"] .nav-blur a,
-html[data-theme="light"] .nav-blur .btn-ghost {
-  color: #0a0a0a;
-}
-
-/* The nav Dashboard / Sign in primary button keeps white text on its blue fill */
-html[data-theme="light"] .nav-blur a.btn-primary {
-  color: #ffffff;
 }
 
 /* Square every box / container across the site, except clickable controls */

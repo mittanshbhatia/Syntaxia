@@ -486,8 +486,7 @@ export const pricingPlans = [
 
 export const navLinks = [
   { href: "/#product", label: "Product" },
-  { href: "/#how", label: "How it works" },
-  { href: "/#traction", label: "Traction" },
+  { href: "/apsds", label: "APSDS" },
   { href: "/pricing", label: "Pricing" },
   { href: "/demo", label: "Demo" },
 ] as const;

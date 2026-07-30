@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import { SiteBackgroundVideo } from "@/components/SiteBackgroundVideo";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -33,27 +32,13 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://syntaxia.org"),
 };
 
-const themeBoot = `
-(function(){
-  try {
-    var t = localStorage.getItem('syntaxia-theme');
-    if (t !== 'light' && t !== 'dark') t = 'light';
-    document.documentElement.dataset.theme = t;
-    document.documentElement.style.colorScheme = t;
-  } catch (e) {}
-})();
-`;
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBoot }} />
-      </head>
+    <html lang="en" className={inter.variable} data-theme="dark" style={{ colorScheme: "dark" }}>
       <body
         className="site-shell min-h-screen antialiased"
         style={{
@@ -61,17 +46,15 @@ export default function RootLayout({
           ["--font-body" as string]: "var(--font-inter), Inter, system-ui, sans-serif",
         }}
       >
-        <ThemeProvider>
-          <SiteBackgroundVideo />
-          <div className="site-foreground">
-            <a href="#main" className="skip-link">
-              Skip to content
-            </a>
-            <SiteHeader />
-            <div id="main">{children}</div>
-            <SiteFooter />
-          </div>
-        </ThemeProvider>
+        <SiteBackgroundVideo />
+        <div className="site-foreground">
+          <a href="#main" className="skip-link">
+            Skip to content
+          </a>
+          <SiteHeader />
+          <div id="main">{children}</div>
+          <SiteFooter />
+        </div>
       </body>
     </html>
   );

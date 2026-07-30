@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
-import { SettingsPanel } from "@/components/SettingsPanel";
 import { navLinks } from "@/lib/content";
 import { createClient } from "@/lib/supabase/client";
 
@@ -10,7 +9,6 @@ export function SiteHeader() {
   const [signedIn, setSignedIn] = useState(false);
   const [isMember, setIsMember] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
-  const [settingsOpen, setSettingsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
   const [hideCenterNav, setHideCenterNav] = useState(false);
@@ -126,7 +124,7 @@ export function SiteHeader() {
   }, [signedIn, menuOpen]);
 
   const dashboardHref = isMember ? "/dashboard" : "/members";
-  const showMenuButton = true; // always available; desktop uses it when center nav is hidden
+  const showMenuButton = true;
   const menuPanelVisible = menuOpen;
 
   async function signOut() {
@@ -138,215 +136,186 @@ export function SiteHeader() {
   }
 
   return (
-    <>
-      <header className="nav-blur sticky top-0 z-50">
-        <div className="container relative flex items-center justify-between gap-3 py-3.5">
-          <Link
-            ref={brandRef}
-            href="/"
-            className="display z-10 text-[1.35rem] text-[var(--ink)] transition hover:opacity-80"
-          >
-            Syntaxia
-          </Link>
+    <header className="nav-blur sticky top-0 z-50">
+      <div className="container relative flex items-center justify-between gap-3 py-3.5">
+        <Link
+          ref={brandRef}
+          href="/"
+          className="display z-10 text-[1.35rem] text-[var(--ink)] transition hover:opacity-80"
+        >
+          Syntaxia
+        </Link>
 
-          <nav
-            ref={centerRef}
-            className={`absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-6 text-sm text-[var(--ink)] lg:flex ${
-              hideCenterNav ? "invisible pointer-events-none" : ""
-            }`}
-            aria-label="Primary"
-            aria-hidden={hideCenterNav}
+        <nav
+          ref={centerRef}
+          className={`absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-6 text-sm text-[var(--ink)] lg:flex ${
+            hideCenterNav ? "invisible pointer-events-none" : ""
+          }`}
+          aria-label="Primary"
+          aria-hidden={hideCenterNav}
+        >
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} className="transition hover:opacity-70">
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div ref={actionsRef} className="z-10 flex items-center gap-2">
+          <Link href="/demo" className="btn btn-primary hidden px-4 py-2 text-sm sm:inline-flex">
+            Try demo
+          </Link>
+          <a
+            href="mailto:founders@syntaxia.org?subject=Syntaxia%20pilot"
+            className="btn btn-ghost hidden px-4 py-2 text-sm xl:inline-flex"
           >
+            Email founders
+          </a>
+
+          {signedIn ? (
+            <Link
+              href={dashboardHref}
+              className="btn btn-ghost hidden px-4 py-2 text-sm md:inline-flex"
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <Link
+              href="/auth/sign-in"
+              className="btn btn-ghost hidden px-4 py-2 text-sm md:inline-flex"
+            >
+              Sign in
+            </Link>
+          )}
+
+          {signedIn ? (
+            <div ref={accountRef} className="relative">
+              <button
+                type="button"
+                className="account-avatar"
+                aria-label="Account menu"
+                title="Account"
+                aria-expanded={accountOpen}
+                aria-controls={accountId}
+                onClick={() => {
+                  setAccountOpen((v) => !v);
+                  setMenuOpen(false);
+                }}
+              >
+                {avatarUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={avatarUrl} alt="" className="h-full w-full object-cover" />
+                ) : (
+                  <DefaultAvatar />
+                )}
+              </button>
+              {accountOpen ? (
+                <div
+                  id={accountId}
+                  role="menu"
+                  className="absolute right-0 top-[calc(100%+0.5rem)] z-[60] min-w-[12rem] border border-[var(--line)] bg-[var(--bg)] py-1 shadow-lg"
+                >
+                  <Link
+                    href={dashboardHref}
+                    role="menuitem"
+                    className="block px-4 py-2.5 text-sm text-[var(--ink)] hover:bg-[var(--surface)]"
+                    onClick={() => setAccountOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/members"
+                    role="menuitem"
+                    className="block px-4 py-2.5 text-sm text-[var(--ink)] hover:bg-[var(--surface)]"
+                    onClick={() => setAccountOpen(false)}
+                  >
+                    Chapters
+                  </Link>
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className="block w-full px-4 py-2.5 text-left text-sm text-[var(--ink)] hover:bg-[var(--surface)]"
+                    onClick={() => void signOut()}
+                  >
+                    Sign out
+                  </button>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+
+          {showMenuButton ? (
+            <button
+              type="button"
+              className={`icon-btn ${hideCenterNav ? "" : "lg:hidden"}`}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              aria-controls={menuId}
+              onClick={() => {
+                setMenuOpen((v) => !v);
+                setAccountOpen(false);
+              }}
+            >
+              <MenuIcon open={menuOpen} />
+            </button>
+          ) : null}
+        </div>
+      </div>
+
+      {menuPanelVisible ? (
+        <div
+          id={menuId}
+          className={`border-t border-[var(--line)] bg-[var(--nav-bg)] px-4 py-4 ${
+            hideCenterNav ? "" : "lg:hidden"
+          }`}
+          role="dialog"
+          aria-label="Mobile navigation"
+        >
+          <div className="container flex flex-col gap-1">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="transition hover:opacity-70">
+              <Link
+                key={link.href}
+                href={link.href}
+                className="px-3 py-3 text-sm font-medium text-[var(--ink)] hover:bg-[var(--surface)]"
+                onClick={() => setMenuOpen(false)}
+              >
                 {link.label}
               </Link>
             ))}
-          </nav>
-
-          <div ref={actionsRef} className="z-10 flex items-center gap-2">
-            <Link href="/demo" className="btn btn-primary hidden px-4 py-2 text-sm sm:inline-flex">
+            <Link
+              href="/demo"
+              className="px-3 py-3 text-sm font-medium text-[var(--ink)] hover:bg-[var(--surface)]"
+              onClick={() => setMenuOpen(false)}
+            >
               Try demo
             </Link>
             <a
               href="mailto:founders@syntaxia.org?subject=Syntaxia%20pilot"
-              className="btn btn-ghost hidden px-4 py-2 text-sm xl:inline-flex"
+              className="px-3 py-3 text-sm font-medium text-[var(--ink)] hover:bg-[var(--surface)]"
+              onClick={() => setMenuOpen(false)}
             >
               Email founders
             </a>
-
-            {signedIn ? (
-              <Link
-                href={dashboardHref}
-                className="btn btn-ghost hidden px-4 py-2 text-sm md:inline-flex"
-              >
-                Dashboard
-              </Link>
-            ) : (
-              <Link
-                href="/auth/sign-in"
-                className="btn btn-ghost hidden px-4 py-2 text-sm md:inline-flex"
-              >
-                Sign in
-              </Link>
-            )}
-
-            <button
-              type="button"
-              className="icon-btn"
-              aria-label="Settings"
-              title="Settings"
-              onClick={() => {
-                setSettingsOpen(true);
-                setAccountOpen(false);
-                setMenuOpen(false);
-              }}
+            <Link
+              href={signedIn ? dashboardHref : "/auth/sign-in"}
+              className="px-3 py-3 text-sm font-medium text-[var(--ink)] hover:bg-[var(--surface)]"
+              onClick={() => setMenuOpen(false)}
             >
-              <GearIcon />
-            </button>
-
+              {signedIn ? "Dashboard" : "Sign in"}
+            </Link>
             {signedIn ? (
-              <div ref={accountRef} className="relative">
-                <button
-                  type="button"
-                  className="account-avatar"
-                  aria-label="Account menu"
-                  title="Account"
-                  aria-expanded={accountOpen}
-                  aria-controls={accountId}
-                  onClick={() => {
-                    setAccountOpen((v) => !v);
-                    setMenuOpen(false);
-                  }}
-                >
-                  {avatarUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={avatarUrl} alt="" className="h-full w-full object-cover" />
-                  ) : (
-                    <DefaultAvatar />
-                  )}
-                </button>
-                {accountOpen ? (
-                  <div
-                    id={accountId}
-                    role="menu"
-                    className="absolute right-0 top-[calc(100%+0.5rem)] z-[60] min-w-[12rem] border border-[var(--line)] bg-[var(--bg)] py-1 shadow-lg"
-                  >
-                    <Link
-                      href={dashboardHref}
-                      role="menuitem"
-                      className="block px-4 py-2.5 text-sm text-[var(--ink)] hover:bg-[var(--surface)]"
-                      onClick={() => setAccountOpen(false)}
-                    >
-                      Dashboard
-                    </Link>
-                    <Link
-                      href="/members"
-                      role="menuitem"
-                      className="block px-4 py-2.5 text-sm text-[var(--ink)] hover:bg-[var(--surface)]"
-                      onClick={() => setAccountOpen(false)}
-                    >
-                      Chapters
-                    </Link>
-                    <button
-                      type="button"
-                      role="menuitem"
-                      className="block w-full px-4 py-2.5 text-left text-sm text-[var(--ink)] hover:bg-[var(--surface)]"
-                      onClick={() => {
-                        setAccountOpen(false);
-                        setSettingsOpen(true);
-                      }}
-                    >
-                      Settings
-                    </button>
-                    <button
-                      type="button"
-                      role="menuitem"
-                      className="block w-full px-4 py-2.5 text-left text-sm text-[var(--ink)] hover:bg-[var(--surface)]"
-                      onClick={() => void signOut()}
-                    >
-                      Sign out
-                    </button>
-                  </div>
-                ) : null}
-              </div>
-            ) : null}
-
-            {showMenuButton ? (
               <button
                 type="button"
-                className={`icon-btn ${hideCenterNav ? "" : "lg:hidden"}`}
-                aria-label={menuOpen ? "Close menu" : "Open menu"}
-                aria-expanded={menuOpen}
-                aria-controls={menuId}
-                onClick={() => {
-                  setMenuOpen((v) => !v);
-                  setAccountOpen(false);
-                }}
+                className="px-3 py-3 text-left text-sm font-medium text-[var(--ink)] hover:bg-[var(--surface)]"
+                onClick={() => void signOut()}
               >
-                <MenuIcon open={menuOpen} />
+                Sign out
               </button>
             ) : null}
           </div>
         </div>
-
-        {menuPanelVisible ? (
-          <div
-            id={menuId}
-            className={`border-t border-[var(--line)] bg-[var(--nav-bg)] px-4 py-4 ${
-              hideCenterNav ? "" : "lg:hidden"
-            }`}
-            role="dialog"
-            aria-label="Mobile navigation"
-          >
-            <div className="container flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="px-3 py-3 text-sm font-medium text-[var(--ink)] hover:bg-[var(--surface)]"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Link
-                href="/demo"
-                className="px-3 py-3 text-sm font-medium text-[var(--ink)] hover:bg-[var(--surface)]"
-                onClick={() => setMenuOpen(false)}
-              >
-                Try demo
-              </Link>
-              <a
-                href="mailto:founders@syntaxia.org?subject=Syntaxia%20pilot"
-                className="px-3 py-3 text-sm font-medium text-[var(--ink)] hover:bg-[var(--surface)]"
-                onClick={() => setMenuOpen(false)}
-              >
-                Email founders
-              </a>
-              <Link
-                href={signedIn ? dashboardHref : "/auth/sign-in"}
-                className="px-3 py-3 text-sm font-medium text-[var(--ink)] hover:bg-[var(--surface)]"
-                onClick={() => setMenuOpen(false)}
-              >
-                {signedIn ? "Dashboard" : "Sign in"}
-              </Link>
-              {signedIn ? (
-                <button
-                  type="button"
-                  className="px-3 py-3 text-left text-sm font-medium text-[var(--ink)] hover:bg-[var(--surface)]"
-                  onClick={() => void signOut()}
-                >
-                  Sign out
-                </button>
-              ) : null}
-            </div>
-          </div>
-        ) : null}
-      </header>
-
-      <SettingsPanel open={settingsOpen} onClose={() => setSettingsOpen(false)} />
-    </>
+      ) : null}
+    </header>
   );
 }
 
@@ -358,24 +327,6 @@ function MenuIcon({ open }: { open: boolean }) {
       ) : (
         <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       )}
-    </svg>
-  );
-}
-
-function GearIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-      />
-      <path
-        d="M19.4 13.5a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V19a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H5a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V5a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.86 1 1.51 1H19a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinejoin="round"
-      />
     </svg>
   );
 }
