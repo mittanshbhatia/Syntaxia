@@ -1,0 +1,13 @@
+---
+description: Always commit and push Syntaxia changes after completing user requests
+alwaysApply: true
+---
+
+# Auto push
+
+After finishing any user-requested change in this repo:
+
+1. Commit with author/committer **Mittansh Bhatia** `<mittanshbhatia@users.noreply.github.com>`
+2. Push to `origin` on the current branch (usually `main`) without waiting to be asked
+3. Never add Cursor / AI attribution trailers
+4. Skip only if there is nothing to commit, or the user explicitly says not to push
