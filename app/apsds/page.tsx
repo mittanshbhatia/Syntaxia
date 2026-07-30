@@ -24,14 +24,11 @@ export default function ApsdsPage() {
             <div className="flex justify-center">
               <div className="apsds-logo" role="img" aria-label="APSDS" />
             </div>
-            <h1 className="apsds-full-name mt-5 mx-auto max-w-3xl">
+            <h1 className="apsds-full-name mx-auto max-w-4xl">
               The <strong>Algorithmic Problem Solving and Data Structures</strong> Club
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-[var(--apsds-muted)]">{apsds.tagline}</p>
             <p className="mx-auto mt-4 max-w-2xl text-[var(--apsds-muted)]">{apsds.mission}</p>
-            <p className="mx-auto mt-4 max-w-2xl text-sm text-[var(--apsds-muted)]">
-              {apsds.relationship}
-            </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link href="/join" className="btn btn-primary apsds-btn">
                 Join a chapter
