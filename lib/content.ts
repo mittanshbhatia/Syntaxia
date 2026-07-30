@@ -33,8 +33,8 @@ export const apsds = {
   instagram: "theapsdsclub",
   instagramUrl: "https://www.instagram.com/theapsdsclub/",
   video: {
-    src: "/media/14596810_1920_1080_30fps.mp4",
-    label: "Syntaxia site film",
+    src: "/media/apsds-hype-2026.mp4",
+    label: "APSDS classroom film",
   },
 };
 
