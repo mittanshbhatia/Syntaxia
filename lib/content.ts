@@ -60,7 +60,7 @@ export const chapters = [
     region: "San Jose, CA",
     status: "open" as const,
     blurb: "APSDS chapter at Lynbrook High School.",
-    logo: "/brand/schools/Lynbrook.jpeg",
+    logo: "/brand/schools/Lynbrook-removebg-preview.png",
     founding: false,
   },
   {
@@ -71,7 +71,7 @@ export const chapters = [
     region: "San Jose, CA",
     status: "open" as const,
     blurb: "APSDS chapter at The Harker School.",
-    logo: "/brand/schools/Harker.jpg",
+    logo: "/brand/schools/Harker-removebg-preview.png",
     founding: false,
   },
 ] as const;

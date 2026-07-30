@@ -7,6 +7,7 @@ import { DiagnosticQuiz } from "@/components/DiagnosticQuiz";
 import { InterventionQueue } from "@/components/InterventionQueue";
 import { MasteryPanel } from "@/components/MasteryPanel";
 import { PlacementOverridePanel } from "@/components/PlacementOverridePanel";
+import { SegmentedChapterControl } from "@/components/SegmentedChapterControl";
 import {
   canManageVisibility,
   getMemberChapters,
@@ -56,21 +57,13 @@ export default async function ProgramPage({ searchParams }: Props) {
         chapter activity.
       </p>
 
-      {memberChapters.length > 1 ? (
-        <div className="mt-6 flex flex-wrap gap-2">
-          {memberChapters.map((chapter) => (
-            <Link
-              key={chapter.id}
-              href={`/dashboard/program?chapter=${chapter.slug}`}
-              className={`btn px-3 py-2 text-xs ${
-                chapter.id === selected.id ? "btn-primary btn-no-glow" : "btn-ghost"
-              }`}
-            >
-              {chapter.short_name}
-            </Link>
-          ))}
-        </div>
-      ) : null}
+      <div className="mt-6 flex justify-center sm:justify-start">
+        <SegmentedChapterControl
+          chapters={memberChapters}
+          selectedSlug={selected.slug}
+          basePath="/dashboard/program"
+        />
+      </div>
 
       <div className="mt-10 space-y-8">
         <DiagnosticQuiz chapterId={selected.id} />

@@ -18,6 +18,10 @@ const logosBySlug = Object.fromEntries(
   marketingChapters.map((c) => [c.slug, c.logo]),
 ) as Record<string, string>;
 
+const blurbsBySlug = Object.fromEntries(
+  marketingChapters.map((c) => [c.slug, c.blurb]),
+) as Record<string, string>;
+
 export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -80,12 +84,16 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
     });
   }
 
+  function descriptionFor(chapter: ChapterRow) {
+    return blurbsBySlug[chapter.slug] ?? chapter.blurb ?? "";
+  }
+
   return (
     <div>
       <div className="mx-auto max-w-2xl text-center">
         <p className="eyebrow">Member access</p>
         <h1 className="display section-title mt-4 text-4xl text-[var(--ink)] sm:text-5xl lg:text-6xl">
-          Where are you from?
+          Choose your chapter.
         </h1>
         <p className="mt-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg">
           Sign in, pick your chapter, then wait for an instructor to approve you before unlocking
@@ -123,6 +131,7 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
           const membership = membershipByChapter.get(chapter.id);
           const isComing = chapter.status === "coming";
           const logo = logosBySlug[chapter.slug];
+          const description = descriptionFor(chapter);
 
           return (
             <li key={chapter.id}>
@@ -130,20 +139,24 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
                 <div className="chapter-card" data-status="coming">
                   <ChapterLogo src={logo} alt={chapter.short_name} />
                   <Header chapter={chapter} statusLabel="Coming" statusClass="coming" />
-                  <p className="mt-4 text-sm text-[var(--muted)]">{chapter.blurb}</p>
+                  {description ? (
+                    <p className="chapter-card-desc mt-4 text-sm">{description}</p>
+                  ) : null}
                 </div>
               ) : membership?.status === "approved" ? (
                 <Link href={`/members/${chapter.slug}`} className="chapter-card block" data-status="open">
                   <ChapterLogo src={logo} alt={chapter.short_name} />
                   <Header chapter={chapter} statusLabel="Approved" statusClass="open" />
-                  <p className="mt-4 text-sm text-[var(--muted)]">{chapter.blurb}</p>
+                  {description ? (
+                    <p className="chapter-card-desc mt-4 text-sm">{description}</p>
+                  ) : null}
                   <p className="mt-5 text-sm font-semibold text-[var(--ink)]">Enter chapter →</p>
                 </Link>
               ) : membership?.status === "pending" ? (
                 <Link href={`/members/${chapter.slug}`} className="chapter-card block" data-status="open">
                   <ChapterLogo src={logo} alt={chapter.short_name} />
                   <Header chapter={chapter} statusLabel="Pending" statusClass="coming" />
-                  <p className="mt-4 text-sm text-[var(--muted)]">
+                  <p className="chapter-card-desc mt-4 text-sm">
                     Waiting for instructor approval.
                   </p>
                   <p className="mt-5 text-sm font-semibold text-[var(--ink)]">View status →</p>
@@ -152,7 +165,7 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
                 <div className="chapter-card" data-status="coming">
                   <ChapterLogo src={logo} alt={chapter.short_name} />
                   <Header chapter={chapter} statusLabel="Rejected" statusClass="coming" />
-                  <p className="mt-4 text-sm text-[var(--muted)]">
+                  <p className="chapter-card-desc mt-4 text-sm">
                     This request was rejected. Contact your chapter team.
                   </p>
                 </div>
@@ -166,7 +179,9 @@ export function ChapterPicker({ chapters, memberships, signedIn }: Props) {
                 >
                   <ChapterLogo src={logo} alt={chapter.short_name} />
                   <Header chapter={chapter} statusLabel="Open" statusClass="open" />
-                  <p className="mt-4 text-sm text-[var(--muted)]">{chapter.blurb}</p>
+                  {description ? (
+                    <p className="chapter-card-desc mt-4 text-sm">{description}</p>
+                  ) : null}
                   <p className="mt-5 text-sm font-semibold text-[var(--ink)]">
                     {signedIn ? "Request access →" : "Sign in to request →"}
                   </p>
@@ -190,9 +205,7 @@ function ChapterLogo({ src }: { src?: string; alt: string }) {
       height={140}
       className="chapter-card-logo"
       aria-hidden
-      unoptimized={
-        /\.(svg|jpe?g|png|JPG|JPEG|PNG)$/i.test(src)
-      }
+      unoptimized={/\.(svg|jpe?g|png|JPG|JPEG|PNG)$/i.test(src)}
     />
   );
 }
@@ -210,7 +223,7 @@ function Header({
     <div className="flex items-start justify-between gap-3">
       <div>
         <p className="display text-xl text-[var(--ink)]">{chapter.short_name}</p>
-        <p className="mt-1 text-sm text-[var(--muted)]">{chapter.name}</p>
+        <p className="chapter-card-name mt-1 text-sm">{chapter.name}</p>
         <p className="mt-1 text-xs text-[var(--brand-soft)]">{chapter.region}</p>
       </div>
       <span className={`status-pill ${statusClass}`}>{statusLabel}</span>

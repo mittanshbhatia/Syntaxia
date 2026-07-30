@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { apsds, openChapters, pillars, tracks } from "@/lib/content";
@@ -15,17 +14,11 @@ export default function ApsdsPage() {
       <div className="apsds-content">
         <section className="container py-20 text-center sm:py-28">
           <Reveal>
-            <p className="eyebrow apsds-eyebrow">
-              SYNTAXIA&apos;S FLAGSHIP PROGRAM
-            </p>
-            <div className="mt-8 flex justify-center">
-              <Image
-                src="/brand/APSDS_Logo.svg"
-                alt="APSDS"
-                width={520}
-                height={220}
-                className="apsds-logo h-auto w-full max-w-[28rem] object-contain"
-                priority
+            <div className="flex justify-center">
+              <div
+                className="apsds-logo"
+                role="img"
+                aria-label="APSDS"
               />
             </div>
             <h1 className="apsds-full-name mt-5 mx-auto max-w-3xl">

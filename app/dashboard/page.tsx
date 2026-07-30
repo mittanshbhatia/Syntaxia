@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { DashboardMaterials } from "@/components/DashboardMaterials";
+import { SegmentedChapterControl } from "@/components/SegmentedChapterControl";
 import { SignOutButton } from "@/components/SignOutButton";
 import {
   canManageVisibility,
@@ -10,7 +12,6 @@ import {
   getStaffRoles,
   hasAdminAccess,
 } from "@/lib/auth";
-import { SECTION_META } from "@/lib/curriculum/catalog";
 import {
   getChapterVisibility,
   groupedVisibleMaterials,
@@ -49,6 +50,10 @@ export default async function DashboardPage({ searchParams }: Props) {
   const groups = groupedVisibleMaterials(visibility, isStaffViewer).filter(
     (group) => group.materials.length > 0,
   );
+  const materials = groups.flatMap((group) => group.materials);
+  const hiddenMaterialIds = materials
+    .filter((material) => isStaffViewer && !isMaterialVisible(material, visibility, false))
+    .map((material) => material.id);
 
   return (
     <main className="container py-16 sm:py-24">
@@ -95,80 +100,27 @@ export default async function DashboardPage({ searchParams }: Props) {
         {isStaffViewer ? " · Viewing all materials" : " · Viewing unhidden materials"}
       </p>
 
-      {memberChapters.length > 1 ? (
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          {memberChapters.map((chapter) => (
-            <Link
-              key={chapter.id}
-              href={`/dashboard?chapter=${chapter.slug}`}
-              className={`btn px-3 py-2 text-xs ${
-                chapter.id === selected.id ? "btn-primary btn-no-glow" : "btn-ghost"
-              }`}
-            >
-              {chapter.short_name}
-            </Link>
-          ))}
-        </div>
-      ) : null}
-
-      <div className="mt-14 space-y-14">
-        {groups.map((group) => (
-          <section key={group.section} id={group.section}>
-            <div className="eyebrow-center">
-              <p className="eyebrow">{SECTION_META[group.section].label}</p>
-            </div>
-            <h2 className="display section-title mt-4 text-3xl text-[var(--ink)]">
-              {SECTION_META[group.section].label}
-            </h2>
-            <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-[var(--muted)]">
-              {SECTION_META[group.section].description}
-            </p>
-
-            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {group.materials.map((material) => {
-                const memberCanSee = isMaterialVisible(material, visibility, false);
-                const hiddenFromMembers = isStaffViewer && !memberCanSee;
-                const href = `/dashboard/materials/${material.id}?chapter=${selected.slug}`;
-
-                return (
-                  <Link
-                    key={material.id}
-                    href={href}
-                    className="material-card group block border border-[var(--line)] bg-[var(--surface)] p-5 transition hover:border-[rgba(var(--brand-rgb),0.45)] hover:bg-[var(--surface-2)]"
-                  >
-                    <div className="flex flex-wrap items-center gap-2">
-                      {material.track !== "all" ? (
-                        <span className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--brand-soft)]">
-                          {material.track.toUpperCase()}
-                        </span>
-                      ) : null}
-                      {hiddenFromMembers ? (
-                        <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--muted)]">
-                          Hidden from members
-                        </span>
-                      ) : null}
-                    </div>
-                    <h3 className="display mt-2 text-xl text-[var(--ink)]">{material.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
-                      {material.summary}
-                    </p>
-                    <p className="mt-4 text-sm font-semibold text-[var(--brand-soft)] group-hover:underline">
-                      View material →
-                    </p>
-                  </Link>
-                );
-              })}
-            </div>
-          </section>
-        ))}
-
-        {!groups.length ? (
-          <p className="mx-auto max-w-xl text-center text-sm text-[var(--muted)]">
-            No materials are visible for this chapter yet. Executives and chapter directors can
-            unhide items in Admin → Member visibility.
-          </p>
-        ) : null}
+      <div className="mt-6 flex justify-center">
+        <SegmentedChapterControl
+          chapters={memberChapters}
+          selectedSlug={selected.slug}
+          basePath="/dashboard"
+        />
       </div>
+
+      {materials.length ? (
+        <DashboardMaterials
+          materials={materials}
+          chapterSlug={selected.slug}
+          isStaffViewer={isStaffViewer}
+          hiddenMaterialIds={hiddenMaterialIds}
+        />
+      ) : (
+        <p className="mx-auto mt-14 max-w-xl text-center text-sm text-[var(--muted)]">
+          No materials are visible for this chapter yet. Executives and chapter directors can
+          unhide items in Admin → Member visibility.
+        </p>
+      )}
     </main>
   );
 }
