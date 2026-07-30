@@ -17,7 +17,7 @@ export default function HomePage() {
     <main className="yc-home">
       <section className="border-b border-[var(--line)]">
         <div className="container py-20 text-center sm:py-28 lg:py-32">
-          <p className="brand-mark text-[clamp(10.5rem,30vw,18rem)] text-[var(--ink)]">
+          <p className="brand-mark text-[var(--ink)]">
             {syntaxia.name}
           </p>
           <h1 className="mx-auto mt-6 max-w-4xl text-[clamp(0.925rem,2.25vw,1.7rem)] font-semibold leading-[1.08] tracking-[-0.04em] text-[var(--ink)]">

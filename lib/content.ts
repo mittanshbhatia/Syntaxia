@@ -25,7 +25,7 @@ export const apsds = {
   fullName: "Algorithmic Problem Solving and Data Structures",
   tagline: "Learn computer science the way it sticks.",
   mission:
-    "APSDS is Syntaxia's flagship computer science program: leveled tracks, weekly meetings, projects, and competition support across Bay Area schools. It is our first deployment. We run the program ourselves, then turn what works into software schools can run.",
+    "APSDS is Syntaxia's flagship computer science program: leveled tracks, weekly meetings, projects, and competition support across Bay Area schools. It is our first deployment; we run the program ourselves,",
   email: "support@syntaxia.org",
   chapterEmail: "team.apsds@gmail.com",
   instagram: "theapsdsclub",

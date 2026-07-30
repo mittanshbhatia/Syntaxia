@@ -24,7 +24,7 @@ export default function ApsdsPage() {
             <div className="flex justify-center">
               <div className="apsds-logo" role="img" aria-label="APSDS" />
             </div>
-            <h1 className="apsds-full-name mx-auto max-w-4xl">
+            <h1 className="apsds-full-name mx-auto">
               The <strong>Algorithmic Problem Solving and Data Structures</strong> Club
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-[var(--apsds-muted)]">{apsds.tagline}</p>
@@ -34,7 +34,7 @@ export default function ApsdsPage() {
                 Join a chapter
               </Link>
               <Link href="/" className="btn btn-ghost apsds-btn-ghost">
-                See Syntaxia
+                Explore Syntaxia
               </Link>
             </div>
           </Reveal>
@@ -96,8 +96,8 @@ export default function ApsdsPage() {
             <Link href="/start" className="btn btn-primary apsds-btn">
               Start a chapter
             </Link>
-            <Link href="/" className="btn btn-ghost apsds-btn-ghost">
-              Back to Syntaxia product
+            <Link href="/join" className="btn btn-ghost apsds-btn-ghost">
+              Join a chapter
             </Link>
           </div>
         </section>

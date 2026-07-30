@@ -181,8 +181,11 @@ main h3,
 .brand-mark {
   font-family: "Arial Rounded MT Bold", "Arial Rounded MT", Arial, sans-serif;
   font-weight: 700;
-  letter-spacing: 0.185em;
+  letter-spacing: 0.1em;
   line-height: 0.9;
+  font-size: clamp(6.5rem, 22vw, 18rem);
+  width: 100%;
+  text-align: center;
 }
 
 .syntaxia-wordmark {
@@ -472,7 +475,7 @@ main h3,
   object-fit: cover;
   object-position: center;
   transform: scale(1.04);
-  opacity: 0.87;
+  opacity: 1;
 }
 
 .apsds-video-scrim {
@@ -515,15 +518,18 @@ main h3,
 
 .apsds-full-name {
   font-family: Arial, Helvetica, sans-serif !important;
-  /* ~2.5× prior size; pull up to slightly overlap the logo */
-  font-size: clamp(1.8rem, 3.875vw, 2.875rem);
+  font-size: clamp(0.7rem, 1.85vw, 1.4375rem);
   font-weight: 400;
   letter-spacing: 0.01em;
-  line-height: 1.2;
+  line-height: 1.15;
   color: #c9d2ff;
   margin-top: -1.35rem;
   position: relative;
   z-index: 2;
+  width: max-content;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .apsds-full-name strong {
@@ -900,29 +906,62 @@ body:has(.apsds-page) .site-footer .btn:hover {
   min-height: 11rem;
   border-radius: 0;
   border: 1px solid var(--line);
-  background-color: #0b1020;
+  background-color: rgba(11, 16, 32, 0.28);
+  transition: transform 0.12s var(--ease);
+}
+
+.school-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--school-bg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  transition: transform 0.12s var(--ease);
+  opacity: 0.42;
+  pointer-events: none;
 }
 
 .school-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(5, 6, 10, 0.15), rgba(5, 6, 10, 0.78));
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(5, 6, 10, 0.08), rgba(5, 6, 10, 0.55));
+  pointer-events: none;
 }
 
 .school-card-body {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   height: 100%;
   min-height: 11rem;
   flex-direction: column;
   justify-content: flex-end;
   padding: 1.25rem 1.35rem;
+}
+
+.join-page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+}
+
+.join-content {
+  position: relative;
+  z-index: 1;
+}
+
+.join-video-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 6, 10, 0.28),
+    rgba(5, 6, 10, 0.4) 45%,
+    rgba(5, 6, 10, 0.55)
+  );
 }
 
 .join-hero {
