@@ -6,7 +6,7 @@ export function SiteFooter() {
     <footer className="site-footer mt-8">
       <div className="container grid gap-10 py-14 md:grid-cols-[1.3fr_1fr_1fr]">
         <div className="footer-copy text-left">
-          <p className="text-2xl font-semibold tracking-tight">{syntaxia.name}</p>
+          <p className="syntaxia-wordmark text-2xl">{syntaxia.name}</p>
           <div className="mt-5 flex flex-wrap gap-3">
             <Link href="/demo" className="btn btn-primary px-4 py-2 text-sm">
               Enter demo

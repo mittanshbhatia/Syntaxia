@@ -105,7 +105,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">Why we&apos;re different</p>
             <h2 className="mt-5 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
-              We teach recursion.
+              Actually useful.
             </h2>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -138,8 +138,7 @@ export default function HomePage() {
             ))}
           </div>
           <p className="mx-auto mt-8 max-w-xl text-center text-sm text-[var(--muted)]">
-            Chapters: {openChapters.map((c) => c.shortName).join(" · ")}. Paying schools: 0. APSDS
-            is the live classroom deployment.
+            Chapters: {openChapters.map((c) => c.shortName).join(" · ")}.
           </p>
         </div>
       </section>
@@ -158,7 +157,7 @@ export default function HomePage() {
                 See APSDS
               </Link>
               <Link href="/demo" className="btn btn-ghost">
-                Use the product
+                Explore Syntaxia
               </Link>
             </div>
           </div>

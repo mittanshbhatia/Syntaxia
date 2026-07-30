@@ -141,7 +141,7 @@ export function SiteHeader() {
         <Link
           ref={brandRef}
           href="/"
-          className="display z-10 text-[1.35rem] text-[var(--ink)] transition hover:opacity-80"
+          className="syntaxia-wordmark display z-10 text-[1.35rem] text-[var(--ink)] transition hover:opacity-80"
         >
           Syntaxia
         </Link>

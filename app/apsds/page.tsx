@@ -11,15 +11,18 @@ export const metadata: Metadata = {
 export default function ApsdsPage() {
   return (
     <main className="apsds-page">
+      <div className="apsds-video-bg" aria-hidden>
+        <video autoPlay muted loop playsInline preload="auto">
+          <source src="/media/Mountainrange_black.mp4" type="video/mp4" />
+        </video>
+        <div className="apsds-video-scrim" />
+      </div>
+
       <div className="apsds-content">
         <section className="container py-20 text-center sm:py-28">
           <Reveal>
             <div className="flex justify-center">
-              <div
-                className="apsds-logo"
-                role="img"
-                aria-label="APSDS"
-              />
+              <div className="apsds-logo" role="img" aria-label="APSDS" />
             </div>
             <h1 className="apsds-full-name mt-5 mx-auto max-w-3xl">
               The <strong>Algorithmic Problem Solving and Data Structures</strong> Club
@@ -30,14 +33,11 @@ export default function ApsdsPage() {
               {apsds.relationship}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link href="/" className="btn btn-primary apsds-btn">
-                See Syntaxia
-              </Link>
-              <Link href="/join" className="btn btn-ghost apsds-btn-ghost">
+              <Link href="/join" className="btn btn-primary apsds-btn">
                 Join a chapter
               </Link>
-              <Link href="/demo" className="btn btn-ghost apsds-btn-ghost">
-                Try demo
+              <Link href="/" className="btn btn-ghost apsds-btn-ghost">
+                See Syntaxia
               </Link>
             </div>
           </Reveal>

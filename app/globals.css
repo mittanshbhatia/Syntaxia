@@ -3,7 +3,7 @@
 :root {
   --bg: #0a0a0a;
   --ink: #f5f5f5;
-  --muted: #a3a3a3;
+  --muted: #e8e8e8;
   --line: rgba(245, 245, 245, 0.12);
   --line-2: rgba(245, 245, 245, 0.2);
   --brand: #1f2bd5;
@@ -21,9 +21,12 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Home: gray copy a few shades lighter, still below white */
-.yc-home {
-  --muted: #d0d0d0;
+@font-face {
+  font-family: "Arial Rounded MT Bold";
+  src: url("/fonts/ArialRoundedMTBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 .form-error {
@@ -176,9 +179,16 @@ main h3,
 }
 
 .brand-mark {
-  font-family: var(--font-display), system-ui, sans-serif;
-  letter-spacing: -0.06em;
+  font-family: "Arial Rounded MT Bold", "Arial Rounded MT", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.185em;
   line-height: 0.9;
+}
+
+.syntaxia-wordmark {
+  font-family: "Arial Rounded MT Bold", "Arial Rounded MT", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.185em;
 }
 
 @keyframes hero-rise {
@@ -439,7 +449,7 @@ main h3,
   --apsds-blue-deep: #171fb8;
   --apsds-blue-rgb: 31, 43, 213;
   --apsds-ink: #eef1ff;
-  --apsds-muted: #b8c0ef;
+  --apsds-muted: #e8ebff;
   --apsds-line: rgba(238, 241, 255, 0.16);
   --apsds-surface: rgba(10, 14, 48, 0.72);
   position: relative;
@@ -487,9 +497,9 @@ main h3,
 }
 
 .apsds-logo {
-  width: min(84rem, 100%);
+  width: min(56.28rem, 100%);
   aspect-ratio: 520 / 220;
-  max-height: min(66vw, 36rem);
+  max-height: min(44.22vw, 24.12rem);
   background-color: var(--brand);
   -webkit-mask-image: url("/brand/APSDS_Logo.svg");
   mask-image: url("/brand/APSDS_Logo.svg");
