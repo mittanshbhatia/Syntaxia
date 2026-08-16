@@ -1,4 +1,4 @@
-import { openai, type OpenAILanguageModelResponsesOptions } from "@ai-sdk/openai";
+import { openai } from "@ai-sdk/openai";
 import { generateText, Output } from "ai";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
@@ -143,7 +143,10 @@ export async function POST(request: Request) {
 
   try {
     const { output } = await generateText({
-      model: openai(process.env.OPENAI_EDITOR_MODEL || "gpt-5.6"),
+      // Keep the editor on the same broadly available model used by the rest
+      // of the app. Reasoning-only model options cause requests to fail when a
+      // standard chat model is selected.
+      model: openai(process.env.OPENAI_EDITOR_MODEL || "gpt-4o-mini"),
       output: Output.object({
         schema: z.object({
           message: z
@@ -156,13 +159,6 @@ export async function POST(request: Request) {
         }),
       }),
       maxOutputTokens: 1200,
-      providerOptions: {
-        openai: {
-          store: false,
-          reasoningEffort: "low",
-          textVerbosity: "low",
-        } satisfies OpenAILanguageModelResponsesOptions,
-      },
       system: [
         "You are Syntaxia's executive website copy editor.",
         "Convert the executive's request into precise edits to the allowlisted homepage fields.",
@@ -201,10 +197,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ message: output.message, changes });
   } catch (error) {
-    console.error(
-      "Executive site editor proposal failed",
-      error instanceof Error ? error.message : "Unknown error",
-    );
+    console.error("Executive site editor proposal failed", {
+      message: error instanceof Error ? error.message : "Unknown error",
+      name: error instanceof Error ? error.name : undefined,
+    });
     return NextResponse.json(
       { error: "The editor could not prepare a proposal. Please try again." },
       { status: 502 },
