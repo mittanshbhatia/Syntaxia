@@ -3,7 +3,6 @@ import { ProductMocks } from "@/components/ProductMocks";
 import {
   apsds,
   founders,
-  founderStory,
   homepageProblem,
   howItWorks,
   openChapters,
@@ -11,8 +10,11 @@ import {
   verifiedTraction,
   whyDifferent,
 } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const siteContent = await getSiteContent();
+
   return (
     <main className="yc-home">
       <section className="border-b border-[var(--line)]">
@@ -21,10 +23,10 @@ export default function HomePage() {
             {syntaxia.name}
           </p>
           <h1 className="mx-auto mt-6 max-w-4xl text-[clamp(0.925rem,2.25vw,1.7rem)] font-semibold leading-[1.08] tracking-[-0.04em] text-[var(--ink)]">
-            {syntaxia.tagline}
+            {siteContent["home.hero.tagline"]}
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-lg text-[var(--muted)] sm:text-xl">
-            {syntaxia.headline}
+            {siteContent["home.hero.headline"]}
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <a
@@ -44,7 +46,7 @@ export default function HomePage() {
         <div className="container py-20 text-center sm:py-24">
           <p className="eyebrow">The problem</p>
           <h2 className="mx-auto mt-5 max-w-3xl text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
-            {homepageProblem.title}
+            {siteContent["home.problem.title"]}
           </h2>
           <div className="mx-auto mt-8 max-w-lg space-y-3 text-lg text-[var(--muted)]">
             {homepageProblem.lines.map((line) => (
@@ -59,10 +61,10 @@ export default function HomePage() {
           <div className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">Product</p>
             <h2 className="mt-5 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
-              {syntaxia.wedge}
+              {siteContent["home.product.title"]}
             </h2>
             <p className="mt-4 text-[var(--muted)]">
-              Student, teacher, and parent views of the same loop.
+              {siteContent["home.product.subtitle"]}
             </p>
           </div>
           <div className="mt-12">
@@ -81,7 +83,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">How it works</p>
             <h2 className="mt-5 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
-              Four steps. No folders.
+              {siteContent["home.how.title"]}
             </h2>
           </div>
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -105,7 +107,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">Why we&apos;re different</p>
             <h2 className="mt-5 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
-              Actually useful.
+              {siteContent["home.different.title"]}
             </h2>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -124,7 +126,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">Trusted by</p>
             <h2 className="mt-5 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
-              Proof over adjectives.
+              {siteContent["home.traction.title"]}
             </h2>
           </div>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -148,9 +150,11 @@ export default function HomePage() {
           <div className="text-left">
             <p className="eyebrow eyebrow-left">Built from real classrooms</p>
             <h2 className="mt-5 text-[clamp(1.8rem,3.5vw,2.6rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
-              {founderStory.title}
+              {siteContent["home.story.title"]}
             </h2>
-            <p className="mt-5 max-w-xl text-[var(--muted)]">{founderStory.body}</p>
+            <p className="mt-5 max-w-xl text-[var(--muted)]">
+              {siteContent["home.story.body"]}
+            </p>
             <p className="mt-4 max-w-xl text-sm text-[var(--muted)]">{founders[0]?.bio}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/apsds" className="btn btn-ghost">
@@ -180,10 +184,10 @@ export default function HomePage() {
       <section className="border-b border-[var(--line)] bg-[var(--surface)]">
         <div className="container py-20 text-center sm:py-28">
           <h2 className="mx-auto max-w-3xl text-[clamp(1.9rem,4vw,3rem)] font-semibold tracking-[-0.03em] text-[var(--ink)]">
-            Bring modern computer science to your school.
+            {siteContent["home.cta.title"]}
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-[var(--muted)]">
-            Request a demo, or start a chapter this semester.
+            {siteContent["home.cta.body"]}
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <a

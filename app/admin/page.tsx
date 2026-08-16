@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { BootstrapExecutiveButton } from "@/components/BootstrapExecutiveButton";
+import { ExecutiveSiteEditor } from "@/components/ExecutiveSiteEditor";
 import { MembershipActions } from "@/components/MembershipActions";
 import { RoleManager } from "@/components/RoleManager";
 import { SignOutButton } from "@/components/SignOutButton";
 import { VisibilityControls } from "@/components/VisibilityControls";
 import { getProfile, getSessionUser, listChapters } from "@/lib/auth";
 import { curriculumCatalog } from "@/lib/curriculum/catalog";
+import { getSiteContent, SITE_CONTENT_FIELDS } from "@/lib/site-content";
 import { createClient } from "@/lib/supabase/server";
 import { getChapterVisibility } from "@/lib/visibility";
 
@@ -16,7 +18,11 @@ export const metadata: Metadata = {
   description: "Syntaxia admin panel for executives and chapter directors.",
 };
 
-export default async function AdminPage() {
+type Props = {
+  searchParams: Promise<{ tab?: string }>;
+};
+
+export default async function AdminPage({ searchParams }: Props) {
   const user = await getSessionUser();
   if (!user) redirect("/auth/sign-in?next=/admin");
 
@@ -35,6 +41,8 @@ export default async function AdminPage() {
   const isDirector = (myStaff ?? []).some((row) => row.role === "director");
   const isInstructor = (myStaff ?? []).some((row) => row.role === "instructor");
   const canReview = isExecutive || isDirector;
+  const params = await searchParams;
+  const activeTab = isExecutive && params.tab === "site-editor" ? "site-editor" : "overview";
 
   if (!isExecutive && staffChapterIds.length === 0) {
     const { count } = await supabase
@@ -59,6 +67,20 @@ export default async function AdminPage() {
         <div className="mx-auto mt-8 max-w-xl">
           <BootstrapExecutiveButton />
         </div>
+      </main>
+    );
+  }
+
+  if (activeTab === "site-editor") {
+    const initialContent = await getSiteContent();
+    return (
+      <main className="container py-16 sm:py-20">
+        <AdminHeader
+          activeTab={activeTab}
+          isDirector={isDirector}
+          isExecutive={isExecutive}
+        />
+        <ExecutiveSiteEditor fields={SITE_CONTENT_FIELDS} initialContent={initialContent} />
       </main>
     );
   }
@@ -112,26 +134,7 @@ export default async function AdminPage() {
 
   return (
     <main className="container py-16 sm:py-20">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="w-full text-center">
-          <h1 className="text-center text-4xl font-bold uppercase tracking-[0.22em] text-[var(--ink)] sm:text-6xl">
-            Admin Panel
-          </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-[var(--muted)]">
-            {isExecutive
-              ? "View every member profile, control curriculum visibility, and manage all chapters. Executives cannot be removed by chapter directors."
-              : isDirector
-                ? "View members in your chapter only. Approve students and control what members can see. You cannot remove executives or other directors."
-                : "View members in your chapter only. Curriculum is read-only. Instructors cannot remove members or staff."}
-          </p>
-        </div>
-        <div className="flex gap-2">
-          <Link href="/dashboard" className="btn btn-ghost px-4 py-2 text-sm">
-            Dashboard
-          </Link>
-          <SignOutButton />
-        </div>
-      </div>
+      <AdminHeader activeTab={activeTab} isDirector={isDirector} isExecutive={isExecutive} />
 
       <div className="mt-10 grid gap-4 sm:grid-cols-3">
         <Stat label="Chapters in view" value={String(visibleChapters.length)} />
@@ -228,6 +231,60 @@ export default async function AdminPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+function AdminHeader({
+  activeTab,
+  isDirector,
+  isExecutive,
+}: {
+  activeTab: "overview" | "site-editor";
+  isDirector: boolean;
+  isExecutive: boolean;
+}) {
+  return (
+    <>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="w-full text-center">
+          <h1 className="text-center text-4xl font-bold uppercase tracking-[0.22em] text-[var(--ink)] sm:text-6xl">
+            {isExecutive ? "Executive Dashboard" : "Admin Panel"}
+          </h1>
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-[var(--muted)]">
+            {isExecutive
+              ? "Manage the organization, control member access, and publish approved homepage copy from one place."
+              : isDirector
+                ? "View members in your chapter only. Approve students and control what members can see. You cannot remove executives or other directors."
+                : "View members in your chapter only. Curriculum is read-only. Instructors cannot remove members or staff."}
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <Link href="/dashboard" className="btn btn-ghost px-4 py-2 text-sm">
+            Dashboard
+          </Link>
+          <SignOutButton />
+        </div>
+      </div>
+
+      {isExecutive ? (
+        <nav aria-label="Executive dashboard sections" className="mt-8 flex justify-center">
+          <div className="segmented-control">
+            <Link
+              href="/admin"
+              className={`segmented-control-item ${activeTab === "overview" ? "is-active" : ""}`}
+            >
+              Overview
+            </Link>
+            <Link
+              href="/admin?tab=site-editor"
+              className={`segmented-control-item ${activeTab === "site-editor" ? "is-active" : ""}`}
+            >
+              AI website editor
+            </Link>
+          </div>
+        </nav>
+      ) : null}
+    </>
   );
 }
 
