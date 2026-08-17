@@ -186,7 +186,7 @@ export function ExecutiveSiteEditor({ fields, initialContent }: Props) {
         </Link>
       </div>
 
-          <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)]">
+      <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)]">
         <div className="border border-[var(--line)] bg-[var(--surface)]">
           <div className="flex items-center justify-between border-b border-[var(--line)] px-5 py-4">
             <div>
