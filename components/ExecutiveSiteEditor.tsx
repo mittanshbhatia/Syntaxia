@@ -31,6 +31,15 @@ const EXAMPLE_PROMPTS = [
   "Give the closing call to action more urgency.",
 ];
 
+const AI_EDITOR_BRIEF = `You are helping an executive edit Syntaxia's homepage copy. Keep the current facts intact, do not invent metrics or claims, and return a short field-by-field proposal for review. The editable fields are hero copy, problem, product, how it works, differentiation, proof, founder story, and the closing call to action.`;
+
+const AI_SHORTCUTS = [
+  { label: "ChatGPT", href: `https://chatgpt.com/?q=${encodeURIComponent(AI_EDITOR_BRIEF)}` },
+  { label: "Gemini", href: "https://gemini.google.com/app" },
+  { label: "Claude", href: "https://claude.ai/new" },
+  { label: "Grok", href: "https://grok.com/" },
+] as const;
+
 export function ExecutiveSiteEditor({ fields, initialContent }: Props) {
   const [content, setContent] = useState(initialContent);
   const [messages, setMessages] = useState<Message[]>([
@@ -46,6 +55,7 @@ export function ExecutiveSiteEditor({ fields, initialContent }: Props) {
   const [busy, setBusy] = useState(false);
   const [publishing, setPublishing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [shortcutNotice, setShortcutNotice] = useState<string | null>(null);
 
   const fieldsByKey = useMemo(
     () => new Map(fields.map((field) => [field.key, field])),
@@ -148,6 +158,16 @@ export function ExecutiveSiteEditor({ fields, initialContent }: Props) {
     }
   }
 
+  async function openAiShortcut(href: string, label: string) {
+    try {
+      await navigator.clipboard.writeText(AI_EDITOR_BRIEF);
+      setShortcutNotice(`The Syntaxia editing brief was copied. Paste it into ${label} if it is not already filled in.`);
+    } catch {
+      setShortcutNotice(`Open ${label}, then describe the homepage copy change you want to make.`);
+    }
+    window.open(href, "_blank", "noopener,noreferrer");
+  }
+
   return (
     <section className="mt-10">
       <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[var(--line)] pb-6">
@@ -166,7 +186,7 @@ export function ExecutiveSiteEditor({ fields, initialContent }: Props) {
         </Link>
       </div>
 
-      <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)]">
+          <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)]">
         <div className="border border-[var(--line)] bg-[var(--surface)]">
           <div className="flex items-center justify-between border-b border-[var(--line)] px-5 py-4">
             <div>
@@ -244,6 +264,31 @@ export function ExecutiveSiteEditor({ fields, initialContent }: Props) {
         </div>
 
         <aside className="space-y-6">
+          <div className="border border-[var(--line)] p-5">
+            <p className="text-sm font-semibold text-[var(--ink)]">Use your own AI account</p>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+              Open a private chat with your preferred provider. Syntaxia does not receive your
+              account credentials or chat history.
+            </p>
+            <div className="mt-4 grid grid-cols-2 gap-2">
+              {AI_SHORTCUTS.map((shortcut) => (
+                <button
+                  key={shortcut.label}
+                  type="button"
+                  onClick={() => void openAiShortcut(shortcut.href, shortcut.label)}
+                  className="btn btn-ghost px-3 py-2 text-sm"
+                >
+                  Open {shortcut.label}
+                </button>
+              ))}
+            </div>
+            {shortcutNotice ? (
+              <p className="mt-4 text-xs leading-relaxed text-[var(--muted)]" role="status">
+                {shortcutNotice}
+              </p>
+            ) : null}
+          </div>
+
           <div className="border border-[var(--line)] p-5">
             <div className="flex items-center justify-between gap-3">
               <div>
